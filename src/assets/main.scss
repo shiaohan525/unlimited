@@ -1,0 +1,9 @@
+// 引入所有scss檔，頁面檔個別引入
+@import 'libs/fonts';
+@import 'libs/mixins';
+@import 'libs/setting';
+@import 'layout/layout';
+@import 'layout/header';
+@import 'layout/nav';
+@import 'layout/footer';
+@import 'components/button';
