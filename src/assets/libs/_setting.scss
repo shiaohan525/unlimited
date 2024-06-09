@@ -84,3 +84,163 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+// 開發完以上刪除-------
+
+[data-theme="Default"] {
+  /* colors */
+  --colors-brand-primary: #8b5dec;
+  --colors-brand-quaternary: #4fffdf;
+  --colors-brand-quinary: #fec5ff;
+  --colors-brand-secondary: #ff5dc8;
+  --colors-brand-tertiary: #ffdb5d;
+  --colors-brand-index-bg: #f7f4ff;
+  --colors-gray-100: #f8f8f8;
+  --colors-gray-1000: #454545;
+  --colors-gray-200: #ededed;
+  --colors-gray-400: #bbbbbb;
+  --colors-gray-600: #929292;
+  --colors-gray-800: #656565;
+  --colors-gray-white: #ffffff;
+  --colors-primary-1000: #5727bc;
+  --colors-primary-200: #d3c3f5;
+  --colors-primary-400: #ba9df7;
+  --colors-primary-600: #8b5dec;
+  --colors-primary-800: #6937d4;
+  --colors-secondary-1000: #d91e99;
+  --colors-secondary-200: #fec1e9;
+  --colors-secondary-400: #fe95da;
+  --colors-secondary-600: #ff5dc8;
+  --colors-secondary-800: #eb37ae;
+  --colors-styles-bg-glass-d: #ffffff1a;
+  --colors-styles-bg-glass-l: #ffffff80;
+  --colors-styles-border-glass-d: #a17af34d;
+  --colors-styles-border-glass-do: #a17af300;
+  --colors-styles-border-glass-l: #ffffff99;
+  --colors-styles-border-glass-lo: #ffffff00;
+  --colors-styles-image-glass-d: #ffffff1a;
+  --colors-styles-image-glass-l: #ffffff66;
+  /* numbers */
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-max: 100px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 16px;
+}
+[data-theme="Dark"] {
+  /* colors */
+  --colors-brand-primary: #8145ff;
+  --colors-brand-quaternary: #2affd8;
+  --colors-brand-quinary: #fd99ff;
+  --colors-brand-secondary: #fe2cb7;
+  --colors-brand-tertiary: #ffd02e;
+  --colors-brand-index-bg: #191428;
+  --colors-gray-100: #251f36;
+  --colors-gray-1000: #eae5fa;
+  --colors-gray-200: #433b5a;
+  --colors-gray-400: #887ca9;
+  --colors-gray-600: #a496ca;
+  --colors-gray-800: #cdc4e8;
+  --colors-gray-white: #231e34;
+  --colors-primary-1000: #c7adff;
+  --colors-primary-200: #352557;
+  --colors-primary-400: #7340de;
+  --colors-primary-600: #9d6fff;
+  --colors-primary-800: #b591ff;
+  --colors-secondary-1000: #d91e99;
+  --colors-secondary-200: #fec1e9;
+  --colors-secondary-400: #fe95da;
+  --colors-secondary-600: #ff5dc8;
+  --colors-secondary-800: #eb37ae;
+  --colors-styles-bg-glass-d: #8145ff1a;
+  --colors-styles-bg-glass-l: #8145ff80;
+  --colors-styles-border-glass-d: #8145ff4d;
+  --colors-styles-border-glass-do: #8145ff00;
+  --colors-styles-border-glass-l: #b694ff99;
+  --colors-styles-border-glass-lo: #b694ff00;
+  --colors-styles-image-glass-d: #1e0f4a1a;
+  --colors-styles-image-glass-l: #1e0f4a4d;
+  /* numbers */
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-max: 100px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 16px;
+}
+
+[data-theme="Desktop"] {
+  /* numbers */
+  --font-height-tag: 0.8999999761581421rem;
+  --font-height-button-s: 1.0499999523162842rem;
+  --font-height-button-m: 1.2000000476837158rem;
+  --font-height-button-l: 1.350000023841858rem;
+  --font-height-content: 1.5rem;
+  --font-height-h6: 1.5rem;
+  --font-height-h5: 1.6875rem;
+  --font-height-h4: 1.875rem;
+  --font-height-h3: 2.25rem;
+  --font-height-h2: 3rem;
+  --font-height-h1: 4.5rem;
+  --font-size-tag: 0.75rem;
+  --font-size-button-s: 0.875rem;
+  --font-size-button-m: 1rem;
+  --font-size-content: 1rem;
+  --font-size-h6: 1rem;
+  --font-size-button-l: 1.125rem;
+  --font-size-h5: 1.125rem;
+  --font-size-h4: 1.25rem;
+  --font-size-h3: 1.5rem;
+  --font-size-h2: 2rem;
+  --font-size-h1: 3rem;
+  --font-spacing-button-s: 0.06875000149011612rem;
+  --font-spacing-button-m: 0.07500000298023224rem;
+  --font-spacing-content: 0.07500000298023224rem;
+  --font-spacing-tag: 0.07500000298023224rem;
+  --font-spacing-button-l: 0.08124999701976776rem;
+  --font-spacing-h5: 0.08124999701976776rem;
+  --font-spacing-h6: 0.08124999701976776rem;
+  --font-spacing-h4: 0.09375rem;
+  --font-spacing-h3: 0.10000000149011612rem;
+  --font-spacing-h2: 0.10625000298023224rem;
+  --font-spacing-h1: 0.11249999701976776rem;
+}
+[data-theme="mobile"] {
+  /* numbers */
+  --font-height-tag: 0.9375rem;
+  --font-height-button-s: 1.125rem;
+  --font-height-button-m: 1.3125rem;
+  --font-height-content: 1.3125rem;
+  --font-height-h6: 1.3125rem;
+  --font-height-button-l: 1.5rem;
+  --font-height-h5: 1.5rem;
+  --font-height-h4: 1.6875rem;
+  --font-height-h3: 1.875rem;
+  --font-height-h2: 2.25rem;
+  --font-height-h1: 3rem;
+  --font-size-tag: 0.625rem;
+  --font-size-button-s: 0.75rem;
+  --font-size-button-m: 0.875rem;
+  --font-size-content: 0.875rem;
+  --font-size-h6: 0.875rem;
+  --font-size-button-l: 1rem;
+  --font-size-h5: 1rem;
+  --font-size-h4: 1.125rem;
+  --font-size-h3: 1.25rem;
+  --font-size-h2: 1.5rem;
+  --font-size-h1: 2rem;
+  --font-spacing-button-s: 0.0625rem;
+  --font-spacing-button-m: 0.06875000149011612rem;
+  --font-spacing-content: 0.06875000149011612rem;
+  --font-spacing-tag: 0.06875000149011612rem;
+  --font-spacing-button-l: 0.07500000298023224rem;
+  --font-spacing-h5: 0.07500000298023224rem;
+  --font-spacing-h6: 0.07500000298023224rem;
+  --font-spacing-h4: 0.08124999701976776rem;
+  --font-spacing-h3: 0.08749999850988388rem;
+  --font-spacing-h2: 0.09375rem;
+  --font-spacing-h1: 0.10000000149011612rem;
+}
