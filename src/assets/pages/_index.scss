@@ -1,0 +1,259 @@
+section {
+  display: flex;
+  margin-bottom: 100px;
+}
+
+// about section
+.about-wrap {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 40px;
+  .about-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    .about-img img {
+      border-radius: var(--Radius-lg, 16px);
+      border: 3px solid var(--Index-border-glass, rgba(255, 255, 255, 0.6));
+      background: var(
+        --Index-image-gra,
+        linear-gradient(
+          119deg,
+          rgba(255, 255, 255, 0.4) 10.25%,
+          rgba(255, 255, 255, 0.1) 28.72%,
+          rgba(255, 255, 255, 0.1) 82.89%,
+          rgba(255, 255, 255, 0.4) 92.33%
+        ),
+        url(<path-to-image>) lightgray 50% / cover no-repeat
+      );
+      background-blend-mode: multiply, normal;
+
+      /* box-shadow */
+      box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
+      backdrop-filter: blur(calc(var(--Spacing-3, 16px) / 2));
+    }
+    .about-content {
+      display: flex;
+      height: 324px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  .about-hashtag {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 12px;
+    align-self: stretch;
+    flex-wrap: wrap;
+    .hashtag {
+      display: flex;
+      padding: 8px 16px;
+      align-items: center;
+      gap: 4px;
+      border-radius: var(--Radius-lg, 16px);
+      background: var(--Colors-Gray-white, #fff);
+
+      /* box-shadow */
+      box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
+      backdrop-filter: blur(calc(var(--Spacing-3, 16px) / 2));
+    }
+  }
+}
+
+// skills section
+.skills-wrap {
+  flex-direction: column;
+  align-items: center;
+  gap: 72px;
+  .skills-main {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+  }
+}
+
+.skills-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //   min-width: 330px;
+  width: 100%;
+  min-height: 280px;
+  padding: 60px 28px 24px 28px;
+
+  border-radius: var(--Radius-lg, 16px);
+  border: 3px solid var(--Index-border-glass, rgba(255, 255, 255, 0.6));
+  background: var(
+    --Index-layout-glass,
+    linear-gradient(130deg, rgba(255, 255, 255, 0.2) 11.15%, rgba(255, 255, 255, 0.04) 85.57%)
+  );
+
+  /* box-shadow */
+  box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
+  backdrop-filter: blur(calc(var(--Spacing-3, 16px) / 2));
+  .item-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex: 1 0 0;
+    align-self: stretch;
+  }
+}
+
+.skill-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 28px;
+  top: -43px;
+  width: 82px;
+  height: 82px;
+  border-radius: var(--Radius-lg, 16px);
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  background: linear-gradient(152deg, #ffdb5d 20.55%, #ee9c20 94.22%);
+  img {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.skill-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+}
+
+.skill-software {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+  .software-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1 0 0;
+    hr {
+      height: 0.05px;
+      margin: 0;
+      width: 100%;
+      background: var(--colors-gray-200);
+    }
+  }
+}
+
+// portfolio section
+.portfolio-wrap {
+  align-items: flex-start;
+  gap: 48px;
+  .portfolio-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-self: stretch;
+    .button-next {
+      display: flex;
+      width: 82px;
+      height: 82px;
+      box-sizing: border-box;
+      padding: 10px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: var(--Radius-max, 100px);
+      border: 3px solid var(--Index-border-glass, rgba(255, 255, 255, 0.6));
+      background: linear-gradient(180deg, #ba9df7 0%, #8b5dec 100%);
+
+      /* box-shadow */
+      box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
+      backdrop-filter: blur(calc(var(--Spacing-3, 16px) / 2));
+    }
+  }
+  .portfolio-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+}
+
+.portfolio-item {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  width: 397px;
+  height: 400px;
+  align-items: flex-start;
+  gap: 24px;
+  border-radius: var(--radius-lg);
+  border: 3px solid var(--Index-border-glass, rgba(255, 255, 255, 0.6));
+
+  /* box-shadow */
+  box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
+  backdrop-filter: blur(calc(var(--Spacing-3, 16px) / 2));
+  .portfolio-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    width: 397px;
+    box-sizing: border-box;
+    padding: 20px 28px 32px 28px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    background: linear-gradient(180deg, rgba(69, 69, 69, 0) 0%, rgba(69, 69, 69, 0.8) 61.64%);
+    background-blend-mode: multiply;
+    color: #fff;
+  }
+}
+
+// contact section
+.contact-wrap {
+  flex-direction: column;
+  align-items: center;
+  .contact-main {
+    display: flex;
+    min-height: 320px;
+    padding: 40px 48px;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    border-radius: var(--Radius-lg, 16px);
+    border: 3px solid var(--Index-border-glass, rgba(255, 255, 255, 0.6));
+    background: var(
+      --Index-layout-glass,
+      linear-gradient(130deg, rgba(255, 255, 255, 0.2) 11.15%, rgba(255, 255, 255, 0.04) 85.57%)
+    );
+    a {
+      display: flex;
+      padding: 12px var(--font-size-h2, 32px);
+      align-items: flex-start;
+    }
+  }
+}
+
+.contact-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.button-l {
+  border-radius: var(--Radius-max, 100px);
+  background: linear-gradient(127deg, #ffd568 20.56%, #ff9c41 88.08%);
+
+  /* box-shadow */
+  box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
+  backdrop-filter: blur(calc(var(--Spacing-3, 16px) / 2));
+}

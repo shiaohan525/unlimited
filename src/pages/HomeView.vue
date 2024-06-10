@@ -7,11 +7,11 @@ import Banner from '@/components/Banner.vue'
   <main>
     <Banner />
     <div class="wrapper">
-      <div class="about-wrap">
+      <section class="about-wrap">
         <div class="about-item">
           <div class="about-img">
             <!-- <img class="vector-icon" alt="" src="Vector.svg"> -->
-            <img class="image" alt="" src="aboutImg01.png">
+            <img class="image" alt="" src="@/static/images/index/aboutImg01.png">
             <!-- <img class="vector-icon1" alt="" src="Vector.svg"> -->
           </div>
           <div class="about-content">
@@ -28,167 +28,148 @@ import Banner from '@/components/Banner.vue'
             <span class="h4">#</span>
             <h4 class="">正能量</h4>
           </div>
+          <div class="hashtag">
+            <span class="h4">#</span>
+            <h4 class="">正能量</h4>
+          </div>
+          <div class="hashtag">
+            <span class="h4">#</span>
+            <h4 class="">正能量</h4>
+          </div>
+          <div class="hashtag">
+            <span class="h4">#</span>
+            <h4 class="">正能量</h4>
+          </div>
+          <div class="hashtag">
+            <span class="h4">#</span>
+            <h4 class="">正能量</h4>
+          </div>
         </div>
-      </div>
-      <div class="skills-wrap">
+      </section>
+      <section class="skills-wrap">
         <h2 class="h2">Skills</h2>
         <div class="skills-main">
           <div class="skills-item">
-            <div class="skill-main">
+            <div class="item-main">
               <div class="skill-content">
                 <h3 class="h3">平面設計</h3>
-                <div class="h428">
-                  <ul class="ul">
-                    <li class="li">超過五年視覺設計專業與接案能力</li>
-                    <li class="li">插畫、向量圖形繪製</li>
-                    <li class="li">網頁素材設計</li>
-                    <li class="li">印刷品完稿及輸出發印</li>
-                    <li>相片色彩校正合成</li>
-                  </ul>
-                </div>
+                <ul class="ul h4">
+                  <li>超過五年視覺設計專業與接案能力</li>
+                  <li>插畫、向量圖形繪製</li>
+                  <li>網頁素材設計</li>
+                  <li>印刷品完稿及輸出發印</li>
+                </ul>
               </div>
               <div class="skill-software">
                 <div class="software-title">
-                  <b class="h31">USE</b>
-                  <div class="software-title-child">
-                  </div>
+                  <p class="">USE</p>
+                  <hr>
                 </div>
-                <div class="software">
-                  <img class="illustrator-icon" alt="" src="illustrator.svg">
-
-                  <img class="illustrator-icon" alt="" src="photoshop.svg">
-
+                <div class="software-icon">
+                  <img alt="" src="@/static/images/index/illustrator.svg">
+                  <img alt="" src="@/static/images/index/photoshop.svg">
                 </div>
               </div>
             </div>
-            <div class="rectangle-parent">
-              <div class="frame-child">
-              </div>
-              <img class="design-symbols-sf-black" alt="" src="Design symbols SF Black.png">
-
+            <div class="skill-icon">
+              <img alt="" src="@/static/images/index/skillIcon01.png">
             </div>
           </div>
           <div class="skills-item">
-            <div class="skill-main">
+            <div class="item-main">
               <div class="skill-content">
-                <b class="h3">UI 設計</b>
-                <div class="h428">
-                  <ul class="ul">
-                    <li class="li">Wireframe、Mockup 設計</li>
-                    <li class="li">設計系統、元件定義管理</li>
-                    <li class="li">Prototype 功能演示</li>
-                    <li class="li">Plugin 協助工作整合</li>
-                    <li>開發 Spec 標示交付</li>
-                  </ul>
-                </div>
+                <h3 class="h3">UI設計</h3>
+                <ul class="ul h4">
+                  <li>Wireframe、Mockup 設計</li>
+                  <li>設計系統、元件管理</li>
+                  <li>Prototype 功能演示</li>
+                  <li>Plugin 協助工作整合</li>
+                  <li>開發 Spec 標示交付</li>
+                </ul>
               </div>
               <div class="skill-software">
                 <div class="software-title">
-                  <b class="h31">USE</b>
-                  <div class="software-title-child">
-                  </div>
+                  <p class="">USE</p>
+                  <hr>
                 </div>
-                <div class="software">
-                  <img class="illustrator-icon" alt="" src="illustrator.svg">
-
-                  <img class="illustrator-icon" alt="" src="photoshop.svg">
-
+                <div class="software-icon">
+                  <img alt="" src="@/static/images/index/illustrator.svg">
+                  <img alt="" src="@/static/images/index/photoshop.svg">
                 </div>
               </div>
             </div>
-            <div class="rectangle-parent">
-              <div class="frame-item">
-              </div>
-              <img class="design-symbols-sf-black" alt="" src="Web Design Icon 64.png">
-
+            <div class="skill-icon">
+              <img alt="" src="@/static/images/index/skillIcon02.png">
             </div>
           </div>
           <div class="skills-item">
-            <div class="skill-main">
+            <div class="item-main">
               <div class="skill-content">
-                <b class="h3">網站設計</b>
-                <div class="h428">
-                  <ul class="ul">
-                    <li class="li">RWD 響應式網頁切版經驗</li>
-                    <li class="li">預處理器 SCSS 語言開發</li>
-                    <li class="li">H5 小遊戲網頁切版經驗</li>
-                    <li class="li">基本 JS 套件功能引入</li>
-                    <li>Vue 框架開發建置</li>
-                  </ul>
-                </div>
+                <h3 class="h3">網站設計</h3>
+                <ul class="ul h4">
+                  <li>RWD 響應式網頁切版</li>
+                  <li>預處理器 SCSS 語言開發</li>
+                  <li>Vue 框架開發建置</li>
+                </ul>
               </div>
               <div class="skill-software">
                 <div class="software-title">
-                  <b class="h31">USE</b>
-                  <div class="software-title-child">
-                  </div>
+                  <p class="">USE</p>
+                  <hr>
                 </div>
-                <div class="software">
-                  <img class="illustrator-icon" alt="" src="illustrator.svg">
-
-                  <img class="illustrator-icon" alt="" src="photoshop.svg">
-
+                <div class="software-icon">
+                  <img alt="" src="@/static/images/index/illustrator.svg">
+                  <img alt="" src="@/static/images/index/photoshop.svg">
                 </div>
               </div>
             </div>
-            <div class="rectangle-parent">
-              <div class="frame-inner">
-              </div>
-              <img class="design-symbols-sf-black" alt="" src="Code symbols SF 1.png">
-
+            <div class="skill-icon">
+              <img alt="" src="@/static/images/index/skillIcon03.png">
             </div>
           </div>
         </div>
-      </div>
-      <div class="portfolio-wrap">
-        <div class="h2-parent">
-          <b class="h2">Ｗorks</b>
-          <div class="button">
-            <img class="arrow-icon" alt="" src="arrow.svg">
-
-          </div>
+      </section>
+      <section class="portfolio-wrap">
+        <div class="portfolio-title">
+          <h2 class="h2">Ｗorks</h2>
+          <a class="button-next">
+            <img class="arrow-icon" alt="" src="@/static/images/icons/arrow.svg">
+          </a>
         </div>
         <div class="portfolio-main">
           <div class="portfolio-item">
-            <img class="image-icon1" alt="" src="image.png">
-
+            <img class="portfolio-image" alt="" src="@/static/images/index/worksImg01.png">
             <div class="portfolio-content">
-              <div class="content1">UI 設計</div>
-              <b class="h36">titletitletitletitletitletitletitletitle</b>
+              <p class="item-title">UI 設計</p>
+              <h3 class="h3">titletitletitletitletitletitletitletitle</h3>
             </div>
           </div>
           <div class="portfolio-item">
-            <img class="image-icon1" alt="" src="image.png">
-
+            <img class="portfolio-image" alt="" src="@/static/images/index/worksImg01.png">
             <div class="portfolio-content">
-              <div class="content1">UI 設計</div>
-              <b class="h36">titletitletitletitletitletitletitletitle</b>
-            </div>
-          </div>
-          <div class="portfolio-item">
-            <img class="image-icon1" alt="" src="image.png">
-
-            <div class="portfolio-content">
-              <div class="content1">UI 設計</div>
-              <b class="h36">titletitletitletitletitletitletitletitle</b>
+              <p class="item-title">UI 設計</p>
+              <h3 class="h3">titletitletitletitletitletitletitletitle</h3>
             </div>
           </div>
         </div>
-      </div>
-      <div class="contact-wrap">
+      </section>
+      <section class="contact-wrap">
         <div class="contact-main">
           <div class="contact-text">
-            <b class="h2">contact me 👋</b>
-            <div class="h431">
-              <p class="p">有相關平面與網頁設計需求，或是有任何想法想要聊聊</p>
-              <p class="p1">都歡迎與我聯繫！</p>
-            </div>
+            <h2 class="h2">contact me 👋</h2>
+            <h5 class="h5">
+              有相關平面與網頁設計需求，或是有任何想法想要聊聊
+              <br>
+              都歡迎與我聯繫！
+            </h5>
           </div>
-          <div class="button1">
-            <b class="button-l">聯絡我們</b>
-          </div>
+          <a class="button-l">聯絡我們</a>
         </div>
-      </div>
+      </section>
     </div>
   </main>
 </template>
+
+<style lang="scss" scoped>
+@import  '@/assets/pages/index'
+</style>
