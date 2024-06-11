@@ -8,11 +8,17 @@ section {
   flex-direction: column;
   align-items: flex-start;
   gap: 40px;
+
   .about-item {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     gap: 24px;
+    @media (mid-width: 768px) {
+      flex-direction: row;
+    }
     .about-img img {
+      width: 100%;
       border-radius: var(--Radius-lg, 16px);
       border: 3px solid var(--Index-border-glass, rgba(255, 255, 255, 0.6));
       background: var(
@@ -61,7 +67,11 @@ section {
     }
   }
 }
-
+// @mixin mobile {
+//     @media (min-width: $mobile) {
+//       @content;
+//     }
+//   }
 // skills section
 .skills-wrap {
   flex-direction: column;
@@ -69,9 +79,16 @@ section {
   gap: 72px;
   .skills-main {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 24px;
     width: 100%;
+    @include mobile {
+        align-items: flex-start;
+    }
+    @media (min-width: $mobile) {
+      flex-direction: row;
+    }
   }
 }
 

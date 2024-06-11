@@ -3,8 +3,8 @@
 
 // 引入所有scss檔，頁面檔個別引入
 @import 'libs/fonts';
-@import 'libs/mixins';
 @import 'libs/setting';
+// @import 'libs/mixins';
 @import 'layout/layout';
 @import 'layout/header';
 @import 'layout/nav';

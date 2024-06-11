@@ -10,5 +10,5 @@ import TheFooter from '@/components/TheFooter.vue';
   <TheFooter />
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 </style>
