@@ -121,18 +121,6 @@
   --colors-styles-border-glass-lo: #ffffff00;
   --colors-styles-image-glass-d: #ffffff1a;
   --colors-styles-image-glass-l: #ffffff66;
-  /* numbers */
-  --radius-md: 8px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-max: 100px;
-  --spacing-1: 4px;
-  --spacing-2: 8px;
-  --spacing-3: 16px;
-  --spacing-4: 20px;
-  --spacing-5: 28px;
-  --spacing-6: 32px;
-  --spacing-7: 40px;
 }
 [data-theme='Dark'] {
   /* colors */
@@ -167,85 +155,211 @@
   --colors-styles-border-glass-lo: #b694ff00;
   --colors-styles-image-glass-d: #1e0f4a1a;
   --colors-styles-image-glass-l: #1e0f4a4d;
-  /* numbers */
+}
+
+// font setting
+
+:root {
+  /* radius */
   --radius-md: 8px;
   --radius-lg: 16px;
   --radius-xl: 20px;
   --radius-max: 100px;
+
+  /* spacing */
   --spacing-1: 4px;
   --spacing-2: 8px;
   --spacing-3: 16px;
+  --spacing-4: 20px;
+  --spacing-5: 28px;
+  --spacing-6: 32px;
+  --spacing-7: 40px;
+
+  /* font weight */
+  --font-medium: 500;
+  --font-bold: 600;
+  --font-extrabold: 800;
 }
 
-[data-theme='Desktop'] {
-  /* numbers */
-  --font-height-tag: 0.8999999761581421rem;
-  --font-height-button-s: 1.0499999523162842rem;
-  --font-height-button-m: 1.2000000476837158rem;
-  --font-height-button-l: 1.350000023841858rem;
-  --font-height-content: 1.5rem;
-  --font-height-h6: 1.5rem;
-  --font-height-h5: 1.6875rem;
-  --font-height-h4: 1.875rem;
-  --font-height-h3: 2.25rem;
-  --font-height-h2: 3rem;
-  --font-height-h1: 4.5rem;
-  --font-size-tag: 0.75rem;
-  --font-size-button-s: 0.875rem;
-  --font-size-button-m: 1rem;
-  --font-size-content: 1rem;
-  --font-size-h6: 1rem;
-  --font-size-button-l: 1.125rem;
-  --font-size-h5: 1.125rem;
-  --font-size-h4: 1.25rem;
-  --font-size-h3: 1.5rem;
-  --font-size-h2: 2rem;
-  --font-size-h1: 3rem;
-  --font-spacing-button-s: 0.06875000149011612rem;
-  --font-spacing-button-m: 0.07500000298023224rem;
-  --font-spacing-content: 0.07500000298023224rem;
-  --font-spacing-tag: 0.07500000298023224rem;
-  --font-spacing-button-l: 0.08124999701976776rem;
-  --font-spacing-h5: 0.08124999701976776rem;
-  --font-spacing-h6: 0.08124999701976776rem;
-  --font-spacing-h4: 0.09375rem;
-  --font-spacing-h3: 0.10000000149011612rem;
-  --font-spacing-h2: 0.10625000298023224rem;
-  --font-spacing-h1: 0.11249999701976776rem;
-}
-[data-theme='mobile'] {
-  /* numbers */
-  --font-height-tag: 0.9375rem;
-  --font-height-button-s: 1.125rem;
-  --font-height-button-m: 1.3125rem;
-  --font-height-content: 1.3125rem;
-  --font-height-h6: 1.3125rem;
-  --font-height-button-l: 1.5rem;
-  --font-height-h5: 1.5rem;
-  --font-height-h4: 1.6875rem;
-  --font-height-h3: 1.875rem;
-  --font-height-h2: 2.25rem;
+h1,
+.h1 {
+  --min-size-h1: 32;
+  --max-size-h1: 48;
+  --font-size: calc(
+    (var(--min-size-h1) * 1px) + (var(--max-size-h1) - var(--min-size-h1)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h1: 0.1rem;
   --font-height-h1: 3rem;
-  --font-size-tag: 0.625rem;
-  --font-size-button-s: 0.75rem;
-  --font-size-button-m: 0.875rem;
-  --font-size-content: 0.875rem;
-  --font-size-h6: 0.875rem;
-  --font-size-button-l: 1rem;
-  --font-size-h5: 1rem;
-  --font-size-h4: 1.125rem;
-  --font-size-h3: 1.25rem;
-  --font-size-h2: 1.5rem;
-  --font-size-h1: 2rem;
-  --font-spacing-button-s: 0.0625rem;
-  --font-spacing-button-m: 0.06875000149011612rem;
-  --font-spacing-content: 0.06875000149011612rem;
-  --font-spacing-tag: 0.06875000149011612rem;
-  --font-spacing-button-l: 0.07500000298023224rem;
-  --font-spacing-h5: 0.07500000298023224rem;
-  --font-spacing-h6: 0.07500000298023224rem;
-  --font-spacing-h4: 0.08124999701976776rem;
-  --font-spacing-h3: 0.08749999850988388rem;
-  --font-spacing-h2: 0.09375rem;
-  --font-spacing-h1: 0.10000000149011612rem;
+
+  font-size: clamp(var(--min-size-h1) * 1px, var(--font-size), var(--max-size-h1) * 1px);
+  letter-spacing: var(--font-spacing-h1);
+  line-height: var(--font-height-h1);
+  font-weight: var(--font-extrabold);
+}
+
+h2,
+.h2 {
+  --min-size-h2: 24;
+  --max-size-h2: 32;
+  --font-size: calc(
+    (var(--min-size-h2) * 1px) + (var(--max-size-h2) - var(--min-size-h2)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h2: 0.08rem;
+  --font-height-h2: 2.5rem;
+
+  font-size: clamp(var(--min-size-h2) * 1px, var(--font-size), var(--max-size-h2) * 1px);
+  letter-spacing: var(--font-spacing-h2);
+  line-height: var(--font-height-h2);
+  font-weight: var(--font-bold);
+}
+
+h3,
+.h3 {
+  --min-size-h3: 20; 
+  --max-size-h3: 24;
+  --font-size: calc(
+    (var(--min-size-h3) * 1px) + (var(--max-size-h3) - var(--min-size-h3)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h3: 0.09rem;
+  --font-height-h3: 1.875rem;
+
+  font-size: clamp(var(--min-size-h3) * 1px, var(--font-size), var(--max-size-h3) * 1px);
+  letter-spacing: var(--font-spacing-h3);
+  line-height: var(--font-height-h3);
+  font-weight: var(--font-bold);
+}
+
+h4,
+.h4 {
+  --min-size-h4: 18;
+  --max-size-h4: 20;
+  --font-size: calc(
+    (var(--min-size-h4) * 1px) + (var(--max-size-h4) - var(--min-size-h4)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h4: 0.09rem;
+  --font-height-h4: 1.6875rem;
+
+  font-size: clamp(var(--min-size-h4) * 1px, var(--font-size), var(--max-size-h4) * 1px);
+  letter-spacing: var(--font-spacing-h4);
+  line-height: var(--font-height-h4);
+  font-weight: var(--font-medium);
+}
+
+h5,
+.h5 {
+  --min-size-h5: 16;
+  --max-size-h5: 18;
+  --font-size: calc(
+    (var(--min-size-h5) * 1px) + (var(--max-size-h5) - var(--min-size-h5)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h5: 0.07rem;
+  --font-height-h5: 1.5rem;
+
+  font-size: clamp(var(--min-size-h5) * 1px, var(--font-size), var(--max-size-h5) * 1px);
+  letter-spacing: var(--font-spacing-h5);
+  line-height: var(--font-height-h5);
+  font-weight: var(--font-medium);
+}
+
+h6,
+.h6 {
+  --min-size-h6: 14;
+  --max-size-h6: 16;
+  --font-size: calc(
+    (var(--min-size-h6) * 1px) + (var(--max-size-h6) - var(--min-size-h6)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h6: 0.08rem;
+  --font-height-h6: 1.5rem;
+
+  font-size: clamp(var(--min-size-h6) * 1px, var(--font-size), var(--max-size-h6) * 1px);
+  letter-spacing: var(--font-spacing-h6);
+  line-height: var(--font-height-h6);
+  font-weight: var(--font-medium);
+}
+
+p,
+.p {
+  --min-size-p: 14;
+  --max-size-p: 16;
+  --font-size: calc(
+    (var(--min-size-p) * 1px) + (var(--max-size-p) - var(--min-size-p)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-p: 0.08rem;
+  --font-height-p: 1.5rem;
+
+  font-size: clamp(var(--min-size-p) * 1px, var(--font-size), var(--max-size-p) * 1px);
+  letter-spacing: var(--font-spacing-p);
+  line-height: var(--font-height-p);
+  font-weight: var(--font-medium);
+}
+
+.button-L {
+  --min-size-bl: 16;
+  --max-size-bl: 18;
+  --font-size: calc(
+    (var(--min-size-bl) * 1px) + (var(--max-size-bl) - var(--min-size-bl)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-bl: 0.08rem;
+  --font-height-bl: 1.35rem;
+
+  font-size: clamp(var(--min-size-bl) * 1px, var(--font-size), var(--max-size-bl) * 1px);
+  letter-spacing: var(--font-spacing-bl);
+  line-height: var(--font-height-bl);
+  font-weight: var(--font-bold);
+}
+
+.button-M {
+  --min-size-bm: 14;
+  --max-size-bm: 16;
+  --font-size: calc(
+    (var(--min-size-bm) * 1px) + (var(--max-size-bm) - var(--min-size-bm)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-bm: 0.07rem;
+  --font-height-bm: 1.2rem;
+
+  font-size: clamp(var(--min-size-bm) * 1px, var(--font-size), var(--max-size-bm) * 1px);
+  letter-spacing: var(--font-spacing-bm);
+  line-height: var(--font-height-bm);
+  font-weight: var(--font-bold);
+}
+
+.button-S {
+  --min-size-bs: 12;
+  --max-size-bs: 14;
+  --font-size: calc(
+    (var(--min-size-bs) * 1px) + (var(--max-size-bs) - var(--min-size-bs)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-bs: 0.07rem;
+  --font-height-bs: 1rem;
+
+  font-size: clamp(var(--min-size-bs) * 1px, var(--font-size), var(--max-size-bs) * 1px);
+  letter-spacing: var(--font-spacing-bs);
+  line-height: var(--font-height-bs);
+  font-weight: var(--font-bold);
+}
+
+.tag {
+  --min-size-tag: 10;
+  --max-size-tag: 12;
+  --font-size: calc(
+    (var(--min-size-tag) * 1px) + (var(--max-size-tag) - var(--min-size-tag)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-tag: 0.07rem;
+  --font-height-tag: 0.9rem;
+
+  font-size: clamp(var(--min-size-tag) * 1px, var(--font-size), var(--max-size-tag) * 1px);
+  letter-spacing: var(--font-spacing-tag);
+  line-height: var(--font-height-tag);
+  font-weight: var(--font-bold);
 }

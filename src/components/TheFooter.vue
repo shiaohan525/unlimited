@@ -3,8 +3,8 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-    <footer class="footer">
-        <div class="footer-main">
+    <footer>
+        <div class="footer-wrap">
             <div class="footer-content">
                 <div class="footer-title">
                     <img src="@/static/images/brand.svg" alt="" fill="#fff">

@@ -17,8 +17,8 @@ import { RouterLink, RouterView } from 'vue-router'
         </div>
     </header> -->
     <!-- 開發完以上刪除------- -->
-    <header class="header-wrap">
-        <div class="header-main">
+    <header>
+        <div class="header-wrap">
             <div class="brand">
                 <img src="@/static/images/brand.svg" alt="">
             </div>

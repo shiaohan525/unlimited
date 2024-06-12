@@ -12,3 +12,12 @@
 // }
 
 // 開發完以上刪除-------
+
+.button-L {
+    border-radius: var(--Radius-max, 100px);
+    background: linear-gradient(127deg, #ffd568 20.56%, #ff9c41 88.08%);
+  
+    /* box-shadow */
+    box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
+    backdrop-filter: blur(calc(var(--Spacing-3, 16px) / 2));
+  }

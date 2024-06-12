@@ -23,6 +23,7 @@
 body{
     background: var(--colors-brand-index-bg);
     overflow-x: hidden;
+    font-size: 16px; //設定字型大小基礎值
 }
 
 .wrapper{
@@ -31,12 +32,12 @@ body{
 	position: relative;
 }
 
-section[class$="-wrap"]{
+[class$="-wrap"]{
     margin: 0 auto;
     padding: 0;
     max-width: 1040px; //最大容器寬度，需跟設計師確認
     box-sizing: border-box;
     position: relative;
-    width: 100%;
+    width: 90%;
     // height: var--(header-height);
 }

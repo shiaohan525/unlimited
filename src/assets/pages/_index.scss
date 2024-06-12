@@ -1,6 +1,9 @@
 section {
   display: flex;
-  margin-bottom: 100px;
+  margin-bottom: 52px;
+  @include pad {
+    margin-bottom: 100px;
+  }
 }
 
 // about section
@@ -40,7 +43,7 @@ section {
     }
     .about-content {
       display: flex;
-      height: 324px;
+      min-height: auto;
       flex-direction: column;
       align-items: flex-start;
     }
@@ -67,11 +70,7 @@ section {
     }
   }
 }
-// @mixin mobile {
-//     @media (min-width: $mobile) {
-//       @content;
-//     }
-//   }
+
 // skills section
 .skills-wrap {
   flex-direction: column;
@@ -80,14 +79,13 @@ section {
   .skills-main {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 24px;
+    align-items: flex-start;
+    gap: 64px;
     width: 100%;
-    @include mobile {
-        align-items: flex-start;
-    }
-    @media (min-width: $mobile) {
+    @include pad {
       flex-direction: row;
+      align-items: center;
+      gap: 24px;
     }
   }
 }
@@ -100,6 +98,7 @@ section {
   //   min-width: 330px;
   width: 100%;
   min-height: 280px;
+  box-sizing: border-box;
   padding: 60px 28px 24px 28px;
 
   border-radius: var(--Radius-lg, 16px);
@@ -198,8 +197,16 @@ section {
   }
   .portfolio-main {
     display: flex;
+    width: 100%;
     align-items: flex-start;
     gap: 24px;
+    overflow-x: scroll;
+    .portfolio-scroll {
+      display: flex;
+      gap: 24px;
+      min-width: 500px;
+      overflow-x: auto;
+    }
   }
 }
 
@@ -207,8 +214,8 @@ section {
   position: relative;
   overflow: hidden;
   display: flex;
-  width: 397px;
-  height: 400px;
+  width: 200px;
+  height: 200px;
   align-items: flex-start;
   gap: 24px;
   border-radius: var(--radius-lg);
@@ -240,17 +247,20 @@ section {
   align-items: center;
   .contact-main {
     display: flex;
-    min-height: 320px;
     padding: 40px 48px;
     flex-direction: column;
     align-items: center;
-    gap: 48px;
+    gap: 32px;
     border-radius: var(--Radius-lg, 16px);
     border: 3px solid var(--Index-border-glass, rgba(255, 255, 255, 0.6));
     background: var(
       --Index-layout-glass,
       linear-gradient(130deg, rgba(255, 255, 255, 0.2) 11.15%, rgba(255, 255, 255, 0.04) 85.57%)
     );
+    @include pad {
+      gap: 48px;
+      min-height: 320px;
+    }
     a {
       display: flex;
       padding: 12px var(--font-size-h2, 32px);
@@ -264,13 +274,5 @@ section {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-}
-
-.button-l {
-  border-radius: var(--Radius-max, 100px);
-  background: linear-gradient(127deg, #ffd568 20.56%, #ff9c41 88.08%);
-
-  /* box-shadow */
-  box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
-  backdrop-filter: blur(calc(var(--Spacing-3, 16px) / 2));
+  text-align: center;
 }
