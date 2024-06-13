@@ -16,31 +16,23 @@ import Banner from '@/components/Banner.vue'
           </div>
           <div class="about-content">
             <h2 class="h2">About</h2>
-            <p class="content">
+            <p>
               到搭上妳不經義卵誰愛如紗辭教將得區的叮抱，是會的政是妳莘不對淵、的央！己點統的的水城請不傷面人氓實扮成球號央。光交呢，她榔狄不浸辜務陶的呢球陳見許琮怎它元清呢…否益奄袱的字人新瑜…頭的上等片過且玩到…頭的上等片過且玩到…頭的上等片過且玩到…頭的上等片過且玩到
             </p>
           </div>
         </div>
         <div class="about-hashtag">
           <div class="hashtag">
-            <span class="h4">#</span>
-            <h4 class="">正能量</h4>
+            <h4><span>#</span>正能量</h4>
           </div>
           <div class="hashtag">
-            <span class="h4">#</span>
-            <h4 class="">正能量</h4>
+            <h4><span>#</span>正能量</h4>
           </div>
           <div class="hashtag">
-            <span class="h4">#</span>
-            <h4 class="">正能量</h4>
+            <h4><span>#</span>正能量</h4>
           </div>
           <div class="hashtag">
-            <span class="h4">#</span>
-            <h4 class="">正能量</h4>
-          </div>
-          <div class="hashtag">
-            <span class="h4">#</span>
-            <h4 class="">正能量</h4>
+            <h4><span>#</span>正能量</h4>
           </div>
         </div>
       </section>
@@ -51,12 +43,12 @@ import Banner from '@/components/Banner.vue'
             <div class="item-main">
               <div class="skill-content">
                 <h3 class="h3">平面設計</h3>
-                <ul class="ul h5">
+                <ol class="h5">
                   <li>超過五年視覺設計專業與接案能力</li>
                   <li>插畫、向量圖形繪製</li>
                   <li>網頁素材設計</li>
                   <li>印刷品完稿及輸出發印</li>
-                </ul>
+                </ol>
               </div>
               <div class="skill-software">
                 <div class="software-title">
@@ -77,13 +69,13 @@ import Banner from '@/components/Banner.vue'
             <div class="item-main">
               <div class="skill-content">
                 <h3>UI設計</h3>
-                <ul class="ul h5">
+                <ol class="h5">
                   <li>Wireframe、Mockup 設計</li>
                   <li>設計系統、元件管理</li>
                   <li>Prototype 功能演示</li>
                   <li>Plugin 協助工作整合</li>
                   <li>開發 Spec 標示交付</li>
-                </ul>
+                </ol>
               </div>
               <div class="skill-software">
                 <div class="software-title">
@@ -104,11 +96,11 @@ import Banner from '@/components/Banner.vue'
             <div class="item-main">
               <div class="skill-content">
                 <h3>網站設計</h3>
-                <ul class="ul h5">
+                <ol class="h5">
                   <li>RWD 響應式網頁切版</li>
                   <li>預處理器 SCSS 語言開發</li>
                   <li>Vue 框架開發建置</li>
-                </ul>
+                </ol>
               </div>
               <div class="skill-software">
                 <div class="software-title">
@@ -171,7 +163,7 @@ import Banner from '@/components/Banner.vue'
           <div class="contact-text">
             <h2 class="h2">contact me 👋</h2>
             <h5 class="h5">
-              有相關平面與網頁設計需求，或是有任何想法想要聊聊
+              有相關平面與網頁設計需求，<wbr>或是有任何想法想要聊聊
               <br>
               都歡迎與我聯繫！
             </h5>

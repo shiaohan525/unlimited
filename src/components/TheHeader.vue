@@ -22,7 +22,7 @@ import { RouterLink, RouterView } from 'vue-router'
             <div class="brand">
                 <img src="@/static/images/brand.svg" alt="">
             </div>
-            <nav class="nav">
+            <nav>
                 <a class="">About</a>
                 <a class="">Blog</a>
                 <a class="">Work</a>

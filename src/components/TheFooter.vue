@@ -45,7 +45,7 @@ import { RouterLink, RouterView } from 'vue-router'
                     </a>
                 </div>
             </div>
-            <p class="copyright">© HsiaoHan 2024 Copyright. All Rights Reserved.</p>
+            <p class="copyright button-S">© HsiaoHan 2024 Copyright. All Rights Reserved.</p>
         </div>
     </footer>
 </template>

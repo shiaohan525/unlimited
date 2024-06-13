@@ -25,14 +25,15 @@ footer {
     flex-direction: column;
     align-items: flex-start;
     align-self: stretch;
-    gap: var(--spacing-2);
+    gap: var(--spacing-3);
     @include pad{
       flex-direction: row;
+      justify-content: space-between;
     }
   }
 
   .copyright {
-    color: var(--Colors-Gray-600, #929292);
+    color: var(--colors-gray-600);
   }
 }
 
@@ -41,17 +42,19 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--spacing-3);
+
   .footer-link {
     display: flex;
     align-items: flex-start;
-    gap: var(--spacing-2);
-    color: var(--colors-gray-800);
+    gap: var(--spacing-4);
+    color: var(--colors-gray-1000);
+    font-weight: var(--font-bold);
   }
 }
 
 a {
     border-radius: var(--radius-md);
-    padding: var(--spacing-2);
     svg {
       width: calc(40px - var(--spacing-2) * 2);
       height: calc(40px - var(--spacing-2) * 2);
@@ -75,7 +78,6 @@ a {
   gap: var(--spacing-2);
   a {
     border-radius: var(--radius-md);
-    padding: var(--spacing-2);
     svg {
       width: calc(40px - var(--spacing-2) * 2);
       height: calc(40px - var(--spacing-2) * 2);
