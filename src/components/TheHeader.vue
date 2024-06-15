@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld.vue'
+window.onscroll = function a() {
+    var h = document.documentElement.scrollTop || document.body.scrollTop;
+    var headerTop = document.getElementById('headerScroll');
+    if (h > 100) {
+        headerTop.style.background = 'rgba(255, 255, 255, 0.3)';
+        headerTop.style.borderBottom = '2px solid rgba(255, 255, 255, 0.6)';
+        headerTop.style.transition = '.5s';
+
+    } else if (h <= 100) {
+        headerTop.style.background = 'transparent';
+        headerTop.style.border = '2px solid rgba(255, 255, 255, 0)';
+    }
+}
 </script>
 
 <template>
-    <!-- <header>
-        <img alt="Vue logo" class="logo" src="@/static/images/logo.svg" width="125" height="125" />
-
-        <div class="wrapper">
-            <HelloWorld msg="You did it！！！" />
-
-            <nav>
-                <RouterLink to="/">Home</RouterLink>
-                <RouterLink to="/about">About</RouterLink>
-            </nav>
-        </div>
-    </header> -->
-    <!-- 開發完以上刪除------- -->
-    <header>
+    <header id="headerScroll">
         <div class="header-wrap">
             <div class="brand">
                 <img src="@/static/images/brand.svg" alt="">

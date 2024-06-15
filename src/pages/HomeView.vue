@@ -10,9 +10,9 @@ import Banner from '@/components/Banner.vue'
       <section class="about-wrap">
         <div class="about-item">
           <div class="about-img">
-            <!-- <img class="vector-icon" alt="" src="Vector.svg"> -->
-            <img class="image" alt="" src="@/static/images/index/aboutImg01.png">
-            <!-- <img class="vector-icon1" alt="" src="Vector.svg"> -->
+            <img class="blobs" alt="" src="@/static/images/index/aboutBlob01.png">
+            <img alt="" src="@/static/images/index/aboutImg01.png">
+            <img class="blobs" alt="" src="@/static/images/index/aboutBlob02.png">
           </div>
           <div class="about-content">
             <h2 class="h2">About</h2>
@@ -129,40 +129,67 @@ import Banner from '@/components/Banner.vue'
         <div class="portfolio-main">
           <div class="portfolio-scroll">
             <div class="portfolio-item">
-            <img class="portfolio-image" alt="" src="@/static/images/index/worksImg01.png">
-            <div class="portfolio-content">
-              <p class="tag">UI 設計</p>
-              <h4>titletitletitletitletitletitletitletitle</h4>
+              <div class="portfolio-image">
+                <img alt="" src="@/static/images/index/worksImg01.png">
+              </div>
+              <div class="portfolio-content">
+                <p class="tag">UI 設計</p>
+                <h4>titletitletitletitletitletitletitletitle</h4>
+              </div>
             </div>
-          </div>
-          <div class="portfolio-item">
-            <img class="portfolio-image" alt="" src="@/static/images/index/worksImg01.png">
-            <div class="portfolio-content">
-              <p class="tag">UI 設計</p>
-              <h4>titletitletitletitletitletitletitletitle</h4>
+            <div class="portfolio-item">
+              <div class="portfolio-image">
+                <img alt="" src="@/static/images/index/worksImg02.png">
+              </div>
+              <div class="portfolio-content">
+                <p class="tag">UI 設計</p>
+                <h4>titletitletitletitletitletitletitletitle</h4>
+              </div>
             </div>
-          </div>          <div class="portfolio-item">
-            <img class="portfolio-image" alt="" src="@/static/images/index/worksImg01.png">
-            <div class="portfolio-content">
-              <p class="tag">UI 設計</p>
-              <h4>titletitletitletitletitletitletitletitle</h4>
+            <div class="portfolio-item">
+              <div class="portfolio-image">
+                <img alt="" src="@/static/images/index/worksImg01.png">
+              </div>
+              <div class="portfolio-content">
+                <p class="tag">UI 設計</p>
+                <h4>titletitletitletitletitletitletitletitle</h4>
+              </div>
             </div>
-          </div>
-          <div class="portfolio-item">
-            <img class="portfolio-image" alt="" src="@/static/images/index/worksImg01.png">
-            <div class="portfolio-content">
-              <p class="tag">UI 設計</p>
-              <h4>titletitletitletitletitletitletitletitle</h4>
+            <div class="portfolio-item">
+              <div class="portfolio-image">
+                <img alt="" src="@/static/images/index/worksImg02.png">
+              </div>
+              <div class="portfolio-content">
+                <p class="tag">UI 設計</p>
+                <h4>titletitletitletitletitletitletitletitle</h4>
+              </div>
             </div>
-          </div>
+            <div class="portfolio-item">
+              <div class="portfolio-image">
+                <img alt="" src="@/static/images/index/worksImg01.png">
+              </div>
+              <div class="portfolio-content">
+                <p class="tag">UI 設計</p>
+                <h4>title</h4>
+              </div>
+            </div>
+            <div class="portfolio-item">
+              <div class="portfolio-image">
+                <img alt="" src="@/static/images/index/worksImg02.png">
+              </div>
+              <div class="portfolio-content">
+                <p class="tag">UI 設計</p>
+                <h4>titletitletitletitletitletitletitletitle</h4>
+              </div>
+            </div>
           </div>
         </div>
       </section>
       <section class="contact-wrap">
         <div class="contact-main">
           <div class="contact-text">
-            <h2 class="h2">contact me 👋</h2>
-            <h5 class="h5">
+            <h2>contact me 👋</h2>
+            <h5>
               有相關平面與網頁設計需求，<wbr>或是有任何想法想要聊聊
               <br>
               都歡迎與我聯繫！
@@ -176,5 +203,5 @@ import Banner from '@/components/Banner.vue'
 </template>
 
 <style lang="scss" scoped>
-@import  '@/assets/pages/index'
+@import '@/assets/pages/index'
 </style>
