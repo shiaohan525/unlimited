@@ -13,13 +13,39 @@
 
 // 開發完以上刪除-------
 
-.button-L {
-    border-radius: var(--radius-max);
-    background: linear-gradient(127deg, #ffd568 20.56%, #ff9c41 88.08%);
-  
-    /* box-shadow */
-    box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
-    backdrop-filter: blur(calc(var(--Spacing-3, 16px) / 2));
+// global links
+a {
+  color: var(--colors-gray-1000);
+  font-family: var(--font-family-titleEn);
+  font-weight: var(--font-bold);
+  cursor: pointer;
+  transition: 0.5s;
 
-    color: #fff;
+  svg {
+    width: calc(40px - var(--spacing-2) * 2);
+    height: calc(40px - var(--spacing-2) * 2);
+    path {
+      fill: var(--colors-gray-600);
+      transition: 0.5s;
+    }
   }
+  &:hover {
+    color: var(--colors-brand-primary);
+    svg path {
+      fill: var(--colors-brand-primary);
+    }
+  }
+}
+
+// global button
+.button-L {
+  animation: vibrate 0.3s linear infinite both;
+  border-radius: var(--radius-max);
+  background: linear-gradient(127deg, #ffd568 20.56%, #ff9c41 88.08%);
+  box-shadow: 4px 4px 20px 0px rgba(148, 131, 185, 0.3);
+  color: #fff;
+  &:hover{
+    color: #fff;
+    transform: scale(1.2);
+  }
+}

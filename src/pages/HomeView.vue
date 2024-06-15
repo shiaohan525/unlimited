@@ -131,28 +131,28 @@ import Banner from '@/components/Banner.vue'
             <div class="portfolio-item">
             <img class="portfolio-image" alt="" src="@/static/images/index/worksImg01.png">
             <div class="portfolio-content">
-              <p class="item-title">UI 設計</p>
-              <h3 class="h3">titletitletitletitletitletitletitletitle</h3>
+              <p class="tag">UI 設計</p>
+              <h4>titletitletitletitletitletitletitletitle</h4>
             </div>
           </div>
           <div class="portfolio-item">
             <img class="portfolio-image" alt="" src="@/static/images/index/worksImg01.png">
             <div class="portfolio-content">
-              <p class="item-title">UI 設計</p>
-              <h3 class="h3">titletitletitletitletitletitletitletitle</h3>
+              <p class="tag">UI 設計</p>
+              <h4>titletitletitletitletitletitletitletitle</h4>
             </div>
           </div>          <div class="portfolio-item">
             <img class="portfolio-image" alt="" src="@/static/images/index/worksImg01.png">
             <div class="portfolio-content">
-              <p class="item-title">UI 設計</p>
-              <h3 class="h3">titletitletitletitletitletitletitletitle</h3>
+              <p class="tag">UI 設計</p>
+              <h4>titletitletitletitletitletitletitletitle</h4>
             </div>
           </div>
           <div class="portfolio-item">
             <img class="portfolio-image" alt="" src="@/static/images/index/worksImg01.png">
             <div class="portfolio-content">
-              <p class="item-title">UI 設計</p>
-              <h3 class="h3">titletitletitletitletitletitletitletitle</h3>
+              <p class="tag">UI 設計</p>
+              <h4>titletitletitletitletitletitletitletitle</h4>
             </div>
           </div>
           </div>

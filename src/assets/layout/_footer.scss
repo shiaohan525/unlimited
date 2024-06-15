@@ -8,7 +8,7 @@ footer {
   box-shadow: 0px -4px 36px rgba(148, 131, 185, 0.2);
   border-top: 2px solid rgba(255, 255, 255, 0.6);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  @include pad{
+  @include pad {
     padding: 48px 0;
   }
 }
@@ -26,7 +26,7 @@ footer {
     align-items: flex-start;
     align-self: stretch;
     gap: var(--spacing-3);
-    @include pad{
+    @include pad {
       flex-direction: row;
       justify-content: space-between;
     }
@@ -42,34 +42,14 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-3);
+  gap: var(--spacing-6);
 
   .footer-link {
     display: flex;
     align-items: flex-start;
     gap: var(--spacing-4);
-    color: var(--colors-gray-1000);
-    font-weight: var(--font-bold);
   }
 }
-
-a {
-    border-radius: var(--radius-md);
-    svg {
-      width: calc(40px - var(--spacing-2) * 2);
-      height: calc(40px - var(--spacing-2) * 2);
-      path {
-        fill: var(--colors-gray-600);
-      }
-    }
-    &:hover {
-        color: var(--colors-brand-primary);
-      background: var(--colors-gray-200);
-      svg path {
-        fill: var(--colors-brand-primary);
-      }
-    }
-  }
 
 // footer social link
 .footer-social {
@@ -86,7 +66,6 @@ a {
       }
     }
     &:hover {
-      background: var(--colors-gray-200);
       svg path {
         fill: var(--colors-brand-primary);
       }
