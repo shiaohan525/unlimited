@@ -17,41 +17,47 @@ section {
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
-    @include pad{
-        flex-direction: row;
+    @include pad {
+      flex-direction: row;
     }
-    .about-img img {
-      width: 100%;
-      border-radius: var(--radius-lg, 16px);
-      border: 3px solid var(--index-border-glass, rgba(255, 255, 255, 0.6));
-      background: var(
-        --index-image-gra,
-        linear-gradient(
-          119deg,
-          rgba(255, 255, 255, 0.4) 10.25%,
-          rgba(255, 255, 255, 0.1) 28.72%,
-          rgba(255, 255, 255, 0.1) 82.89%,
-          rgba(255, 255, 255, 0.4) 92.33%
-        ),
-        url(<path-to-image>) lightgray 50% / cover no-repeat
-      );
-      background-blend-mode: multiply, normal;
+    .about-img {
+      flex: 1;
+      img {
+        max-width: 100%;
+        height: auto;
 
-      /* box-shadow */
-      box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
-      backdrop-filter: blur(calc(var(--spacing-3, 16px) / 2));
+        box-sizing: border-box;
+        border-radius: var(--radius-lg, 16px);
+        border: 3px solid var(--index-border-glass, rgba(255, 255, 255, 0.6));
+        background: var(
+          --index-image-gra,
+          linear-gradient(
+            119deg,
+            rgba(255, 255, 255, 0.4) 10.25%,
+            rgba(255, 255, 255, 0.1) 28.72%,
+            rgba(255, 255, 255, 0.1) 82.89%,
+            rgba(255, 255, 255, 0.4) 92.33%
+          ),
+          cover no-repeat
+        );
+        background-blend-mode: multiply, normal;
+
+        /* box-shadow */
+        box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
+        backdrop-filter: blur(calc(var(--spacing-3, 16px) / 2));
+      }
     }
     .about-content {
-        display: flex;
-        min-height: auto;
-        flex-direction: column;
-        align-items: flex-start;
+      flex: 1;
+      display: flex;
+      min-height: auto;
+      flex-direction: column;
+      align-items: flex-start;
       h2 {
         color: var(--colors-gray-1000);
       }
-      p{
+      p {
         color: var(--colors-gray-800);
-
       }
     }
   }
@@ -72,11 +78,11 @@ section {
       box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
       backdrop-filter: blur(calc(var(--spacing-3) / 2));
 
-      h4{
+      h4 {
         color: var(--colors-gray-1000);
-        span{
-            color: var(--colors-primary-600);
-            margin-right: 4px;
+        span {
+          color: var(--colors-primary-600);
+          margin-right: 4px;
         }
       }
     }
@@ -187,7 +193,7 @@ section {
   align-items: flex-start;
   gap: 8px;
   align-self: stretch;
-  h3{
+  h3 {
     color: var(--colors-gray-1000);
   }
   ol {
@@ -214,15 +220,16 @@ section {
     align-items: center;
     gap: 8px;
     flex: 1 0 0;
-    p{
-        color: var(--colors-gray-200);
+    p {
+      color: var(--colors-gray-400);
     }
 
     hr {
-      height: 0.05px;
-      margin: 0;
+      height: 0.1px;
       width: 100%;
-      background: var(--colors-gray-200);
+      margin: 0;
+      border: 0;
+      background: var(--colors-gray-400);
     }
   }
 }
@@ -258,7 +265,7 @@ section {
       /* box-shadow */
       box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
       backdrop-filter: blur(calc(var(--spacing-3, 16px) / 2));
-      @include pad{
+      @include pad {
         width: 82px;
         height: 82px;
       }
@@ -294,7 +301,7 @@ section {
   /* box-shadow */
   box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
   backdrop-filter: blur(calc(var(--spacing-3) / 2));
-  .portfolio-image{
+  .portfolio-image {
     width: 100%;
     height: 100%;
   }
@@ -313,12 +320,12 @@ section {
     background: linear-gradient(180deg, rgba(69, 69, 69, 0) 0%, rgba(69, 69, 69, 0.8) 61.64%);
     background-blend-mode: multiply;
     color: #fff;
-    h3{
-        overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
-display: inline-block;
-height: 59px;
+    h3 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+      height: 59px;
     }
   }
 }
@@ -341,7 +348,6 @@ height: 59px;
     );
     @include pad {
       gap: 48px;
-      min-height: 320px;
     }
     a {
       display: flex;

@@ -175,8 +175,13 @@
   --spacing-6: 32px;
   --spacing-7: 40px;
 
+  /* font family */
+  --font-family: 'Noto Sans TC','Montserrat';
+  --font-family-titleEn: 'Montserrat','Noto Sans TC';
+  --font-family-titleZh: 'Noto Sans TC';
+
   /* font weight */
-  --font-medium: 500;
+  --font-medium: 400;
   --font-bold: 600;
   --font-extrabold: 800;
 }
@@ -209,10 +214,11 @@ h2,
   --font-spacing-h2: 0.08rem;
   --font-height-h2: 2.5rem;
 
+  font-family: var(--font-family-titleEn);
   font-size: clamp(var(--min-size-h2) * 1px, var(--font-size), var(--max-size-h2) * 1px);
   letter-spacing: var(--font-spacing-h2);
   line-height: var(--font-height-h2);
-  font-weight: var(--font-bold);
+  font-weight: var(--font-extrabold);
 }
 
 h3,

@@ -121,7 +121,7 @@ import Banner from '@/components/Banner.vue'
       </section>
       <section class="portfolio-wrap">
         <div class="portfolio-title">
-          <h2 class="h2">Ｗorks</h2>
+          <h2 class="h2">Works</h2>
           <a class="button-next">
             <img class="arrow-icon" alt="" src="@/static/images/icons/arrow.svg">
           </a>

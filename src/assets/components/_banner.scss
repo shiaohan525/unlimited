@@ -20,7 +20,7 @@ h1,
   text-align: center;
 
   /* Index/bold/h1 */
-  font-family: var(--font-family-titleEn, Montserrat);
+  font-family: var(--font-family-titleEn);
   font-size: var(--font-size-h1, 48px);
   font-style: normal;
   font-weight: 800;
@@ -39,7 +39,7 @@ h3,
   text-align: center;
 
   /* Index/medium/h4 */
-  font-family: var(--font-family-titleZh, 'Noto Sans TC');
+  font-family: var(--font-family-titleZh);
   font-size: var(--font-size-h4, 20px);
   font-style: normal;
   font-weight: 500;
