@@ -1,13 +1,71 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
 import Banner from '@/components/Banner.vue';
-var texts = ['正能量', '不出門會死', 'E人','持續精進','主動積極','想法滿載','樂於分享','勇於嘗試','幽默隨和','好奇寶寶','表情管理大師','創造力'];
+var texts = ['正能量', '不出門會死', 'E人', '持續精進', '主動積極', '想法滿載', '樂於分享', '勇於嘗試', '幽默隨和', '好奇寶寶', '表情管理大師', '創造力'];
+
+var portfolioItems = ref([
+  {
+    alt: 'Work Image 1',
+    src: new URL('@/static/images/index/worksImg01.png', import.meta.url).href,
+    // link: 'https://hsiaohan.myportfolio.com/web-designevent-image-site-of-1111-job-bank',
+    tag: '網頁設計',
+    title: 'Event image site of 1111 Job Bank'
+  },
+  {
+    alt: 'Work Image 2',
+    src: new URL('@/static/images/index/worksImg02.png', import.meta.url).href,
+    // link: 'https://hsiaohan.myportfolio.com/web-designmcu-of-communication',
+    tag: '網頁設計',
+    title: 'MCU of Communication'
+  },
+  {
+    alt: 'Work Image 3',
+    src: new URL('@/static/images/index/worksImg03.png', import.meta.url).href,
+    // link: 'https://hsiaohan.myportfolio.com/teachify-oneside-project-of-ui-competition',
+    tag: 'UI設計',
+    title: 'Teachify One'
+  },
+  {
+    alt: 'Work Image 3',
+    src: new URL('@/static/images/index/worksImg03.png', import.meta.url).href,
+    // link: 'https://hsiaohan.myportfolio.com/teachify-oneside-project-of-ui-competition',
+    tag: 'UI設計',
+    title: 'Teachify One'
+  },
+  // 可以添加更多項目
+]);
+
+const triggerElement = ref(null);
+const animatedElement = ref(null);
+onMounted(() => {
+  gsap.fromTo(
+    animatedElement.value,
+    { y: 100, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      scrollTrigger: {
+        trigger: triggerElement.value,
+        start: 'top 40%',
+        end: 'top 20%',
+        scrub: true,
+        // markers: true // 用於調試，完成後可以移除
+      }
+    }
+  );
+});
+
 </script>
 
 <template>
   <main>
     <Banner />
     <div class="wrapper">
-      <section class="about-wrap">
+      <section class="about-wrap" ref="triggerElement">
         <div class="about-item">
           <div class="about-img">
             <img class="blobs" alt="" src="@/static/images/index/aboutBlob01.png">
@@ -21,9 +79,9 @@ var texts = ['正能量', '不出門會死', 'E人','持續精進','主動積極
             </p>
           </div>
         </div>
-        <div class="about-hashtag">
+        <div class="about-hashtag" ref="animatedElement">
           <div class="hashtag" v-for="(text, index) in texts" :key="index">
-            <h4 ><span>#</span>{{ text }}</h4>
+            <h4><span>#</span>{{ text }}</h4>
           </div>
         </div>
       </section>
@@ -47,8 +105,8 @@ var texts = ['正能量', '不出門會死', 'E人','持續精進','主動積極
                   <hr>
                 </div>
                 <div class="software-icon">
-                  <img alt="" src="@/static/images/index/illustrator.svg">
-                  <img alt="" src="@/static/images/index/photoshop.svg">
+                  <img alt="illustrator" src="@/static/images/index/illustrator.svg">
+                  <img alt="photoshop" src="@/static/images/index/photoshop.svg">
                 </div>
               </div>
             </div>
@@ -74,8 +132,7 @@ var texts = ['正能量', '不出門會死', 'E人','持續精進','主動積極
                   <hr>
                 </div>
                 <div class="software-icon">
-                  <img alt="" src="@/static/images/index/illustrator.svg">
-                  <img alt="" src="@/static/images/index/photoshop.svg">
+                  <img alt="figma" src="@/static/images/index/figma.svg">
                 </div>
               </div>
             </div>
@@ -99,8 +156,9 @@ var texts = ['正能量', '不出門會死', 'E人','持續精進','主動積極
                   <hr>
                 </div>
                 <div class="software-icon">
-                  <img alt="" src="@/static/images/index/illustrator.svg">
-                  <img alt="" src="@/static/images/index/photoshop.svg">
+                  <img alt="vscode" src="@/static/images/index/vscode.svg">
+                  <img alt="scss" src="@/static/images/index/scss.svg">
+                  <img alt="vue" src="@/static/images/index/vue.svg">
                 </div>
               </div>
             </div>
@@ -119,60 +177,15 @@ var texts = ['正能量', '不出門會死', 'E人','持續精進','主動積極
         </div>
         <div class="portfolio-main">
           <div class="portfolio-scroll">
-            <div class="portfolio-item">
+            <a v-for="(item, index) in portfolioItems" :key="index" :href="item.link" class="portfolio-item" target="_blank">
               <div class="portfolio-image">
-                <img alt="" src="@/static/images/index/worksImg01.png">
+                <img :alt="item.alt" :src="item.src">
               </div>
               <div class="portfolio-content">
-                <p class="tag">UI 設計</p>
-                <h4>titletitletitletitletitletitletitletitle</h4>
+                <p class="tag">{{ item.tag }}</p>
+                <h4>{{ item.title }}</h4>
               </div>
-            </div>
-            <div class="portfolio-item">
-              <div class="portfolio-image">
-                <img alt="" src="@/static/images/index/worksImg02.png">
-              </div>
-              <div class="portfolio-content">
-                <p class="tag">UI 設計</p>
-                <h4>titletitletitletitletitletitletitletitle</h4>
-              </div>
-            </div>
-            <div class="portfolio-item">
-              <div class="portfolio-image">
-                <img alt="" src="@/static/images/index/worksImg01.png">
-              </div>
-              <div class="portfolio-content">
-                <p class="tag">UI 設計</p>
-                <h4>titletitletitletitletitletitletitletitle</h4>
-              </div>
-            </div>
-            <div class="portfolio-item">
-              <div class="portfolio-image">
-                <img alt="" src="@/static/images/index/worksImg02.png">
-              </div>
-              <div class="portfolio-content">
-                <p class="tag">UI 設計</p>
-                <h4>titletitletitletitletitletitletitletitle</h4>
-              </div>
-            </div>
-            <div class="portfolio-item">
-              <div class="portfolio-image">
-                <img alt="" src="@/static/images/index/worksImg01.png">
-              </div>
-              <div class="portfolio-content">
-                <p class="tag">UI 設計</p>
-                <h4>title</h4>
-              </div>
-            </div>
-            <div class="portfolio-item">
-              <div class="portfolio-image">
-                <img alt="" src="@/static/images/index/worksImg02.png">
-              </div>
-              <div class="portfolio-content">
-                <p class="tag">UI 設計</p>
-                <h4>titletitletitletitletitletitletitletitle</h4>
-              </div>
-            </div>
+            </a>
           </div>
         </div>
       </section>

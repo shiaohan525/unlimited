@@ -302,7 +302,7 @@ section {
     gap: 24px;
     overflow-x: auto;
     @include pad {
-      overflow-x: unset;
+      overflow-x: hidden;
     }
     .portfolio-scroll {
       display: flex;
