@@ -1,5 +1,6 @@
 <script setup>
 import Banner from '@/components/Banner.vue';
+var texts = ['正能量', '不出門會死', 'E人','持續精進','主動積極','想法滿載','樂於分享','勇於嘗試','幽默隨和','好奇寶寶','表情管理大師','創造力'];
 </script>
 
 <template>
@@ -21,17 +22,8 @@ import Banner from '@/components/Banner.vue';
           </div>
         </div>
         <div class="about-hashtag">
-          <div class="hashtag">
-            <h4><span>#</span>正能量</h4>
-          </div>
-          <div class="hashtag">
-            <h4><span>#</span>正能量</h4>
-          </div>
-          <div class="hashtag">
-            <h4><span>#</span>正能量</h4>
-          </div>
-          <div class="hashtag">
-            <h4><span>#</span>正能量</h4>
+          <div class="hashtag" v-for="(text, index) in texts" :key="index">
+            <h4 ><span>#</span>{{ text }}</h4>
           </div>
         </div>
       </section>
