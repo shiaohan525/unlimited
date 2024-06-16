@@ -3,14 +3,16 @@ import { RouterLink, RouterView } from 'vue-router'
 window.onscroll = function a() {
     var h = document.documentElement.scrollTop || document.body.scrollTop;
     var headerTop = document.getElementById('headerScroll');
-    if (h > 100) {
-        headerTop.style.background = 'rgba(255, 255, 255, 0.3)';
-        headerTop.style.borderBottom = '2px solid rgba(255, 255, 255, 0.6)';
-        headerTop.style.transition = '.5s';
+    if (headerTop) {
+        if (h > 100) {
+            headerTop.style.background = 'rgba(255, 255, 255, 0.3)';
+            headerTop.style.borderBottom = '2px solid rgba(255, 255, 255, 0.6)';
+            headerTop.style.transition = '.5s';
 
-    } else if (h <= 100) {
-        headerTop.style.background = 'transparent';
-        headerTop.style.border = '2px solid rgba(255, 255, 255, 0)';
+        } else if (h <= 100) {
+            headerTop.style.background = 'transparent';
+            headerTop.style.border = '2px solid rgba(255, 255, 255, 0)';
+        }
     }
 }
 </script>

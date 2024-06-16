@@ -1,4 +1,6 @@
-<script>
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+
 const MIN_SPEED = 0.5;
 const MAX_SPEED = 2;
 

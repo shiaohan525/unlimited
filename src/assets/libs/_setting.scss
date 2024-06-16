@@ -304,3 +304,21 @@ p,
     transform: translate(0);
   }
 }
+
+@keyframes brightness {
+  0% {
+    transform: translateX(300px);
+  }
+  25% {
+    transform: translateX(150px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(-150px);
+  }
+  100% {
+    transform: translateX(-300px);
+  }
+}
