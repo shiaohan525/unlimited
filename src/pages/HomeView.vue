@@ -69,7 +69,11 @@ onMounted(() => {
         <div class="about-item">
           <div class="about-img">
             <img class="blobs" alt="" src="@/static/images/index/aboutBlob01.png">
-            <img alt="" src="@/static/images/index/aboutImg01.png">
+            <div class="img-group">
+              <img alt="" src="@/static/images/index/aboutImg01.png">
+              <img alt="" src="@/static/images/index/aboutImg02.png">
+              <img alt="" src="@/static/images/index/aboutImg03.png">
+            </div>
             <img class="blobs" alt="" src="@/static/images/index/aboutBlob02.png">
           </div>
           <div class="about-content">
