@@ -43,28 +43,29 @@ section {
         );
         z-index: 5;
       }
-      .blobs{
+      .blobs {
         position: absolute;
-        &:first-child{
+        &:first-child {
           top: -20%;
           left: 10%;
           z-index: 1;
         }
-        &:last-child{
+        &:last-child {
           bottom: -5%;
           right: 14%;
           z-index: 5;
         }
       }
-      > .img-group{
+      > .img-group {
         position: relative;
+        z-index: 3;
         height: 100%;
         aspect-ratio: 13/9;
         border-radius: var(--radius-lg);
         border: 3px solid var(--colors-styles-border-glass-l);
         box-shadow: 4px 4px 28px 0px rgba(148, 131, 185, 0.3);
         overflow: hidden;
-        img:not(img:first-child){
+        img:not(img:first-child) {
           position: absolute;
           top: 0;
           left: 0;
@@ -75,6 +76,17 @@ section {
           height: 100%;
           box-sizing: border-box;
           object-fit: cover;
+          opacity: 0;
+
+          &:nth-child(1) {
+            animation: img-switch 5s linear infinite 0s;
+          }
+          &:nth-child(2) {
+            animation: img-switch 5s linear infinite 5s;
+          }
+          &:nth-child(3) {
+            animation: img-switch 5s linear infinite 5s;
+          }
           // border-radius: var(--radius-lg);
           // border: 3px solid var(--colors-styles-border-glass-l);
           // box-shadow: 4px 4px 28px 0px rgba(148, 131, 185, 0.3);
@@ -447,12 +459,12 @@ section {
       box-sizing: border-box;
       overflow: hidden;
 
-      &:hover{
+      &:hover {
         color: #fff;
         box-shadow: none;
         filter: brightness(1.1);
         animation: none;
-        &::before{
+        &::before {
           content: '';
           position: absolute;
           top: 0;
@@ -462,7 +474,15 @@ section {
           height: 100%;
           animation: brightness 0.3s linear both;
 
-          background: linear-gradient(130deg,#ffffff00 0,#ffffff00 10%,#ffffffc4 25%,#ffffffc4 35% ,#ffffff00 50%,#ffffff00);
+          background: linear-gradient(
+            130deg,
+            #ffffff00 0,
+            #ffffff00 10%,
+            #ffffffc4 25%,
+            #ffffffc4 35%,
+            #ffffff00 50%,
+            #ffffff00
+          );
         }
       }
     }
@@ -482,7 +502,7 @@ section {
   h5 {
     width: 80%;
     color: var(--colors-gray-800);
-    @include pad{
+    @include pad {
       width: 100%;
     }
   }
