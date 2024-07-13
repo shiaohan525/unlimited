@@ -11,40 +11,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
     opacity: 0;
     transform: translateY(50px);
   }
 }
 
-h1,
 .h1 {
   text-align: center;
-
-  /* Index/bold/h1 */
   font-family: var(--font-family-titleEn);
-  font-size: var(--font-size-h1, 48px);
-  font-style: normal;
-  font-weight: 800;
-  line-height: var(--font-height-h1, 72px); /* 150% */
-  letter-spacing: var(--font-spacing-h1, 1.8px);
-
-  background: linear-gradient(91deg, #8b5dec 0.78%, #d3c3f5 126.32%);
+  font-size: 48px;
+  font-size: clamp(var(--min-size-h1) * 1px, var(--font-size), var(--max-size-h1) * 1px);
+  background: linear-gradient(91deg, var(--colors-primary-600) 20%, var(--colors-styles-bg-glass-l) 130%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-h3,
-.h3 {
-  color: var(--Colors-Gray-600, #929292);
+.h4 {
+  color: var(--colors-gray-800);
   text-align: center;
-
-  /* Index/medium/h4 */
-  font-family: var(--font-family-titleZh);
-  font-size: var(--font-size-h4, 20px);
-  font-style: normal;
-  font-weight: 500;
-  line-height: var(--font-height-h4, 30px); /* 150% */
-  letter-spacing: var(--font-spacing-h4, 1.5px);
+    // letter-spacing: .2rem;
 }

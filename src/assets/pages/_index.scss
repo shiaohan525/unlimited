@@ -26,6 +26,7 @@ section {
       position: relative;
       display: inline-block;
       flex: 1;
+      width: 100%;
       border-radius: var(--radius-lg);
       &::before {
         content: '';
@@ -63,7 +64,7 @@ section {
         aspect-ratio: 13/9;
         border-radius: var(--radius-lg);
         border: 3px solid var(--colors-styles-border-glass-l);
-        box-shadow: 4px 4px 28px 0px rgba(148, 131, 185, 0.3);
+        box-shadow: 4px 4px 28px 0px var(--colors-styles-shadow-glass);
         overflow: hidden;
         img:not(img:first-child) {
           position: absolute;
@@ -118,14 +119,12 @@ section {
     .hashtag {
       padding: 8px 16px;
       border-radius: var(--radius-lg);
-      background: var(--colors-gray-white);
-
-      /* box-shadow */
-      box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
+      background: var(--colors-styles-bg-glass-m);
+      box-shadow: 2px 2px 24px 0px var(--colors-styles-shadow-glass);
       backdrop-filter: blur(calc(var(--spacing-3) / 2));
 
       h4 {
-        color: var(--colors-gray-1000);
+        color: var(--colors-gray-800);
         span {
           color: var(--colors-primary-600);
           margin-right: 4px;
@@ -146,13 +145,17 @@ section {
   .skills-main {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     align-items: flex-start;
-    gap: 64px;
+    gap: 24px;
     width: 100%;
+    margin-top: -40px;
+
     @include pad {
       flex-direction: row;
       align-items: center;
-      gap: 24px;
+      justify-content: center;
+      // gap: 24px;
     }
   }
 }
@@ -161,26 +164,32 @@ section {
   position: relative;
   display: flex;
   flex-direction: column;
+  flex: 1;
   align-items: center;
-  //   min-width: 330px;
   width: 100%;
   min-height: 280px;
   box-sizing: border-box;
   padding: 40px 28px 24px 28px;
-
-  border-radius: var(--radius-md);
+  margin-top: 40px;
+  border-radius: var(--radius-lg);
   background: linear-gradient(
     130.31deg,
     var(--colors-styles-bg-glass-l),
     var(--colors-styles-bg-glass-d)
   );
   border: 2px solid var(--colors-styles-border-glass-l);
-
-  /* box-shadow */
-  box-shadow: 4px 4px 36px 0px rgba(148, 131, 185, 0.2);
+  box-shadow: 4px 4px 36px 0px var(--colors-styles-shadow-glass);
   backdrop-filter: blur(calc(var(--spacing-3, 16px) / 2));
+  animation: hoverUpOut .5s forwards 1;
+
+  &:hover{
+    transition: ease .5s;
+    animation: hoverUpIn .5s forwards 1;
+  }
   @include pad {
-    border-radius: var(--radius-lg);
+    // border-radius: var(--radius-lg);
+    // max-width: 305px;
+    min-width: 270px;
     padding: 48px 28px 24px 28px;
   }
 
@@ -275,7 +284,8 @@ section {
     gap: 8px;
     flex: 1 0 0;
     p {
-      color: var(--colors-gray-400);
+      color: var(--colors-gray-600);
+      font-weight: var(--font-bold);
     }
 
     hr {
@@ -283,7 +293,14 @@ section {
       width: 100%;
       margin: 0;
       border: 0;
-      background: var(--colors-gray-400);
+      background: var(--colors-gray-600);
+    }
+  }
+  .software-icon{
+    display: flex;
+    gap: 2px;
+    path{
+      fill: var(--colors-gray-600);
     }
   }
 }
@@ -313,9 +330,9 @@ section {
       align-items: center;
       gap: 10px;
       border-radius: var(--radius-max);
-      border: 3px solid #d0baff;
-      background: linear-gradient(180deg, #ba9df7 0%, #8b5dec 100%);
-      box-shadow: 4px 4px 20px 0px rgba(148, 131, 185, 0.3);
+      border: 3px solid var(--colors-primary-400);
+      background: linear-gradient(180deg, var(--colors-primary-400) 0%, var(--colors-primary-600) 100%);
+      box-shadow: 4px 4px 36px 0px var(--colors-styles-shadow-glass);
 
       @include pad {
         width: 82px;
@@ -349,8 +366,8 @@ section {
   overflow: hidden;
   display: flex;
   aspect-ratio: 1/1;
-  min-width: 200px;
-  height: 200px;
+  min-width: 280px;
+  height: 280px;
   box-sizing: border-box;
   align-items: flex-start;
   gap: 24px;
@@ -445,6 +462,7 @@ section {
       var(--colors-styles-bg-glass-l),
       var(--colors-styles-bg-glass-d)
     );
+    box-shadow: 4px 4px 36px 0px var(--colors-styles-shadow-glass);
     border: 2px solid var(--colors-styles-border-glass-l);
     @include pad {
       width: 70%;

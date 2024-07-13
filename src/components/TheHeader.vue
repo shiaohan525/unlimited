@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { selector } from 'gsap/src/all';
 import { RouterLink, RouterView } from 'vue-router'
-import { useDark,useToggle} from '@vueuse/core'
+import { useDark, useToggle } from '@vueuse/core'
 
 
 const isDark = useDark({
@@ -18,12 +18,14 @@ window.onscroll = function a() {
     var headerTop = document.getElementById('headerScroll');
     if (headerTop) {
         if (h > 100) {
-            headerTop.style.background = 'var(--colors-styles-bg-glass-d)';
-            headerTop.style.borderBottom = '2px solid var(--colors-styles-border-glass-d)';
+            headerTop.style.background = 'var(--colors-styles-border-glass-l)';
+            // headerTop.style.borderBottom = '2px solid var(--colors-styles-border-glass-l)';
             headerTop.style.transition = '.5s';
+            headerTop.style.boxShadow = '0px 4px 36px var(--colors-styles-shadow-glass)';
         } else if (h <= 100) {
             headerTop.style.background = 'transparent';
-            headerTop.style.border = '2px solid transparent';
+            // headerTop.style.borderBottom = '2px solid transparent';
+            headerTop.style.boxShadow = 'none';
         }
     }
 }
@@ -31,11 +33,16 @@ window.onscroll = function a() {
 </script>
 
 <template>
+
     <body data-theme="isDark ? 'Dark' : 'Default' ">
-        <header id="headerScroll">
-            <div class="header-wrap">
+        <header>
+            <div class="header-wrap" id="headerScroll">
                 <div class="brand">
-                    <img src="@/static/images/brand.svg" alt="">
+                    <svg width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M13.6641 0.399999H20.2721V20H13.6641V0.399999ZM7.56009 20H0.952094V0.399999H7.56009V20ZM14.1121 12.776H7.11209V7.344H14.1121V12.776ZM26.396 20.28C25.3507 20.28 24.4733 19.944 23.764 19.272C23.0547 18.5813 22.7 17.704 22.7 16.64C22.7 15.5573 23.0547 14.6893 23.764 14.036C24.4733 13.3827 25.3507 13.056 26.396 13.056C27.4413 13.056 28.3187 13.3827 29.028 14.036C29.7373 14.6893 30.092 15.5573 30.092 16.64C30.092 17.704 29.7373 18.5813 29.028 19.272C28.3187 19.944 27.4413 20.28 26.396 20.28Z"
+                            fill="#656565" />
+                    </svg>
                 </div>
                 <nav>
                     <a class="">About</a>
@@ -47,7 +54,7 @@ window.onscroll = function a() {
                     <input type="checkbox" @click="toggleDark()">
                     <span class="switch-main">
                         <div class="switch-icon">
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                            <svg v-if="isDark" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g id="lcon-dark">
                                     <path id="Vector"
@@ -55,7 +62,7 @@ window.onscroll = function a() {
                                         fill="gray" />
                                 </g>
                             </svg>
-                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                            <svg v-else width="18" height="18" viewBox="0 0 18 18" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g id="lcon-light" clip-path="url(#clip0_666_57)">
                                     <path id="Vector"

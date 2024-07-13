@@ -75,8 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="blob"></div>
     <div class="blob"></div>
     <div class="blob"></div>
-    <div class="blob"></div>
-    <div class="blob"></div>
   </div>
 </template>
 

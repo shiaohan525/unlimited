@@ -1,23 +1,24 @@
 // global links
 a {
-  color: var(--colors-gray-1000);
+  // color: var(--colors-gray-1000);
   font-family: var(--font-family-titleEn);
   font-weight: var(--font-bold);
   cursor: pointer;
   transition: 0.5s;
+  color: var(--colors-gray-800);
 
   svg {
     width: calc(40px - var(--spacing-2) * 2);
     height: calc(40px - var(--spacing-2) * 2);
     path {
-      fill: var(--colors-gray-600);
+      fill: var(--colors-gray-800);
       transition: 0.5s;
     }
   }
   &:hover {
-    color: var(--colors-brand-primary);
+    color: var(--colors-primary-400);
     svg path {
-      fill: var(--colors-brand-primary);
+      fill: var(--colors-primary-400);
     }
   }
 }
@@ -27,7 +28,7 @@ a {
   position: relative;
   border-radius: var(--radius-max);
   background: linear-gradient(127deg, #ffd568 20.56%, #ff9c41 88.08%);
-  box-shadow: 4px 4px 20px 0px rgba(148, 131, 185, 0.3);
+  box-shadow: 4px 4px 20px 0px var(--colors-styles-shadow-glass);
   color: #fff;
 
   &:hover{

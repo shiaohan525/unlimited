@@ -9,24 +9,26 @@
   --colors-brand-tertiary: #ffdb5d;
   --colors-brand-index-bg: #f7f4ff;
   --colors-gray-100: #f8f8f8;
-  --colors-gray-1000: #454545;
   --colors-gray-200: #ededed;
   --colors-gray-400: #bbbbbb;
   --colors-gray-600: #929292;
   --colors-gray-800: #656565;
+  --colors-gray-1000: #454545;
   --colors-gray-white: #ffffff;
-  --colors-primary-1000: #5727bc;
   --colors-primary-200: #d3c3f5;
   --colors-primary-400: #ba9df7;
   --colors-primary-600: #8b5dec;
   --colors-primary-800: #6937d4;
-  --colors-secondary-1000: #d91e99;
+  --colors-primary-1000: #5727bc;
   --colors-secondary-200: #fec1e9;
   --colors-secondary-400: #fe95da;
   --colors-secondary-600: #ff5dc8;
   --colors-secondary-800: #eb37ae;
+  --colors-secondary-1000: #d91e99;
   --colors-styles-bg-glass-d: #ffffff1a;
-  --colors-styles-bg-glass-l: #ffffffe6;
+  --colors-styles-bg-glass-m: #ffffff3f;
+  --colors-styles-bg-glass-l: #ffffff9c;
+  --colors-styles-shadow-glass: #9b87c632;
   --colors-styles-border-glass-d: #a17af34d;
   --colors-styles-border-glass-do: #a17af300;
   --colors-styles-border-glass-l: #ffffff99;
@@ -39,29 +41,39 @@
   --colors-brand-quinary: #fd99ff;
   --colors-brand-secondary: #fe2cb7;
   --colors-brand-tertiary: #ffd02e;
-  --colors-brand-index-bg: #191428;
+  --colors-brand-index-bg: #1c1826;
   --colors-gray-100: #251f36;
-  --colors-gray-1000: #eae5fa;
   --colors-gray-200: #433b5a;
   --colors-gray-400: #887ca9;
   --colors-gray-600: #a496ca;
   --colors-gray-800: #cdc4e8;
+  --colors-gray-1000: #eae5fa;
   --colors-gray-white: #231e34;
-  --colors-primary-1000: #c7adff;
-  --colors-primary-200: #352557;
-  --colors-primary-400: #7340de;
+
+  --colors-primary-200: #c7adff;
+  --colors-primary-400: #b591ff;
   --colors-primary-600: #9d6fff;
-  --colors-primary-800: #b591ff;
-  --colors-secondary-1000: #d91e99;
+  --colors-primary-800: #7340de;
+  --colors-primary-1000: #352557;
+
+  // --colors-primary-200: #352557;
+  // --colors-primary-400: #7340de;
+  // --colors-primary-600: #9d6fff;
+  // --colors-primary-800: #b591ff;
+  // --colors-primary-1000: #c7adff;
+
   --colors-secondary-200: #fec1e9;
   --colors-secondary-400: #fe95da;
   --colors-secondary-600: #ff5dc8;
   --colors-secondary-800: #eb37ae;
-  --colors-styles-bg-glass-d: #8145ff1a;
-  --colors-styles-bg-glass-l: #8145ff80;
+  --colors-secondary-1000: #d91e99;
+  --colors-styles-bg-glass-d: #9f8ec112;
+  --colors-styles-bg-glass-m: #9f8ec138;
+  --colors-styles-bg-glass-l: #9f8ec162;
+  --colors-styles-shadow-glass: #3a305043;
   --colors-styles-border-glass-d: #8145ff4d;
   --colors-styles-border-glass-do: #8145ff00;
-  --colors-styles-border-glass-l: #b694ff99;
+  --colors-styles-border-glass-l: #dac8ff59;
   --colors-styles-border-glass-lo: #b694ff00;
 }
 
@@ -83,14 +95,20 @@
   --spacing-7: 40px;
 
   /* font family */
-  --font-family: 'Noto Sans TC', 'Montserrat';
-  --font-family-titleEn: 'Montserrat', 'Noto Sans TC';
-  --font-family-titleZh: 'Noto Sans TC';
+  --font-family: 'Noto Sans TC', 'Montserrat','微軟正黑體';
+  --font-family-titleEn: 'Montserrat', 'Noto Sans TC','微軟正黑體';
+  --font-family-titleZh: 'Noto Sans TC','微軟正黑體';
 
   /* font weight */
   --font-medium: 400;
   --font-bold: 600;
   --font-extrabold: 800;
+}
+
+.brand{
+  path{
+    fill:var(--colors-gray-800);
+  }
 }
 
 h1,
@@ -104,6 +122,7 @@ h1,
   --font-spacing-h1: 0.1rem;
   --font-height-h1: 3rem;
 
+  font-family: var(--font-family);
   font-size: clamp(var(--min-size-h1) * 1px, var(--font-size), var(--max-size-h1) * 1px);
   letter-spacing: var(--font-spacing-h1);
   line-height: var(--font-height-h1);
@@ -139,6 +158,7 @@ h3,
   --font-spacing-h3: 0.09rem;
   --font-height-h3: 1.875rem;
 
+  font-family: var(--font-family);
   font-size: clamp(var(--min-size-h3) * 1px, var(--font-size), var(--max-size-h3) * 1px);
   letter-spacing: var(--font-spacing-h3);
   line-height: var(--font-height-h3);
@@ -156,6 +176,7 @@ h4,
   --font-spacing-h4: 0.09rem;
   --font-height-h4: 1.6875rem;
 
+  font-family: var(--font-family);
   font-size: clamp(var(--min-size-h4) * 1px, var(--font-size), var(--max-size-h4) * 1px);
   letter-spacing: var(--font-spacing-h4);
   line-height: var(--font-height-h4);
@@ -173,6 +194,7 @@ h5,
   --font-spacing-h5: 0.07rem;
   --font-height-h5: 1.5rem;
 
+  font-family: var(--font-family);
   font-size: clamp(var(--min-size-h5) * 1px, var(--font-size), var(--max-size-h5) * 1px);
   letter-spacing: var(--font-spacing-h5);
   line-height: var(--font-height-h5);
@@ -190,6 +212,7 @@ h6,
   --font-spacing-h6: 0.08rem;
   --font-height-h6: 1.5rem;
 
+  font-family: var(--font-family);
   font-size: clamp(var(--min-size-h6) * 1px, var(--font-size), var(--max-size-h6) * 1px);
   letter-spacing: var(--font-spacing-h6);
   line-height: var(--font-height-h6);
@@ -205,8 +228,9 @@ p,
       ((100cqw - 320px) / (1920 - 320))
   );
   --font-spacing-p: 0.08rem;
-  --font-height-p: 1.5rem;
+  --font-height-p: 1.7rem;
 
+  font-family: var(--font-family);
   font-size: clamp(var(--min-size-p) * 1px, var(--font-size), var(--max-size-p) * 1px);
   letter-spacing: var(--font-spacing-p);
   line-height: var(--font-height-p);
@@ -223,6 +247,7 @@ p,
   --font-spacing-bl: 0.08rem;
   --font-height-bl: 1.35rem;
 
+  font-family: var(--font-family);
   font-size: clamp(var(--min-size-bl) * 1px, var(--font-size), var(--max-size-bl) * 1px);
   letter-spacing: var(--font-spacing-bl);
   line-height: var(--font-height-bl);
@@ -239,6 +264,7 @@ p,
   --font-spacing-bm: 0.07rem;
   --font-height-bm: 1.2rem;
 
+  font-family: var(--font-family);
   font-size: clamp(var(--min-size-bm) * 1px, var(--font-size), var(--max-size-bm) * 1px);
   letter-spacing: var(--font-spacing-bm);
   line-height: var(--font-height-bm);
@@ -255,6 +281,7 @@ p,
   --font-spacing-bs: 0.07rem;
   --font-height-bs: 1rem;
 
+  font-family: var(--font-family);
   font-size: clamp(var(--min-size-bs) * 1px, var(--font-size), var(--max-size-bs) * 1px);
   letter-spacing: var(--font-spacing-bs);
   line-height: var(--font-height-bs);
@@ -270,7 +297,8 @@ p,
   );
   --font-spacing-tag: 0.07rem;
   --font-height-tag: 0.9rem;
-
+  
+  font-family: var(--font-family);
   font-size: clamp(var(--min-size-tag) * 1px, var(--font-size), var(--max-size-tag) * 1px);
   letter-spacing: var(--font-spacing-tag);
   line-height: var(--font-height-tag);
@@ -278,6 +306,8 @@ p,
 }
 
 // animation
+
+// Shake Effect
 @keyframes vibrate {
   0% {
     -webkit-transform: translate(0);
@@ -305,6 +335,7 @@ p,
   }
 }
 
+// Bright Flash Effect
 @keyframes brightness {
   0% {
     transform: translateX(300px);
@@ -323,6 +354,7 @@ p,
   }
 }
 
+// Image Carousel Animation
 @keyframes img-switch01 {
   0% {
     opacity: 0;
@@ -383,5 +415,23 @@ p,
   }
   100% {
     opacity: 1;
+  }
+}
+
+// Hover Up Animation
+@keyframes hoverUpIn{
+  from{
+    transform: translateY(0px);
+  }
+  to{
+    transform: translateY(-20px);
+  }
+}
+@keyframes hoverUpOut{
+  from{
+    transform: translateY(-20px);
+  }
+  to{
+    transform: translateY(0px);
   }
 }

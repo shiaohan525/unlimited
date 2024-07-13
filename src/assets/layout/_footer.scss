@@ -4,9 +4,9 @@ footer {
   align-items: center;
   width: 100%;
   padding: 36px 0;
-  background: linear-gradient(130.31deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.04));
-  box-shadow: 0px -4px 36px rgba(148, 131, 185, 0.2);
-  border-top: 2px solid rgba(255, 255, 255, 0.6);
+  background: linear-gradient(130.31deg, var(--colors-styles-bg-glass-m), var(--colors-styles-bg-glass-d));
+  box-shadow: 0px -4px 36px var(--colors-styles-shadow-glass);
+  border-top: 2px solid var(--colors-styles-border-glass-l);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   @include pad {
     padding: 48px 0;
@@ -45,6 +45,7 @@ footer {
   gap: var(--spacing-6);
 
   .footer-link {
+    // color: var(--colors-gray-800);
     display: flex;
     align-items: flex-start;
     gap: var(--spacing-4);
@@ -61,14 +62,6 @@ footer {
     svg {
       width: calc(40px - var(--spacing-2) * 2);
       height: calc(40px - var(--spacing-2) * 2);
-      path {
-        fill: var(--colors-gray-600);
-      }
-    }
-    &:hover {
-      svg path {
-        fill: var(--colors-brand-primary);
-      }
     }
   }
 }
