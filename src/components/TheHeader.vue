@@ -18,7 +18,7 @@ window.onscroll = function a() {
     var headerTop = document.getElementById('headerScroll');
     if (headerTop) {
         if (h > 100) {
-            headerTop.style.background = 'var(--colors-styles-border-glass-l)';
+            headerTop.style.background = 'var(--headerBg-glass)';
             // headerTop.style.borderBottom = '2px solid var(--colors-styles-border-glass-l)';
             headerTop.style.transition = '.5s';
             headerTop.style.boxShadow = '0px 4px 36px var(--colors-styles-shadow-glass)';
@@ -45,10 +45,10 @@ window.onscroll = function a() {
                     </svg>
                 </div>
                 <nav>
-                    <a class="">About</a>
+                    <!-- <a class="">About</a>
                     <a class="">Blog</a>
                     <a class="">Work</a>
-                    <a class="">Contact</a>
+                    <a class="">Contact</a> -->
                 </nav>
                 <label class="dark-switch">
                     <input type="checkbox" @click="toggleDark()">

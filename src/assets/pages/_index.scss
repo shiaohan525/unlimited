@@ -219,7 +219,7 @@ section {
     align-items: flex-start;
     flex: 1 0 0;
     align-self: stretch;
-    min-height: 220px;
+    min-height: 240px;
   }
 }
 
@@ -520,6 +520,7 @@ section {
   h5 {
     width: 80%;
     color: var(--colors-gray-800);
+    word-break: keep-all;
     @include pad {
       width: 100%;
     }

@@ -1,11 +1,10 @@
 // css reset
 @import 'reset-css/sass/reset';
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC&display=swap');
-
 // 引入所有scss檔，頁面檔個別引入
 @import 'libs/fonts';
 @import 'libs/setting';
+@import 'libs/animation';
 // @import 'libs/mixins';
 @import 'layout/layout';
 @import 'layout/header';

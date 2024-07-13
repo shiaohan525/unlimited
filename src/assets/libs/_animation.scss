@@ -1,0 +1,128 @@
+// Shake Effect
+@keyframes vibrate {
+  0% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+    transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+    transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+    transform: translate(0);
+  }
+}
+
+// Bright Flash Effect
+@keyframes brightness {
+  0% {
+    transform: translateX(300px);
+  }
+  25% {
+    transform: translateX(150px);
+  }
+  50% {
+    transform: translateX(0px);
+  }
+  75% {
+    transform: translateX(-150px);
+  }
+  100% {
+    transform: translateX(-300px);
+  }
+}
+
+// Image Carousel Animation
+@keyframes img-switch01 {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  10% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 1;
+  }
+  35% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes img-switch02 {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  63% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes img-switch03 {
+  0% {
+    opacity: 1;
+  }
+  3% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+// Hover Up Animation
+@keyframes hoverUpIn{
+  from{
+    transform: translateY(0px);
+  }
+  to{
+    transform: translateY(-20px);
+  }
+}
+@keyframes hoverUpOut{
+  from{
+    transform: translateY(-20px);
+  }
+  to{
+    transform: translateY(0px);
+  }
+}

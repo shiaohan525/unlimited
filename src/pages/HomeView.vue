@@ -244,7 +244,7 @@ onMounted(() => {
               都歡迎與我聯繫！
             </h5>
           </div>
-          <a class="button-L">聯絡我們</a>
+          <a class="button-L">跟我聊聊</a>
         </div>
       </section>
     </div>

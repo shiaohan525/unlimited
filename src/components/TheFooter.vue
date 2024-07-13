@@ -15,14 +15,14 @@ import { RouterLink, RouterView } from 'vue-router'
                         </svg>
                     </div>
                     <div class="footer-link">
-                        <a class="">About</a>
+                        <!-- <a class="">About</a>
                         <a class="">Blog</a>
                         <a class="">Work</a>
-                        <a class="">Contact</a>
+                        <a class="">Contact</a> -->
                     </div>
                 </div>
                 <div class="footer-social">
-                    <a href="">
+                    <a href="mailto:o134888@gmail.com">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="mail">
                                 <path id="Vector"
@@ -31,7 +31,7 @@ import { RouterLink, RouterView } from 'vue-router'
                             </g>
                         </svg>
                     </a>
-                    <a href="">
+                    <a href="https://www.linkedin.com/in/hsiaohan-h/" target="_blank">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="linkedin">
                                 <path id="Vector"
@@ -40,7 +40,7 @@ import { RouterLink, RouterView } from 'vue-router'
                             </g>
                         </svg>
                     </a>
-                    <a href="">
+                    <a href="https://hsiaohan.myportfolio.com/" target="_blank">
                         <svg width="35" height="40" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="behance">
                                 <path id="Vector"
