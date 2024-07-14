@@ -59,6 +59,7 @@ onMounted(() => {
   );
 });
 
+// 聯絡我們埋點
 const trackButtonClick = () => {
   // 推送自定义事件到 GTM
   window.dataLayer.push({
