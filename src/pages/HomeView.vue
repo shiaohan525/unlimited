@@ -255,7 +255,7 @@ console.log('埋點成功！');
               都歡迎與我聯繫！
             </h5>
           </div>
-          <a class="button-L" @click="trackButtonClick">跟我聊聊</a>
+          <a class="button-L" @click="trackButtonClick" href="mailto:o134888@gmail.com">跟我聊聊</a>
         </div>
       </section>
     </div>
