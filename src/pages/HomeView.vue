@@ -59,6 +59,17 @@ onMounted(() => {
   );
 });
 
+const trackButtonClick = () => {
+  // 推送自定义事件到 GTM
+  window.dataLayer.push({
+    event: 'click-event',
+    eventCategory: 'button',
+    eventAction: 'click',
+    eventLabel: 'Button Click'
+  });
+}
+console.log('埋點成功！');
+
 </script>
 
 <template>
@@ -244,7 +255,7 @@ onMounted(() => {
               都歡迎與我聯繫！
             </h5>
           </div>
-          <a class="button-L">跟我聊聊</a>
+          <a class="button-L" @click="trackButtonClick">跟我聊聊</a>
         </div>
       </section>
     </div>
