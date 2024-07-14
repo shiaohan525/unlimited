@@ -10,7 +10,7 @@ npm run build-only
 cd dist
 
 # If you are deploying to a custom domain
-echo "www.example.com" > CNAME
+echo "theunlimited.cc" > CNAME
 
 # Ensure .nojekyll file exists
 touch .nojekyll

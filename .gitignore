@@ -30,5 +30,5 @@ coverage
 *.tsbuildinfo
 
 # Ensure .gitignore does not contain:
-CNAME
-.nojekyll
+# CNAME
+# .nojekyll

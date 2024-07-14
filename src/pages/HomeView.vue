@@ -60,14 +60,10 @@ onMounted(() => {
 });
 
 // 聯絡我們埋點
+import { useGtag } from 'vue-gtag-next'
 const trackButtonClick = () => {
-  // 使用 this.$gtag.event 發送事件
-  this.$gtag.event({
-    event: 'click-event', //GTM設定事件名稱
-    eventCategory: 'button',
-    eventAction: 'click',
-    eventLabel: 'Button Click'
-  });
+  const { event } = useGtag()
+  event('click-event')
 }
 console.log('埋點成功！');
 
