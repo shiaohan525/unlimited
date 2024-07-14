@@ -61,9 +61,9 @@ onMounted(() => {
 
 // 聯絡我們埋點
 const trackButtonClick = () => {
-  // 推送自定义事件到 GTM
-  window.dataLayer.push({
-    event: 'click-event',
+  // 使用 this.$gtag.event 發送事件
+  this.$gtag.event({
+    event: 'click-event', //GTM設定事件名稱
     eventCategory: 'button',
     eventAction: 'click',
     eventLabel: 'Button Click'
