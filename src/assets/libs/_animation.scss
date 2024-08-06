@@ -126,3 +126,7 @@
     transform: translateY(0px);
   }
 }
+
+.vibrate{
+  animation: vibrate 0.3s linear infinite both;
+}

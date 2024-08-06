@@ -1,3 +1,21 @@
+// global setting
+:root{
+    /* radius */
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-max: 100px;
+  
+    /* spacing */
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 16px;
+    --spacing-4: 20px;
+    --spacing-5: 28px;
+    --spacing-6: 32px;
+    --spacing-7: 40px;
+}
+
 // color theme
 [data-theme='Default'],
 :root {
@@ -25,9 +43,9 @@
   --colors-secondary-600: #ff5dc8;
   --colors-secondary-800: #eb37ae;
   --colors-secondary-1000: #d91e99;
-  --colors-styles-bg-glass-d: #ffffff1a;
+  --colors-styles-bg-glass-d: #ffffff0c;
   --colors-styles-bg-glass-m: #ffffff3f;
-  --colors-styles-bg-glass-l: #ffffff9c;
+  --colors-styles-bg-glass-l: #ffffffb5;
   --colors-styles-shadow-glass: #9b87c632;
   --colors-styles-border-glass-d: #a17af34d;
   --colors-styles-border-glass-do: #a17af300;

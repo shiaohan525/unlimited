@@ -3,21 +3,6 @@
 
 // font setting
 :root {
-    /* radius */
-    --radius-md: 8px;
-    --radius-lg: 16px;
-    --radius-xl: 20px;
-    --radius-max: 100px;
-  
-    /* spacing */
-    --spacing-1: 4px;
-    --spacing-2: 8px;
-    --spacing-3: 16px;
-    --spacing-4: 20px;
-    --spacing-5: 28px;
-    --spacing-6: 32px;
-    --spacing-7: 40px;
-  
     /* font family */
     --font-family: 'Noto Sans TC', 'Montserrat','微軟正黑體';
     --font-family-titleEn: 'Montserrat', 'Noto Sans TC','微軟正黑體';
@@ -213,13 +198,13 @@
   }
   
   .tag {
-    --min-size-tag: 10;
+    --min-size-tag: 11;
     --max-size-tag: 12;
     --font-size: calc(
       (var(--min-size-tag) * 1px) + (var(--max-size-tag) - var(--min-size-tag)) *
         ((100cqw - 320px) / (1920 - 320))
     );
-    --font-spacing-tag: 0.07rem;
+    --font-spacing-tag: 0.15rem;
     --font-height-tag: 0.9rem;
     
     font-family: var(--font-family);

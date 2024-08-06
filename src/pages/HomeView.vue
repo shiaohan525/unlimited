@@ -7,36 +7,58 @@ gsap.registerPlugin(ScrollTrigger);
 import Banner from '@/components/Banner.vue';
 var texts = ['正能量', '負責任', 'E人', '持續精進', '主動積極', '想法滿載', '樂於分享', '勇於嘗試', '幽默隨和', '好奇寶寶', '表情管理大師', '創造力'];
 
+
 var portfolioItems = ref([
   {
-    alt: 'Work Image 1',
+    link: "https://hsiaohan.myportfolio.com/web-designevent-image-site-of-1111-job-bank",
+    alt: 'Event image site of 1111 Job Bank',
     src: new URL('@/static/images/index/worksImg01.png', import.meta.url).href,
-    // link: 'https://hsiaohan.myportfolio.com/web-designevent-image-site-of-1111-job-bank',
-    tag: '網頁設計',
+    tag: 'Web Design',
     title: 'Event image site of 1111 Job Bank'
   },
   {
-    alt: 'Work Image 2',
+    link: "https://hsiaohan.myportfolio.com/web-designmcu-of-communication",
+    alt: 'MCU of Communication',
     src: new URL('@/static/images/index/worksImg02.png', import.meta.url).href,
-    // link: 'https://hsiaohan.myportfolio.com/web-designmcu-of-communication',
-    tag: '網頁設計',
+    tag: 'Web Design',
     title: 'MCU of Communication'
   },
   {
-    alt: 'Work Image 3',
+    link: "https://hsiaohan.myportfolio.com/teachify-oneside-project-of-ui-competition",
+    alt: 'Teachify One',
     src: new URL('@/static/images/index/worksImg03.png', import.meta.url).href,
-    // link: 'https://hsiaohan.myportfolio.com/teachify-oneside-project-of-ui-competition',
-    tag: 'UI設計',
+    tag: 'UI Design',
     title: 'Teachify One'
   },
   {
-    alt: 'Work Image 3',
-    src: new URL('@/static/images/index/worksImg03.png', import.meta.url).href,
-    // link: 'https://hsiaohan.myportfolio.com/teachify-oneside-project-of-ui-competition',
-    tag: 'UI設計',
-    title: 'Teachify One'
+    link: "https://hsiaohan.myportfolio.com/web-ui-design-proposalnthu-center-for-arts-and-culture",
+    alt: 'NTHU Center for Arts and Culture',
+    src: new URL('@/static/images/index/worksImg04.png', import.meta.url).href,
+    tag: 'UI Design',
+    title: 'NTHU Center for Arts and Culture'
   },
-  // 可以添加更多項目
+  {
+    link: "https://hsiaohan.myportfolio.com/brandingrigorous",
+    alt: 'RIGOROUS',
+    src: new URL('@/static/images/index/worksImg05.png', import.meta.url).href,
+    tag: 'Branding',
+    title: 'RIGOROUS'
+  },
+  {
+    link: "https://hsiaohan.myportfolio.com/publishingintertidal-zone-exploration",
+    alt: 'Intertidal zone exploration',
+    src: new URL('@/static/images/index/worksImg06.png', import.meta.url).href,
+    tag: 'Publishing',
+    title: 'Intertidal zone exploration'
+  },
+  {
+    link: "https://hsiaohan.myportfolio.com/social-media-marketing-notice-of-printing",
+    alt: 'Notice of Printing',
+    src: new URL('@/static/images/index/worksImg07.png', import.meta.url).href,
+    tag: 'Illustration',
+    title: 'Notice of Printing'
+  },
+  // 添加更多項目
 ]);
 
 const triggerElement = ref(null);
@@ -65,7 +87,7 @@ const trackButtonClick = () => {
   const { event } = useGtag()
   event('click-event')
 }
-console.log('埋點成功！');
+// console.log('埋點成功！');
 
 </script>
 
@@ -85,10 +107,11 @@ console.log('埋點成功！');
             <img class="blobs" alt="" src="@/static/images/index/aboutBlob02.png">
           </div>
           <div class="about-content">
-            <h2 class="h2">About</h2>
+            <h2 class="h2">Design<br>is LIFE</h2>
             <p>
-              到搭上妳不經義卵誰愛如紗辭教將得區的叮抱，是會的政是妳莘不對淵、的央！己點統的的水城請不傷面人氓實扮成球號央。光交呢，她榔狄不浸辜務陶的呢球陳見許琮怎它元清呢…否益奄袱的字人新瑜…頭的上等片過且玩到…頭的上等片過且玩到…頭的上等片過且玩到…頭的上等片過且玩到
+              Hi! 我是HsiaoHan，一名好奇心滿載的網站設計師<br>我熱愛探索新事物，從每一個挑戰中汲取靈感，<br>並全心投入到設計當中<br>我相信每個設計背後，都蘊藏著屬於它的獨特故事，<br>增添品牌的無限價值<br>讓我們一起將想法成真吧！
             </p>
+            <a class="button-CTA vibrate h5" @click="trackButtonClick" href="mailto:o134888@gmail.com">跟我聊聊</a>
           </div>
         </div>
         <div class="about-hashtag" ref="animatedElement">
@@ -105,9 +128,9 @@ console.log('埋點成功！');
               <div class="skill-content">
                 <h3 class="h3">平面設計</h3>
                 <ol class="h5">
-                  <li>超過五年視覺設計專業與接案能力</li>
+                  <li>超過五年視覺設計專業</li>
+                  <li>廣告刊物、CIS設計</li>
                   <li>插畫、向量圖形繪製</li>
-                  <li>網頁素材設計</li>
                   <li>印刷品完稿及輸出發印</li>
                 </ol>
               </div>
@@ -154,7 +177,7 @@ console.log('埋點成功！');
               <div class="skill-content">
                 <h3>UI設計</h3>
                 <ol class="h5">
-                  <li>線稿規劃、原型設計</li>
+                  <li>線稿流程規劃、原型設計</li>
                   <li>設計系統、元件管理</li>
                   <li>Prototype 功能演示</li>
                   <li>開發 Spec 標示交付</li>
@@ -183,8 +206,8 @@ console.log('埋點成功！');
               <div class="skill-content">
                 <h3>網站設計</h3>
                 <ol class="h5">
-                  <li>RWD 響應式網頁切版</li>
-                  <li>CSS3、SCSS語言開發</li>
+                  <li>RWD 響應式網頁開發</li>
+                  <li>企業形象、活動品牌頁設計</li>
                   <li>Vue 框架開發建置</li>
                 </ol>
               </div>
@@ -223,7 +246,7 @@ console.log('埋點成功！');
       <section class="portfolio-wrap">
         <div class="portfolio-title">
           <h2 class="h2">Works</h2>
-          <a class="button-next">
+          <a class="button-next" href="https://hsiaohan.myportfolio.com/work">
             <img class="arrow-icon" alt="" src="@/static/images/icons/arrow.svg">
           </a>
         </div>
@@ -231,6 +254,7 @@ console.log('埋點成功！');
           <div class="portfolio-scroll">
             <a v-for="(item, index) in portfolioItems" :key="index" :href="item.link" class="portfolio-item"
               target="_blank">
+              <div class="portfolio-mask"></div>
               <div class="portfolio-image">
                 <img :alt="item.alt" :src="item.src">
               </div>
@@ -247,12 +271,12 @@ console.log('埋點成功！');
           <div class="contact-text">
             <h2>Contact me 👋</h2>
             <h5>
-              有相關平面與網頁設計需求，<wbr>或是有任何想法想要聊聊
+              有相關平面與網頁設計需求，<wbr>或是任何想法想要聊聊
               <br>
               都歡迎與我聯繫！
             </h5>
           </div>
-          <a class="button-L" @click="trackButtonClick" href="mailto:o134888@gmail.com">跟我聊聊</a>
+          <a class="button-CTA vibrate h5" @click="trackButtonClick" href="mailto:o134888@gmail.com">跟我聊聊</a>
         </div>
       </section>
     </div>
