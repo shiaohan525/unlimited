@@ -1,0 +1,16 @@
+// css reset
+@import 'reset-css/sass/reset';
+
+// 引入所有scss檔，頁面檔個別引入
+@import 'libs/fonts';
+@import 'libs/setting';
+@import 'libs/animation';
+@import 'libs/mixins';
+@import 'layout/layout';
+@import 'layout/header';
+@import 'layout/nav';
+@import 'layout/footer';
+@import 'components/banner';
+@import 'components/bgblobs';
+@import 'components/button';
+@import 'pages/index';
