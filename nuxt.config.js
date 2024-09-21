@@ -8,19 +8,19 @@ export default defineNuxtConfig({
         preprocessorOptions: {
           scss: {
             // 这里导入全局的 mixins 或变量文件
-            additionalData: `@import "@/assets/libs/_mixins.scss";`,
-          },
-        },
-      },
+            additionalData: `@import "@/assets/libs/_mixins.scss";`
+          }
+        }
+      }
     }
+  },
+  app: {
+    baseURL: process.env.NODE_ENV === 'production' ? '/nuxt3-generate/' : '/',
+    buildAssetsDir: '/static/'
   },
   router: {
     base: '/'
   },
-  ssr: true,  // 确保启用了服务器端渲染
-  plugins: [
-    '@/plugins/vue-gtag.js',
-    '@/plugins/vue-gtm.js',
-    '@/plugins/fz-bao-you.js'
-  ]
+  ssr: true, // 确保启用了服务器端渲染
+  plugins: ['@/plugins/vue-gtag.js', '@/plugins/vue-gtm.js', '@/plugins/fz-bao-you.js']
 })
