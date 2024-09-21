@@ -1,0 +1,1 @@
+import{_ as o,v as s,t,C as a,D as c,x as _}from"./BWmBA9W0.js";const d={},n=e=>(a("data-v-1748605f"),e=e(),c(),e),p={class:"about"},r=n(()=>_("h1",null,"This is an about page",-1)),i=[r];function f(e,h){return t(),s("div",p,i)}const l=o(d,[["render",f],["__scopeId","data-v-1748605f"]]);export{l as default};
