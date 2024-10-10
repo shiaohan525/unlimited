@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   modules: ['@pinia/nuxt'],
   css: ['@/assets/main.scss'],
+
   build: {
     transpile: ['@/components'],
     vite: {
@@ -14,6 +15,7 @@ export default defineNuxtConfig({
       }
     }
   },
+
   app: {
     baseURL: '/',
     buildAssetsDir: '/static/',
@@ -62,10 +64,18 @@ export default defineNuxtConfig({
       ]
     }
   },
+
   router: {
     base: '/'
   },
-  ssr: true, // 服務器端渲染
+
+  // 服務器端渲染
+  ssr: true,
+
   plugins: ['@/plugins/vue-gtag.js', '@/plugins/vue-gtm.js', '@/plugins/fz-bao-you.js'],
-  debug: true // 日誌測試
+
+  // 日誌測試
+  debug: true,
+
+  compatibilityDate: '2024-10-10'
 })

@@ -28,14 +28,14 @@ a {
 .button-CTA {
   font-weight: var(--font-bold);
   position: relative;
-  padding: 12px 32px;
+  padding: 8px 24px;
   border-radius: var(--radius-max);
   background: linear-gradient(127deg, #ffd568 20.56%, #ff9c41 88.08%);
   box-shadow: 4px 4px 20px 0px var(--colors-styles-shadow-glass);
   color: #fff;
   overflow: hidden;
 
-  &:hover{
+  &:hover {
     color: #fff;
     box-shadow: none;
     filter: brightness(1.1);
@@ -62,18 +62,25 @@ a {
       );
     }
   }
+
+  @include pad {
+    padding: 12px 32px;
+  }
 }
 
 .button-L {
   position: relative;
-  padding: 12px 32px;
+  padding: 8px 24px;
   border-radius: var(--radius-max);
   background: linear-gradient(127deg, #ffd568 20.56%, #ff9c41 88.08%);
   box-shadow: 4px 4px 20px 0px var(--colors-styles-shadow-glass);
   color: #fff;
 
-  &:hover{
+  &:hover {
     color: #fff;
     box-shadow: none;
+  }
+  @include pad {
+    padding: 12px 32px;
   }
 }

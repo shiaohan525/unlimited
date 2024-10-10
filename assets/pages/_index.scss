@@ -1,4 +1,4 @@
-section[class$="-wrap"] {
+section[class$='-wrap'] {
   display: flex;
   margin-bottom: 52px;
   @include pad {
@@ -10,7 +10,10 @@ section[class$="-wrap"] {
 .about-wrap {
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--spacing-7);
+  gap: var(--spacing-3);
+  @include pad {
+    gap: var(--spacing-7);
+  }
 
   .about-item {
     position: relative;
@@ -107,7 +110,10 @@ section[class$="-wrap"] {
       }
       p {
         color: var(--colors-gray-800);
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem;
+        @include pad {
+          margin-bottom: 2rem;
+        }
       }
     }
   }
@@ -120,13 +126,15 @@ section[class$="-wrap"] {
     align-self: stretch;
     flex-wrap: wrap;
     .hashtag {
-      padding: 8px 16px;
-      border-radius: var(--radius-lg);
+      padding: 2px 12px;
+      border-radius: var(--radius-max);
       background: var(--colors-styles-bg-glass-m);
       box-shadow: 2px 2px 24px 0px var(--colors-styles-shadow-glass);
       backdrop-filter: blur(calc(var(--spacing-3) / 2));
-
-      h4 {
+      @include pad {
+        padding: 4px 12px;
+      }
+      p {
         color: var(--colors-gray-800);
         span {
           color: var(--colors-primary-600);
@@ -183,11 +191,11 @@ section[class$="-wrap"] {
   border: 2px solid var(--colors-styles-border-glass-l);
   box-shadow: 4px 4px 36px 0px var(--colors-styles-shadow-glass);
   backdrop-filter: blur(calc(var(--spacing-3, 16px) / 2));
-  animation: hoverUpOut .5s forwards 1;
+  animation: hoverUpOut 0.5s forwards 1;
 
-  &:hover{
-    transition: ease .5s;
-    animation: hoverUpIn .5s forwards 1;
+  &:hover {
+    transition: ease 0.5s;
+    animation: hoverUpIn 0.5s forwards 1;
   }
   @include pad {
     // border-radius: var(--radius-lg);
@@ -299,10 +307,10 @@ section[class$="-wrap"] {
       background: var(--colors-gray-600);
     }
   }
-  .software-icon{
+  .software-icon {
     display: flex;
     gap: 2px;
-    path{
+    path {
       fill: var(--colors-gray-600);
     }
   }
@@ -334,7 +342,11 @@ section[class$="-wrap"] {
       gap: 10px;
       border-radius: var(--radius-max);
       border: 3px solid var(--colors-primary-400);
-      background: linear-gradient(180deg, var(--colors-primary-400) 0%, var(--colors-primary-600) 100%);
+      background: linear-gradient(
+        180deg,
+        var(--colors-primary-400) 0%,
+        var(--colors-primary-600) 100%
+      );
       box-shadow: 4px 4px 36px 0px var(--colors-styles-shadow-glass);
 
       @include pad {
@@ -380,7 +392,7 @@ section[class$="-wrap"] {
     min-width: 350px;
     height: 350px;
   }
-  .portfolio-mask{
+  .portfolio-mask {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -388,14 +400,14 @@ section[class$="-wrap"] {
     width: 98%;
     height: 98%;
     border-radius: 10px;
-    transform: translate(-50% ,-50%);
+    transform: translate(-50%, -50%);
     background: linear-gradient(
-        180deg,
-        var(--colors-styles-bg-glass-l) 0%,
-        var(--colors-styles-bg-glass-m) 5%,
-        var(--colors-styles-bg-glass-d) 20%,
-        var(--colors-styles-bg-glass-d) 120%
-      );
+      180deg,
+      var(--colors-styles-bg-glass-l) 0%,
+      var(--colors-styles-bg-glass-m) 5%,
+      var(--colors-styles-bg-glass-d) 20%,
+      var(--colors-styles-bg-glass-d) 120%
+    );
     filter: blur(10px) brightness(103%) contrast(200%);
     // backdrop-filter: blur(10px);
   }

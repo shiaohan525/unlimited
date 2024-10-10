@@ -13,6 +13,32 @@ const isDark = useDark({
 
 const toggleDark = useToggle(isDark)
 
+// 用 ref 來管理狀態
+const isOpen = ref(false);
+const navMenu = ref(null);
+
+// 切換選單顯示狀態
+const toggleMenu = () => {
+    isOpen.value = !isOpen.value;
+    if (isOpen.value) {
+        isMenuVisible.value = true;
+        body.style.overflow = 'hidden';
+    } else {
+        // 添加一個延遲來等待過渡效果結束後隱藏選單
+        setTimeout(() => {
+            isMenuVisible.value = false;
+        }, 500); // 與過渡效果的持續時間相同
+    }
+};
+
+// 點擊選單後自動關閉
+const closeMenu = () => {
+    isOpen.value = false;
+    setTimeout(() => {
+        isMenuVisible.value = false;
+    }, 500);
+};
+
 onMounted(() => {
     window.onscroll = function a() {
         var h = document.documentElement.scrollTop || document.body.scrollTop;
@@ -36,24 +62,23 @@ onMounted(() => {
 
 </script>
 
-<template>
-
-    <body data-theme="isDark ? 'Dark' : 'Default' ">
-        <header>
-            <div class="header-wrap" id="headerScroll">
-                <div class="brand">
-                    <svg width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M13.6641 0.399999H20.2721V20H13.6641V0.399999ZM7.56009 20H0.952094V0.399999H7.56009V20ZM14.1121 12.776H7.11209V7.344H14.1121V12.776ZM26.396 20.28C25.3507 20.28 24.4733 19.944 23.764 19.272C23.0547 18.5813 22.7 17.704 22.7 16.64C22.7 15.5573 23.0547 14.6893 23.764 14.036C24.4733 13.3827 25.3507 13.056 26.396 13.056C27.4413 13.056 28.3187 13.3827 29.028 14.036C29.7373 14.6893 30.092 15.5573 30.092 16.64C30.092 17.704 29.7373 18.5813 29.028 19.272C28.3187 19.944 27.4413 20.28 26.396 20.28Z"
-                            fill="#656565" />
-                    </svg>
-                </div>
-                <nav>
-                    <a class="">About</a>
-                    <a class="">Blog</a>
-                    <a class="">Work</a>
-                    <a class="">Contact</a>
-                </nav>
+<template data-theme="isDark ? 'Dark' : 'Default' ">
+    <header>
+        <div class="header-wrap" id="headerScroll">
+            <div class="brand">
+                <svg width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M13.6641 0.399999H20.2721V20H13.6641V0.399999ZM7.56009 20H0.952094V0.399999H7.56009V20ZM14.1121 12.776H7.11209V7.344H14.1121V12.776ZM26.396 20.28C25.3507 20.28 24.4733 19.944 23.764 19.272C23.0547 18.5813 22.7 17.704 22.7 16.64C22.7 15.5573 23.0547 14.6893 23.764 14.036C24.4733 13.3827 25.3507 13.056 26.396 13.056C27.4413 13.056 28.3187 13.3827 29.028 14.036C29.7373 14.6893 30.092 15.5573 30.092 16.64C30.092 17.704 29.7373 18.5813 29.028 19.272C28.3187 19.944 27.4413 20.28 26.396 20.28Z"
+                        fill="#656565" />
+                </svg>
+            </div>
+            <nav class="pc-menu">
+                <a href="" class="">About</a>
+                <a href="" class="">Blog</a>
+                <a href="" class="">Work</a>
+                <a href="" class="">Contact</a>
+            </nav>
+            <div class="mb-menu">
                 <label class="dark-switch">
                     <input type="checkbox" @click="toggleDark()">
                     <span class="switch-main">
@@ -82,9 +107,20 @@ onMounted(() => {
                         </div>
                     </span>
                 </label>
+                <nav class="nav-menu" id="nav-menu" ref="navMenu" @click="toggleMenu" :class="{ open: isOpen }">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </nav>
             </div>
-        </header>
-    </body>
+        </div>
+        <div class="menu-main" @click="toggleMenu" :class="{ open: isOpen }">
+            <a href="" class="">About</a>
+            <a href="" class="">Blog</a>
+            <a href="" class="">Work</a>
+            <a href="" class="">Contact</a>
+        </div>
+    </header>
 </template>
 
 <style lang="scss" scoped>

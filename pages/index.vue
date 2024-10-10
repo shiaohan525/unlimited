@@ -67,7 +67,7 @@ const trackButtonClick = () => {
       </div>
       <div class="about-hashtag" ref="animatedElement">
         <div class="hashtag" v-for="(text, index) in texts" :key="index">
-          <h4><span>#</span>{{ text }}</h4>
+          <p><span>#</span>{{ text }}</p>
         </div>
       </div>
     </section>

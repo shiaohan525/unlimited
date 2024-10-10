@@ -1,14 +1,14 @@
 {
-  "date": "2024-09-22T15:44:49.305Z",
-  "preset": "static",
+  "date": "2024-10-10T16:33:16.725Z",
+  "preset": "node-server",
   "framework": {
     "name": "nuxt",
-    "version": "3.13.0"
+    "version": "3.13.2"
   },
   "versions": {
     "nitro": "2.9.7"
   },
   "commands": {
-    "preview": "npx serve ./public"
+    "preview": "node ./server/index.mjs"
   }
 }
