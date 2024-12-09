@@ -1,6 +1,22 @@
+import open from 'open'
 export default defineNuxtConfig({
   modules: ['@pinia/nuxt'],
   css: ['@/assets/main.scss'],
+
+  hooks: {
+    listen(server) {
+      // 確認使用的 port
+      const port = server.port || 3000
+      const url = `http://localhost:${port}`
+
+      // 自動打開瀏覽器
+      open(url).catch((err) => {
+        console.error('Failed to open browser:', err)
+      })
+
+      console.log(`Server is running at ${url}`)
+    }
+  },
 
   build: {
     transpile: ['@/components'],

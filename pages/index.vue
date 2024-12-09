@@ -48,16 +48,14 @@ const trackButtonClick = () => {
     <section class="about-wrap" ref="triggerElement">
       <div class="about-item">
         <div class="about-img">
-          <img class="blobs" alt="" src="@/public/images/index/aboutBlob01.png" loading="lazy">
+          <img class="about-blobs" alt="" src="/images/index/aboutBlob01.png">
           <div class="img-group">
-            <img alt="" src="@/public/images/index/aboutImg01.png" loading="lazy">
-            <img alt="" src="@/public/images/index/aboutImg02.png" loading="lazy">
-            <img alt="" src="@/public/images/index/aboutImg03.png" loading="lazy">
+            <img alt="" src="/images/index/aboutImg.jpg">
           </div>
-          <img class="blobs" alt="" src="@/public/images/index/aboutBlob02.png" loading="lazy">
+          <img class="about-blobs" alt="" src="/images/index/aboutBlob02.png">
         </div>
         <div class="about-content">
-          <h2 class="h2">Design<br>is LIFE</h2>
+          <h2 class="h2">Design is LIFE</h2>
           <p>
             Hi!
             我是HsiaoHan<br>一名好奇心滿載的網站設計師<br>我熱愛探索新事物，從每一個挑戰中汲取靈感<br>並全心投入到設計當中<br><br>我相信每個設計背後<br>都蘊藏著屬於它的獨特故事，增添品牌無限的價值<br>讓我們一起將想法成真吧！
