@@ -23,10 +23,10 @@ onMounted(() => {
       opacity: 1,
       scrollTrigger: {
         trigger: triggerElement.value,
-        start: 'top 40%',
-        end: 'top 20%',
+        start: 'top 70%',
+        end: 'top 40%',
         scrub: true,
-        // markers: true // 用於調試，完成後可以移除
+        //markers: true // 用於調試，完成後可以移除
       }
     }
   );
@@ -44,26 +44,29 @@ const trackButtonClick = () => {
 </script>
 
 <template>
-  <div class="wrapper">
-    <section class="about-wrap" ref="triggerElement">
+  <div class="wrapper" ref="triggerElement">
+    <section class="about-wrap" ref="animatedElement">
       <div class="about-item">
         <div class="about-img">
-          <img class="about-blobs" alt="" src="/images/index/aboutBlob01.png">
+          <img class="about-blobs" alt="" src="/images/index/aboutBlob02.png">
           <div class="img-group">
             <img alt="" src="/images/index/aboutImg.jpg">
           </div>
-          <img class="about-blobs" alt="" src="/images/index/aboutBlob02.png">
+          <img class="about-blobs" alt="" src="/images/index/aboutBlob01.png">
         </div>
         <div class="about-content">
           <h2 class="h2">Design is LIFE</h2>
           <p>
             Hi!
-            我是HsiaoHan<br>一名好奇心滿載的網站設計師<br>我熱愛探索新事物，從每一個挑戰中汲取靈感<br>並全心投入到設計當中<br><br>我相信每個設計背後<br>都蘊藏著屬於它的獨特故事，增添品牌無限的價值<br>讓我們一起將想法成真吧！
+            我是HsiaoHan<br>一名好奇心滿載的網站設計師<br>我熱愛探索新事物<br class="wbr"><span>，</span>從每一個挑戰中汲取靈感<br>並全心投入到設計當中
+          </p>
+          <p>
+            我相信每個設計背後<br>都蘊藏著屬於它的獨特故事<br class="wbr"><span>，</span>增添品牌無限的價值<br>讓我們一起將想法成真吧！
           </p>
           <a class="button-CTA vibrate h5" @click="trackButtonClick" href="mailto:o134888@gmail.com">跟我聊聊</a>
         </div>
       </div>
-      <div class="about-hashtag" ref="animatedElement">
+      <div class="about-hashtag">
         <div class="hashtag" v-for="(text, index) in texts" :key="index">
           <p><span>#</span>{{ text }}</p>
         </div>
@@ -76,7 +79,7 @@ const trackButtonClick = () => {
           <div class="item-main">
             <div class="skill-content">
               <h3 class="h3">平面設計</h3>
-              <ol class="h5">
+              <ol class="h6">
                 <li>超過五年視覺設計專業</li>
                 <li>廣告刊物、CIS設計</li>
                 <li>插畫、向量圖形繪製</li>
@@ -125,11 +128,11 @@ const trackButtonClick = () => {
           <div class="item-main">
             <div class="skill-content">
               <h3>UI設計</h3>
-              <ol class="h5">
+              <ol class="h6">
                 <li>線稿流程規劃、原型設計</li>
                 <li>設計系統、元件管理</li>
-                <li>Prototype 功能演示</li>
-                <li>開發 Spec 標示交付</li>
+                <li>Prototype功能演示</li>
+                <li>開發Spec標示交付</li>
               </ol>
             </div>
             <div class="skill-software">
@@ -154,10 +157,10 @@ const trackButtonClick = () => {
           <div class="item-main">
             <div class="skill-content">
               <h3>網站設計</h3>
-              <ol class="h5">
-                <li>RWD 響應式網頁開發</li>
+              <ol class="h6">
+                <li>RWD響應式網頁開發</li>
                 <li>企業形象、活動品牌頁設計</li>
-                <li>Vue 框架開發建置</li>
+                <li>Vue框架開發建置</li>
               </ol>
             </div>
             <div class="skill-software">
@@ -196,7 +199,13 @@ const trackButtonClick = () => {
       <div class="portfolio-title">
         <h2 class="h2">Works</h2>
         <a class="button-next" href="https://hsiaohan.myportfolio.com/work">
-          <img class="arrow-icon" alt="" src="@/public/images/icons/arrow.svg" loading="lazy">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="arrow">
+              <path id="arrow_2" fill-rule="evenodd" clip-rule="evenodd"
+                d="M23.2222 5.47729L33.5258 15.8477C34.1581 16.4841 34.1581 17.5159 33.5258 18.1523L23.2222 28.5227C22.59 29.1591 21.5648 29.1591 20.9326 28.5227C20.3003 27.8863 20.3003 26.8546 20.9326 26.2182L28.4722 18.6296H0V15.3704H28.4722L20.9326 7.78183C20.3003 7.14545 20.3003 6.11367 20.9326 5.47729C21.5648 4.8409 22.59 4.8409 23.2222 5.47729Z"
+                fill="#F8F8F8" />
+            </g>
+          </svg>
         </a>
       </div>
       <div class="portfolio-main">
@@ -209,7 +218,7 @@ const trackButtonClick = () => {
             </div>
             <div class="portfolio-content">
               <p class="tag">{{ item.tag }}</p>
-              <h4>{{ item.title }}</h4>
+              <h4 class="h5">{{ item.title }}</h4>
             </div>
           </a>
         </div>
@@ -219,9 +228,9 @@ const trackButtonClick = () => {
       <div class="contact-main">
         <div class="contact-text">
           <h2>Contact me 👋</h2>
-          <h5>
-            有相關平面與網頁設計需求，<wbr>或是任何想法想要聊聊
-            <br>
+          <h5 class="h6">
+            有相關平面與網頁設計需求<br>
+            或是任何想法想要聊聊<br>
             都歡迎與我聯繫！
           </h5>
         </div>

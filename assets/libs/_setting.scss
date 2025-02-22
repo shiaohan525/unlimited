@@ -1,19 +1,44 @@
+html {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--headerBg-glass) var(--colors-gray-1000);
+}
+
+/* WebKit 瀏覽器 (Chrome、Edge、Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--headerBg-glass);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--colors-gray-1000);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--colors-gray-1000);
+}
+
 // global setting
-:root{
-    /* radius */
-    --radius-md: 8px;
-    --radius-lg: 16px;
-    --radius-xl: 20px;
-    --radius-max: 100px;
-  
-    /* spacing */
-    --spacing-1: 4px;
-    --spacing-2: 8px;
-    --spacing-3: 16px;
-    --spacing-4: 20px;
-    --spacing-5: 28px;
-    --spacing-6: 32px;
-    --spacing-7: 40px;
+:root {
+  /* radius */
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-max: 100px;
+
+  /* spacing */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 16px;
+  --spacing-4: 20px;
+  --spacing-5: 28px;
+  --spacing-6: 32px;
+  --spacing-7: 40px;
 }
 
 // color theme

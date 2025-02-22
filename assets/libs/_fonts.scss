@@ -1,215 +1,235 @@
 // font install
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Noto+Sans+TC:wght@100..900&display=swap');
 
 // font setting
 :root {
-    /* font family */
-    --font-family: 'Noto Sans TC', 'Montserrat','微軟正黑體';
-    --font-family-titleEn: 'Montserrat', 'Noto Sans TC','微軟正黑體';
-    --font-family-titleZh: 'Noto Sans TC','微軟正黑體';
-  
-    /* font weight */
-    --font-medium: 400;
-    --font-bold: 600;
-    --font-extrabold: 800;
+  /* font family */
+  --font-family: 'Noto Sans TC', serif, 'Montserrat', serif, '微軟正黑體', 'Arial';
+  --font-family-titleEn: 'Montserrat', serif, 'Noto Sans TC', '微軟正黑體', 'Arial';
+  --font-family-titleZh: 'Noto Sans TC', serif, '微軟正黑體', 'Arial';
+
+  /* font weight */
+  --font-medium: 300;
+  --font-bold: 500;
+  --font-extrabold: 800;
+}
+
+.brand {
+  path {
+    fill: var(--colors-gray-800);
   }
-  
-  .brand{
-    path{
-      fill:var(--colors-gray-800);
-    }
+}
+
+h1,
+.h1 {
+  --min-size-h1: 32;
+  --max-size-h1: 48;
+  --font-size: calc(
+    (var(--min-size-h1) * 1px) + (var(--max-size-h1) - var(--min-size-h1)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h1: 0.1rem;
+  --font-height-h1: 3rem;
+
+  font-family: var(--font-family);
+  font-size: clamp(var(--min-size-h1) * 1px, var(--font-size), var(--max-size-h1) * 1px);
+  letter-spacing: var(--font-spacing-h1);
+  word-spacing: var(--font-spacing-h1);
+  line-height: var(--font-height-h1);
+  font-weight: var(--font-extrabold);
+}
+
+h2,
+.h2 {
+  --min-size-h2: 24;
+  --max-size-h2: 32;
+  --font-size: calc(
+    (var(--min-size-h2) * 1px) + (var(--max-size-h2) - var(--min-size-h2)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h2: 0.08rem;
+  --font-height-h2: 2.5rem;
+
+  font-family: var(--font-family-titleEn);
+  font-size: clamp(var(--min-size-h2) * 1px, var(--font-size), var(--max-size-h2) * 1px);
+  letter-spacing: var(--font-spacing-h2);
+  word-spacing: var(--font-spacing-h2);
+  line-height: var(--font-height-h2);
+  font-weight: var(--font-extrabold);
+}
+
+h3,
+.h3 {
+  --min-size-h3: 20;
+  --max-size-h3: 24;
+  --font-size: calc(
+    (var(--min-size-h3) * 1px) + (var(--max-size-h3) - var(--min-size-h3)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h3: 0.2rem;
+  --font-height-h3: 1.875rem;
+
+  font-family: var(--font-family);
+  font-size: clamp(var(--min-size-h3) * 1px, var(--font-size), var(--max-size-h3) * 1px);
+  letter-spacing: var(--font-spacing-h3);
+  word-spacing: var(--font-spacing-h3);
+  line-height: var(--font-height-h3);
+  font-weight: var(--font-bold);
+}
+
+h4,
+.h4 {
+  --min-size-h4: 18;
+  --max-size-h4: 20;
+  --font-size: calc(
+    (var(--min-size-h4) * 1px) + (var(--max-size-h4) - var(--min-size-h4)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h4: 0.2rem;
+  --font-height-h4: 1.9rem;
+
+  font-family: var(--font-family);
+  font-size: clamp(var(--min-size-h4) * 1px, var(--font-size), var(--max-size-h4) * 1px);
+  letter-spacing: var(--font-spacing-h4);
+  word-spacing: var(--font-spacing-h4);
+  line-height: var(--font-height-h4);
+  font-weight: var(--font-medium);
+}
+
+h5,
+.h5 {
+  --min-size-h5: 16;
+  --max-size-h5: 18;
+  --font-size: calc(
+    (var(--min-size-h5) * 1px) + (var(--max-size-h5) - var(--min-size-h5)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h5: 0.2rem;
+  --font-height-h5: 1.85rem;
+
+  font-family: var(--font-family);
+  font-size: clamp(var(--min-size-h5) * 1px, var(--font-size), var(--max-size-h5) * 1px);
+  letter-spacing: var(--font-spacing-h5);
+  word-spacing: var(--font-spacing-h5);
+  line-height: var(--font-height-h5);
+  font-weight: var(--font-medium);
+}
+
+h6,
+.h6 {
+  --min-size-h6: 14;
+  --max-size-h6: 16;
+  --font-size: calc(
+    (var(--min-size-h6) * 1px) + (var(--max-size-h6) - var(--min-size-h6)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-h6: 0.17rem;
+  --font-height-h6: 1.6rem;
+
+  font-family: var(--font-family);
+  font-size: clamp(var(--min-size-h6) * 1px, var(--font-size), var(--max-size-h6) * 1px);
+  letter-spacing: var(--font-spacing-h6);
+  word-spacing: var(--font-spacing-h6);
+  line-height: var(--font-height-h6);
+  font-weight: var(--font-medium);
+}
+
+p,
+.p {
+  --min-size-p: 14;
+  --max-size-p: 16;
+  --font-size: calc(
+    (var(--min-size-p) * 1px) + (var(--max-size-p) - var(--min-size-p)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-p: 0.14rem;
+  --font-height-p: 1.6rem;
+
+  font-family: var(--font-family);
+  font-size: clamp(var(--min-size-p) * 1px, var(--font-size), var(--max-size-p) * 1px);
+  letter-spacing: var(--font-spacing-p);
+  word-spacing: var(--font-spacing-p);
+  line-height: var(--font-height-p);
+  font-weight: var(--font-medium);
+}
+
+.button-L {
+  --min-size-bl: 16;
+  --max-size-bl: 18;
+  --font-size: calc(
+    (var(--min-size-bl) * 1px) + (var(--max-size-bl) - var(--min-size-bl)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-bl: 0.08rem;
+  --font-height-bl: 1.35rem;
+
+  font-family: var(--font-family);
+  font-size: clamp(var(--min-size-bl) * 1px, var(--font-size), var(--max-size-bl) * 1px);
+  letter-spacing: var(--font-spacing-bl);
+  word-spacing: var(--font-spacing-bl);
+  line-height: var(--font-height-bl);
+  font-weight: var(--font-bold);
+}
+
+.button-M {
+  --min-size-bm: 14;
+  --max-size-bm: 16;
+  --font-size: calc(
+    (var(--min-size-bm) * 1px) + (var(--max-size-bm) - var(--min-size-bm)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-bm: 0.07rem;
+  --font-height-bm: 1.2rem;
+
+  font-family: var(--font-family);
+  font-size: clamp(var(--min-size-bm) * 1px, var(--font-size), var(--max-size-bm) * 1px);
+  letter-spacing: var(--font-spacing-bm);
+  word-spacing: var(--font-spacing-bm);
+  line-height: var(--font-height-bm);
+  font-weight: var(--font-bold);
+}
+
+.button-S {
+  --min-size-bs: 12;
+  --max-size-bs: 14;
+  --font-size: calc(
+    (var(--min-size-bs) * 1px) + (var(--max-size-bs) - var(--min-size-bs)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-bs: 0.07rem;
+  --font-height-bs: 1rem;
+
+  font-family: var(--font-family);
+  font-size: clamp(var(--min-size-bs) * 1px, var(--font-size), var(--max-size-bs) * 1px);
+  letter-spacing: var(--font-spacing-bs);
+  word-spacing: var(--font-spacing-bs);
+  line-height: var(--font-height-bs);
+  font-weight: var(--font-bold);
+}
+
+.tag {
+  --min-size-tag: 11;
+  --max-size-tag: 12;
+  --font-size: calc(
+    (var(--min-size-tag) * 1px) + (var(--max-size-tag) - var(--min-size-tag)) *
+      ((100cqw - 320px) / (1920 - 320))
+  );
+  --font-spacing-tag: 0.15rem;
+  --font-height-tag: 0.9rem;
+
+  font-family: var(--font-family);
+  font-size: clamp(var(--min-size-tag) * 1px, var(--font-size), var(--max-size-tag) * 1px);
+  letter-spacing: var(--font-spacing-tag);
+  word-spacing: var(--font-spacing-tag);
+  line-height: var(--font-height-tag);
+  font-weight: var(--font-bold);
+}
+
+//手機換行
+.wbr {
+  display: block;
+  // word-wrap: break-word;
+  @include pad {
+    display: none;
   }
-  
-  h1,
-  .h1 {
-    --min-size-h1: 32;
-    --max-size-h1: 48;
-    --font-size: calc(
-      (var(--min-size-h1) * 1px) + (var(--max-size-h1) - var(--min-size-h1)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-h1: 0.1rem;
-    --font-height-h1: 3rem;
-  
-    font-family: var(--font-family);
-    font-size: clamp(var(--min-size-h1) * 1px, var(--font-size), var(--max-size-h1) * 1px);
-    letter-spacing: var(--font-spacing-h1);
-    line-height: var(--font-height-h1);
-    font-weight: var(--font-extrabold);
-  }
-  
-  h2,
-  .h2 {
-    --min-size-h2: 24;
-    --max-size-h2: 32;
-    --font-size: calc(
-      (var(--min-size-h2) * 1px) + (var(--max-size-h2) - var(--min-size-h2)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-h2: 0.08rem;
-    --font-height-h2: 2.5rem;
-  
-    font-family: var(--font-family-titleEn);
-    font-size: clamp(var(--min-size-h2) * 1px, var(--font-size), var(--max-size-h2) * 1px);
-    letter-spacing: var(--font-spacing-h2);
-    line-height: var(--font-height-h2);
-    font-weight: var(--font-extrabold);
-  }
-  
-  h3,
-  .h3 {
-    --min-size-h3: 20;
-    --max-size-h3: 24;
-    --font-size: calc(
-      (var(--min-size-h3) * 1px) + (var(--max-size-h3) - var(--min-size-h3)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-h3: 0.2rem;
-    --font-height-h3: 1.875rem;
-  
-    font-family: var(--font-family);
-    font-size: clamp(var(--min-size-h3) * 1px, var(--font-size), var(--max-size-h3) * 1px);
-    letter-spacing: var(--font-spacing-h3);
-    line-height: var(--font-height-h3);
-    font-weight: var(--font-bold);
-  }
-  
-  h4,
-  .h4 {
-    --min-size-h4: 18;
-    --max-size-h4: 20;
-    --font-size: calc(
-      (var(--min-size-h4) * 1px) + (var(--max-size-h4) - var(--min-size-h4)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-h4: 0.15rem;
-    --font-height-h4: 1.6rem;
-  
-    font-family: var(--font-family);
-    font-size: clamp(var(--min-size-h4) * 1px, var(--font-size), var(--max-size-h4) * 1px);
-    letter-spacing: var(--font-spacing-h4);
-    line-height: var(--font-height-h4);
-    font-weight: var(--font-medium);
-  }
-  
-  h5,
-  .h5 {
-    --min-size-h5: 16;
-    --max-size-h5: 18;
-    --font-size: calc(
-      (var(--min-size-h5) * 1px) + (var(--max-size-h5) - var(--min-size-h5)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-h5: 0.15rem;
-    --font-height-h5: 1.7rem;
-  
-    font-family: var(--font-family);
-    font-size: clamp(var(--min-size-h5) * 1px, var(--font-size), var(--max-size-h5) * 1px);
-    letter-spacing: var(--font-spacing-h5);
-    line-height: var(--font-height-h5);
-    font-weight: var(--font-medium);
-  }
-  
-  h6,
-  .h6 {
-    --min-size-h6: 14;
-    --max-size-h6: 16;
-    --font-size: calc(
-      (var(--min-size-h6) * 1px) + (var(--max-size-h6) - var(--min-size-h6)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-h6: 0.09rem;
-    --font-height-h6: 1.5rem;
-  
-    font-family: var(--font-family);
-    font-size: clamp(var(--min-size-h6) * 1px, var(--font-size), var(--max-size-h6) * 1px);
-    letter-spacing: var(--font-spacing-h6);
-    line-height: var(--font-height-h6);
-    font-weight: var(--font-medium);
-  }
-  
-  p,
-  .p {
-    --min-size-p: 14;
-    --max-size-p: 16;
-    --font-size: calc(
-      (var(--min-size-p) * 1px) + (var(--max-size-p) - var(--min-size-p)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-p: 0.1rem;
-    --font-height-p: 1.7rem;
-  
-    font-family: var(--font-family);
-    font-size: clamp(var(--min-size-p) * 1px, var(--font-size), var(--max-size-p) * 1px);
-    letter-spacing: var(--font-spacing-p);
-    line-height: var(--font-height-p);
-    font-weight: var(--font-medium);
-  }
-  
-  .button-L {
-    --min-size-bl: 16;
-    --max-size-bl: 18;
-    --font-size: calc(
-      (var(--min-size-bl) * 1px) + (var(--max-size-bl) - var(--min-size-bl)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-bl: 0.08rem;
-    --font-height-bl: 1.35rem;
-  
-    font-family: var(--font-family);
-    font-size: clamp(var(--min-size-bl) * 1px, var(--font-size), var(--max-size-bl) * 1px);
-    letter-spacing: var(--font-spacing-bl);
-    line-height: var(--font-height-bl);
-    font-weight: var(--font-bold);
-  }
-  
-  .button-M {
-    --min-size-bm: 14;
-    --max-size-bm: 16;
-    --font-size: calc(
-      (var(--min-size-bm) * 1px) + (var(--max-size-bm) - var(--min-size-bm)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-bm: 0.07rem;
-    --font-height-bm: 1.2rem;
-  
-    font-family: var(--font-family);
-    font-size: clamp(var(--min-size-bm) * 1px, var(--font-size), var(--max-size-bm) * 1px);
-    letter-spacing: var(--font-spacing-bm);
-    line-height: var(--font-height-bm);
-    font-weight: var(--font-bold);
-  }
-  
-  .button-S {
-    --min-size-bs: 12;
-    --max-size-bs: 14;
-    --font-size: calc(
-      (var(--min-size-bs) * 1px) + (var(--max-size-bs) - var(--min-size-bs)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-bs: 0.07rem;
-    --font-height-bs: 1rem;
-  
-    font-family: var(--font-family);
-    font-size: clamp(var(--min-size-bs) * 1px, var(--font-size), var(--max-size-bs) * 1px);
-    letter-spacing: var(--font-spacing-bs);
-    line-height: var(--font-height-bs);
-    font-weight: var(--font-bold);
-  }
-  
-  .tag {
-    --min-size-tag: 11;
-    --max-size-tag: 12;
-    --font-size: calc(
-      (var(--min-size-tag) * 1px) + (var(--max-size-tag) - var(--min-size-tag)) *
-        ((100cqw - 320px) / (1920 - 320))
-    );
-    --font-spacing-tag: 0.15rem;
-    --font-height-tag: 0.9rem;
-    
-    font-family: var(--font-family);
-    font-size: clamp(var(--min-size-tag) * 1px, var(--font-size), var(--max-size-tag) * 1px);
-    letter-spacing: var(--font-spacing-tag);
-    line-height: var(--font-height-tag);
-    font-weight: var(--font-bold);
-  }
+}

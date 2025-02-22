@@ -47,10 +47,12 @@ onMounted(() => {
             if (h > 100) {
                 headerTop.style.background = 'var(--headerBg-glass)';
                 // headerTop.style.borderBottom = '2px solid var(--colors-styles-border-glass-l)';
+                headerTop.style.backdropFilter = 'blur(16px)';
                 headerTop.style.transition = '.5s';
                 headerTop.style.boxShadow = '0px 4px 36px var(--colors-styles-shadow-glass)';
             } else if (h <= 100) {
                 headerTop.style.background = 'transparent';
+                headerTop.style.backdropFilter = 'unset';
                 // headerTop.style.borderBottom = '2px solid transparent';
                 headerTop.style.boxShadow = 'none';
             }
@@ -114,7 +116,12 @@ onMounted(() => {
                 </nav>
             </div>
         </div>
-        <div class="menu-main" @click="toggleMenu" :class="{ open: isOpen }">
+        <div class="menu-main" :class="{ open: isOpen }">
+            <!-- <nav class="nav-menu open" id="nav-menu" ref="navMenu" @click="toggleMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </nav> -->
             <a href="" class="">About</a>
             <a href="" class="">Blog</a>
             <a href="" class="">Work</a>

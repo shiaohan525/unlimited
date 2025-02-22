@@ -32,7 +32,7 @@ a {
   border-radius: var(--radius-max);
   background: linear-gradient(127deg, #ffd568 20.56%, #ff9c41 88.08%);
   box-shadow: 4px 4px 20px 0px var(--colors-styles-shadow-glass);
-  color: #fff;
+  color: #454545;
   overflow: hidden;
 
   &:hover {
@@ -64,7 +64,7 @@ a {
   }
 
   @include pad {
-    padding: 12px 32px;
+    padding: 8px 28px;
   }
 }
 

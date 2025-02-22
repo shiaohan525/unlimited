@@ -1,58 +1,67 @@
 .banner {
   display: flex;
-  height: 350px;
-  padding-top: 72px;
+  // height: 350px;
+  height: 100vh;
+  box-sizing: border-box;
+  // padding-top: 72px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   @include pad {
-    margin-top: 66px;
-    height: 400px;
+    // margin-top: 66px;
+    // height: 400px;
   }
   .banner-wrap {
+    margin: 0 0 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
     opacity: 0;
     transform: translateY(50px);
-  }
-}
+    h2 {
+      text-align: center;
+      font-family: var(--font-family-titleEn);
+      font-size: 48px;
+      font-size: clamp(var(--min-size-h1) * 1px, var(--font-size), var(--max-size-h1) * 1px);
+      background: linear-gradient(
+        91deg,
+        var(--colors-primary-600) 20%,
+        var(--colors-styles-bg-glass-l) 130%
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-.h1 {
-  text-align: center;
-  font-family: var(--font-family-titleEn);
-  font-size: 48px;
-  font-size: clamp(var(--min-size-h1) * 1px, var(--font-size), var(--max-size-h1) * 1px);
-  background: linear-gradient(
-    91deg,
-    var(--colors-primary-600) 20%,
-    var(--colors-styles-bg-glass-l) 130%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.h4 {
-  color: var(--colors-gray-800);
-  white-space: nowrap;
-  text-align: center;
-  @include pad {
-    white-space: normal;
-  }
-  //調整手機版斷行
-  br {
-    display: block;
-    @include pad {
-      display: none;
+    h3 {
+      color: var(--colors-gray-800);
+      white-space: nowrap;
+      text-align: center;
+      @include pad {
+        white-space: normal;
+      }
+      //調整手機版斷行
+      br {
+        display: block;
+        @include pad {
+          display: none;
+        }
+      }
+      span {
+        display: none;
+        @include pad {
+          display: inline-block;
+        }
+      }
+      // letter-spacing: .2rem;
     }
   }
-  span {
-    display: none;
-    @include pad {
-      display: inline-block;
-    }
+  .banner-down {
+    // position: absolute;
+    // bottom: 0;
+    width: 60px;
+    height: 60px;
+    opacity: 0.8;
   }
-  // letter-spacing: .2rem;
 }
