@@ -1,0 +1,1 @@
+import{_ as t,v as s,x as o,t as a}from"./vfCtEFE2.js";const n={},c={class:"about"};function r(_,e){return a(),s("div",c,e[0]||(e[0]=[o("h1",null,"This is an about page",-1)]))}const i=t(n,[["render",r],["__scopeId","data-v-1748605f"]]);export{i as default};
