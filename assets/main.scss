@@ -1,17 +1,17 @@
 // css reset
-@import 'reset-css/sass/reset';
+@use 'reset-css/sass/reset' as *;
 
 // 引入所有scss檔，頁面檔個別引入
-@import 'libs/mixins'; //斷點優先讀取
-@import 'libs/fonts';
-@import 'libs/setting';
-@import 'libs/animation';
-@import 'layout/layout';
-@import 'layout/header';
-@import 'layout/nav';
-@import 'layout/footer';
-@import 'layout/loading';
-@import 'components/banner';
-@import 'components/bgblobs';
-@import 'components/button';
-@import 'pages/index';
+@use 'libs/mixins' as *; //斷點優先讀取
+@use 'libs/fonts' as *;
+@use 'libs/setting' as *;
+@use 'libs/animation' as *;
+@use 'layout/layout' as *;
+@use 'layout/header' as *;
+@use 'layout/nav' as *;
+@use 'layout/footer' as *;
+@use 'layout/loading' as *;
+@use 'components/banner' as *;
+@use 'components/bgblobs' as *;
+@use 'components/button' as *;
+@use 'pages/index' as *;

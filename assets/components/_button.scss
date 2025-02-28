@@ -1,3 +1,5 @@
+@use '@/assets/libs/mixins' as *;
+
 // global links
 a {
   font-family: var(--font-family-titleEn);

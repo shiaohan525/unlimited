@@ -1,4 +1,4 @@
-.blobs{
+.blobs {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,8 +10,8 @@
   filter: blur(120px);
 }
 
-.blob{
-  width: max(100px, 18vw);
+.blob {
+  width: max(150px, 18vw);
   aspect-ratio: 1;
   border-radius: 50%;
   position: absolute;
@@ -19,27 +19,27 @@
   left: 0;
   transform-origin: center;
 
-  &:nth-child(1){
+  &:nth-child(1) {
     background: var(--colors-brand-quaternary);
     // top: -30%;
     // left: 60vw;
   }
-  &:nth-child(2){
+  &:nth-child(2) {
     background: var(--colors-brand-secondary);
     // top: 20%;
     // left: 0vw;
   }
-  &:nth-child(3){
+  &:nth-child(3) {
     background: var(--colors-brand-tertiary);
     // top: 30%;
     // left: 20vw;
   }
-  &:nth-child(4){
+  &:nth-child(4) {
     background: var(--colors-brand-primary);
     // top: 50%;
     // left: 80vw;
   }
-  &:nth-child(5){
+  &:nth-child(5) {
     background: var(--colors-brand-quinary);
     // top: 120%;
     // left: 60vw;
