@@ -10,6 +10,11 @@ a {
   text-decoration: none;
   letter-spacing: 0.15rem;
 
+  // 移除長按超連結預設高亮
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* 透明 */
+  -webkit-user-select: none; /* 防止選取 */
+  user-select: none;
+
   svg {
     width: calc(40px - var(--spacing-2) * 2);
     height: calc(40px - var(--spacing-2) * 2);

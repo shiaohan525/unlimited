@@ -410,20 +410,21 @@ section[class$='-wrap'] {
   @include pad {
     min-width: 250px;
     height: 250px;
-  }
-  &:hover {
-    .portfolio-image {
-      transition: ease-in-out 0.3s;
-      filter: blur(6px);
-    }
-    .portfolio-content {
-      transition: ease-in-out 0.3s;
-      transform: translateY(0);
-      h4 {
-        display: -webkit-box;
+    &:hover {
+      .portfolio-image {
+        transition: ease-in-out 0.3s;
+        filter: blur(6px);
+      }
+      .portfolio-content {
+        transition: ease-in-out 0.3s;
+        transform: translateY(0);
+        h4 {
+          display: -webkit-box;
+        }
       }
     }
   }
+
   .portfolio-mask {
     position: absolute;
     top: 50%;
