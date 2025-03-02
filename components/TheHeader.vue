@@ -75,10 +75,10 @@ onMounted(() => {
                 </svg>
             </div>
             <nav class="pc-menu">
-                <a href="" class="">About</a>
+                <!-- <a href="" class="">About</a>
                 <a href="" class="">Blog</a>
                 <a href="" class="">Work</a>
-                <a href="" class="">Contact</a>
+                <a href="" class="">Contact</a> -->
             </nav>
             <div class="mb-menu">
                 <label class="dark-switch">
@@ -109,24 +109,19 @@ onMounted(() => {
                         </div>
                     </span>
                 </label>
-                <nav class="nav-menu" id="nav-menu" ref="navMenu" @click="toggleMenu" :class="{ open: isOpen }">
+                <!-- <nav class="nav-menu" id="nav-menu" ref="navMenu" @click="toggleMenu" :class="{ open: isOpen }">
                     <span></span>
                     <span></span>
                     <span></span>
-                </nav>
+                </nav> -->
             </div>
         </div>
-        <div class="menu-main" :class="{ open: isOpen }">
-            <!-- <nav class="nav-menu open" id="nav-menu" ref="navMenu" @click="toggleMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </nav> -->
+        <!-- <div class="menu-main" :class="{ open: isOpen }">
             <a href="" class="">About</a>
             <a href="" class="">Blog</a>
             <a href="" class="">Work</a>
             <a href="" class="">Contact</a>
-        </div>
+        </div> -->
     </header>
 </template>
 
