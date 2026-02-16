@@ -17,7 +17,7 @@ onMounted(() => {
 <template>
   <div class="banner" ref="banner">
     <section class="banner-wrap">
-      <h2 class="h1">I’m HsiaoHan</h2>
+      <h1 class="h1">I'm Hailey, a designer.</h1>
       <h3 class="h5">用好奇心感受世界<br><span>，</span>以同理心碰撞思維</h3>
     </section>
     <DotLottieVue src="https://lottie.host/14b1ad5d-ecd5-4d1d-bdbc-347da00f9de2/zRdJCYH2o6.lottie"

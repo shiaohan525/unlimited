@@ -3,9 +3,9 @@ import { b as buildAssetsURL, u as useRuntimeConfig, g as getResponseStatusText,
 import { renderToString } from 'vue/server-renderer';
 import { createHead as createHead$1, propsToString, renderSSRHead } from 'unhead/server';
 import { stringify, uneval } from 'devalue';
+import { FlatMetaPlugin, DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'unhead/plugins';
 import { walkResolver } from 'unhead/utils';
 import { isRef, toValue, hasInjectionContext, inject, ref, watchEffect, getCurrentInstance, onBeforeUnmount, onDeactivated, onActivated } from 'vue';
-import { DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'unhead/plugins';
 
 const VueResolver = (_, value) => {
   return isRef(value) ? toValue(value) : value;
@@ -63,6 +63,19 @@ function clientUseHead(head, input, options = {}) {
   }
   return entry;
 }
+function useSeoMeta(input = {}, options = {}) {
+  const head = options.head || /* @__PURE__ */ injectHead();
+  head.use(FlatMetaPlugin);
+  const { title, titleTemplate, ...meta } = input;
+  return useHead({
+    title,
+    titleTemplate,
+    _flatMeta: meta
+  }, options);
+}
+function useServerSeoMeta(input, options = {}) {
+  return useSeoMeta(input, { ...options, mode: "server" });
+}
 
 // @__NO_SIDE_EFFECTS__
 function createHead(options = {}) {
@@ -74,7 +87,7 @@ function createHead(options = {}) {
   return head;
 }
 
-const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"致力為品牌打造獨一無二的設計！提供平面與網頁設計服務，分享設計理念和開發心路歷程"},{"name":"robots","content":"平面設計,商業設計, 網頁設計, 印刷輸出"},{"name":"author","content":"HsiaoHan Hsu"},{"property":"og:title","content":"The Unlimited｜HsiaoHan's Style：Web、Design And Future"},{"property":"og:description","content":"致力為品牌打造獨一無二的設計！提供平面與網頁設計服務，分享設計理念和開發心路歷程"},{"property":"og:type","content":"website"},{"property":"og:url","content":"https://theunlimited.cc/"},{"property":"og:image","content":"https://theunlimited.cc/images/og_image.png"},{"name":"twitter:card","content":"summary_large_image"},{"name":"twitter:title","content":"The Unlimited｜HsiaoHan's Style：Web、Design And Future"},{"name":"twitter:description","content":"致力為品牌打造獨一無二的設計！提供平面與網頁設計服務，分享設計理念和開發心路歷程"},{"name":"twitter:image","content":"https://theunlimited.cc/images/twitter_image.png"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"},{"rel":"canonical","href":"https://theunlimited.cc/"}],"style":[],"script":[],"noscript":[],"title":"The Unlimited｜HsiaoHan's Style：Web、Design And Future"};
+const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"提供平面與網頁設計服務，分享設計理念和開發心路歷程"},{"name":"robots","content":"平面設計,商業設計, 網頁設計, 印刷輸出"},{"name":"keywords","content":"平面設計,商業設計, 網頁設計, 印刷輸出"},{"name":"author","content":"Hailey Hsu"},{"property":"og:title","content":"The Unlimited｜Hailey's Style：Web、Design And Future"},{"property":"og:site_name","content":"The Unlimited"},{"property":"og:description","content":"致力為品牌打造獨一無二的設計！提供平面與網頁設計服務，分享設計理念和開發心路歷程"},{"property":"og:type","content":"website"},{"property":"og:url","content":"https://theunlimited.cc/"},{"property":"og:image","content":"https://theunlimited.cc/images/og_image.png"},{"name":"twitter:card","content":"summary_large_image"},{"name":"twitter:title","content":"The Unlimited｜Hailey's Style：Web、Design And Future"},{"name":"twitter:description","content":"致力為品牌打造獨一無二的設計！提供平面與網頁設計服務，分享設計理念和開發心路歷程"},{"name":"twitter:image","content":"https://theunlimited.cc/images/twitter_image.png"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"},{"rel":"canonical","href":"https://theunlimited.cc/"}],"style":[],"script":[],"noscript":[],"title":"The Unlimited｜Hailey's Style：Web、Design And Future","htmlAttrs":[{"lang":"zh-Hant-TW"}]};
 
 const appRootTag = "div";
 
@@ -248,7 +261,7 @@ async function renderInlineStyles(usedModules) {
 
 const renderSSRHeadOptions = {"omitLineBreaks":false};
 
-const entryFileName = "DL7fwgFz.js";
+const entryFileName = "DsbRDYXv.js";
 
 globalThis.__buildAssetsURL = buildAssetsURL;
 globalThis.__publicAssetsURL = publicAssetsURL;
@@ -411,5 +424,5 @@ const renderer$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty
   default: renderer
 }, Symbol.toStringTag, { value: 'Module' }));
 
-export { headSymbol as h, renderer$1 as r, useHead as u };
+export { useServerSeoMeta as a, headSymbol as h, renderer$1 as r, useHead as u };
 //# sourceMappingURL=renderer.mjs.map

@@ -47,23 +47,24 @@ export default defineNuxtConfig({
     buildAssetsDir: '/static/',
     //SEO meta
     head: {
-      title: "The Unlimited｜HsiaoHan's Style：Web、Design And Future",
+      title: "The Unlimited｜Hailey's Style：Web、Design And Future",
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           hid: 'description',
           name: 'description',
-          content:
-            '致力為品牌打造獨一無二的設計！提供平面與網頁設計服務，分享設計理念和開發心路歷程'
+          content: '提供平面與網頁設計服務，分享設計理念和開發心路歷程'
         },
         // { hid: 'keywords', name: 'keywords', content: 'keyword1, keyword2, keyword3' },
         { name: 'robots', content: '平面設計,商業設計, 網頁設計, 印刷輸出' },
-        { name: 'author', content: 'HsiaoHan Hsu' },
+        { name: 'keywords', content: '平面設計,商業設計, 網頁設計, 印刷輸出' },
+        { name: 'author', content: 'Hailey Hsu' },
         {
           property: 'og:title',
-          content: "The Unlimited｜HsiaoHan's Style：Web、Design And Future"
+          content: "The Unlimited｜Hailey's Style：Web、Design And Future"
         },
+        { property: 'og:site_name', content: 'The Unlimited' },
         {
           property: 'og:description',
           content:
@@ -75,7 +76,7 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary_large_image' },
         {
           name: 'twitter:title',
-          content: "The Unlimited｜HsiaoHan's Style：Web、Design And Future"
+          content: "The Unlimited｜Hailey's Style：Web、Design And Future"
         },
         {
           name: 'twitter:description',
@@ -84,6 +85,7 @@ export default defineNuxtConfig({
         },
         { name: 'twitter:image', content: 'https://theunlimited.cc/images/twitter_image.png' }
       ],
+      htmlAttrs: [{ lang: 'zh-Hant-TW' }],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'canonical', href: 'https://theunlimited.cc/' }

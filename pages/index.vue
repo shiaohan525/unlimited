@@ -49,17 +49,17 @@ const trackButtonClick = () => {
     <section class="about-wrap" ref="animatedElement">
       <div class="about-item">
         <div class="about-img">
-          <img class="about-blobs" alt="" src="/images/index/aboutBlob02.png">
+          <img class="about-blobs" alt="blobs" title="blobs" src="/images/index/aboutBlob02.png">
           <div class="img-group">
-            <img alt="" src="/images/index/aboutImg.jpg">
+            <img alt="about me" title="about me" src="/images/index/aboutImg.jpg">
           </div>
-          <img class="about-blobs" alt="" src="/images/index/aboutBlob01.png">
+          <img class="about-blobs" alt="blobs" title="blobs" src="/images/index/aboutBlob01.png">
         </div>
         <div class="about-content">
           <h2 class="h2">Design is LIFE</h2>
           <p>
             Hi!
-            我是HsiaoHan<br>一名好奇心滿載的網站設計師<br>我熱愛探索新事物<br class="wbr"><span>，</span>從每一個挑戰中汲取靈感<br>並全心投入到設計當中
+            我是Hailey<br>一名好奇心滿載的網站設計師<br>我熱愛探索新事物<br class="wbr"><span>，</span>從每一個挑戰中汲取靈感<br>並全心投入到設計當中
           </p>
           <p>
             我相信每個設計背後<br>都蘊藏著屬於它的獨特故事<br class="wbr"><span>，</span>增添品牌無限的價值<br>讓我們一起將想法成真吧！
@@ -122,7 +122,7 @@ const trackButtonClick = () => {
             </div>
           </div>
           <div class="skill-icon">
-            <img alt="" src="@/public/images/index/skillIcon01.png" loading="lazy">
+            <img alt="design skill" title="design skill" src="@/public/images/index/skillIcon01.png" loading="lazy">
           </div>
         </div>
         <div class="skills-item">
@@ -151,7 +151,7 @@ const trackButtonClick = () => {
             </div>
           </div>
           <div class="skill-icon">
-            <img alt="" src="@/public/images/index/skillIcon02.png" loading="lazy">
+            <img alt="web skill" title="web skill" src="@/public/images/index/skillIcon02.png" loading="lazy">
           </div>
         </div>
         <div class="skills-item">
@@ -191,7 +191,7 @@ const trackButtonClick = () => {
             </div>
           </div>
           <div class="skill-icon">
-            <img alt="" src="@/public/images/index/skillIcon03.png" loading="lazy">
+            <img alt="develop skill" title="develop skill" src="@/public/images/index/skillIcon03.png" loading="lazy">
           </div>
         </div>
       </div>
@@ -215,7 +215,7 @@ const trackButtonClick = () => {
             target="_blank">
             <div class="portfolio-mask"></div>
             <div class="portfolio-image">
-              <img :alt="item.alt" :src="item.src" loading="lazy" />
+              <img :alt="item.alt" :src="item.src" loading="lazy" :title="item.title" />
             </div>
             <div class="portfolio-content">
               <p class="tag">{{ item.tag }}</p>
