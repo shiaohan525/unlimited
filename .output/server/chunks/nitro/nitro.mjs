@@ -1,8 +1,12 @@
 import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import http, { Server as Server$1 } from 'node:http';
 import https, { Server } from 'node:https';
-import { promises, existsSync } from 'node:fs';
+import { EventEmitter } from 'node:events';
+import { Buffer as Buffer$1 } from 'node:buffer';
+import { promises, existsSync, mkdirSync } from 'node:fs';
 import { resolve as resolve$1, dirname as dirname$1, join } from 'node:path';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import Database from 'better-sqlite3';
 
 const suspectProtoRx = /"(?:_|\\u0{2}5[Ff]){2}(?:p|\\u0{2}70)(?:r|\\u0{2}72)(?:o|\\u0{2}6[Ff])(?:t|\\u0{2}74)(?:o|\\u0{2}6[Ff])(?:_|\\u0{2}5[Ff]){2}"\s*:/;
 const suspectConstructorRx = /"(?:c|\\u0063)(?:o|\\u006[Ff])(?:n|\\u006[Ee])(?:s|\\u0073)(?:t|\\u0074)(?:r|\\u0072)(?:u|\\u0075)(?:c|\\u0063)(?:t|\\u0074)(?:o|\\u006[Ff])(?:r|\\u0072)"\s*:/;
@@ -21,35 +25,33 @@ function destr(value, options = {}) {
   if (typeof value !== "string") {
     return value;
   }
-  const _value = value.trim();
-  if (
-    // eslint-disable-next-line unicorn/prefer-at
-    value[0] === '"' && value.endsWith('"') && !value.includes("\\")
-  ) {
-    return _value.slice(1, -1);
+  if (value[0] === '"' && value[value.length - 1] === '"' && value.indexOf("\\") === -1) {
+    return value.slice(1, -1);
   }
+  const _value = value.trim();
   if (_value.length <= 9) {
-    const _lval = _value.toLowerCase();
-    if (_lval === "true") {
-      return true;
-    }
-    if (_lval === "false") {
-      return false;
-    }
-    if (_lval === "undefined") {
-      return void 0;
-    }
-    if (_lval === "null") {
-      return null;
-    }
-    if (_lval === "nan") {
-      return Number.NaN;
-    }
-    if (_lval === "infinity") {
-      return Number.POSITIVE_INFINITY;
-    }
-    if (_lval === "-infinity") {
-      return Number.NEGATIVE_INFINITY;
+    switch (_value.toLowerCase()) {
+      case "true": {
+        return true;
+      }
+      case "false": {
+        return false;
+      }
+      case "undefined": {
+        return void 0;
+      }
+      case "null": {
+        return null;
+      }
+      case "nan": {
+        return Number.NaN;
+      }
+      case "infinity": {
+        return Number.POSITIVE_INFINITY;
+      }
+      case "-infinity": {
+        return Number.NEGATIVE_INFINITY;
+      }
     }
   }
   if (!JsonSigRx.test(value)) {
@@ -111,7 +113,7 @@ function decodeQueryValue(text) {
 }
 
 function parseQuery(parametersString = "") {
-  const object = {};
+  const object = /* @__PURE__ */ Object.create(null);
   if (parametersString[0] === "?") {
     parametersString = parametersString.slice(1);
   }
@@ -143,7 +145,9 @@ function encodeQueryItem(key, value) {
     return encodeQueryKey(key);
   }
   if (Array.isArray(value)) {
-    return value.map((_value) => `${encodeQueryKey(key)}=${encodeQueryValue(_value)}`).join("&");
+    return value.map(
+      (_value) => `${encodeQueryKey(key)}=${encodeQueryValue(_value)}`
+    ).join("&");
   }
   return `${encodeQueryKey(key)}=${encodeQueryValue(value)}`;
 }
@@ -185,7 +189,7 @@ function withoutTrailingSlash(input = "", respectQueryAndFragment) {
   let path = input;
   let fragment = "";
   const fragmentIndex = input.indexOf("#");
-  if (fragmentIndex >= 0) {
+  if (fragmentIndex !== -1) {
     path = input.slice(0, fragmentIndex);
     fragment = input.slice(fragmentIndex);
   }
@@ -203,7 +207,7 @@ function withTrailingSlash(input = "", respectQueryAndFragment) {
   let path = input;
   let fragment = "";
   const fragmentIndex = input.indexOf("#");
-  if (fragmentIndex >= 0) {
+  if (fragmentIndex !== -1) {
     path = input.slice(0, fragmentIndex);
     fragment = input.slice(fragmentIndex);
     if (!path) {
@@ -225,7 +229,10 @@ function withBase(input, base) {
   }
   const _base = withoutTrailingSlash(base);
   if (input.startsWith(_base)) {
-    return input;
+    const nextChar = input[_base.length];
+    if (!nextChar || nextChar === "/" || nextChar === "?") {
+      return input;
+    }
   }
   return joinURL(_base, input);
 }
@@ -235,6 +242,10 @@ function withoutBase(input, base) {
   }
   const _base = withoutTrailingSlash(base);
   if (!input.startsWith(_base)) {
+    return input;
+  }
+  const nextChar = input[_base.length];
+  if (nextChar && nextChar !== "/" && nextChar !== "?") {
     return input;
   }
   const trimmed = input.slice(_base.length);
@@ -657,6 +668,8 @@ const defuFn = createDefu((object, key, currentValue) => {
   }
 });
 
+function o(n){throw new Error(`${n} is not implemented yet!`)}let i$1 = class i extends EventEmitter{__unenv__={};readableEncoding=null;readableEnded=true;readableFlowing=false;readableHighWaterMark=0;readableLength=0;readableObjectMode=false;readableAborted=false;readableDidRead=false;closed=false;errored=null;readable=false;destroyed=false;static from(e,t){return new i(t)}constructor(e){super();}_read(e){}read(e){}setEncoding(e){return this}pause(){return this}resume(){return this}isPaused(){return  true}unpipe(e){return this}unshift(e,t){}wrap(e){return this}push(e,t){return  false}_destroy(e,t){this.removeAllListeners();}destroy(e){return this.destroyed=true,this._destroy(e),this}pipe(e,t){return {}}compose(e,t){throw new Error("Method not implemented.")}[Symbol.asyncDispose](){return this.destroy(),Promise.resolve()}async*[Symbol.asyncIterator](){throw o("Readable.asyncIterator")}iterator(e){throw o("Readable.iterator")}map(e,t){throw o("Readable.map")}filter(e,t){throw o("Readable.filter")}forEach(e,t){throw o("Readable.forEach")}reduce(e,t,r){throw o("Readable.reduce")}find(e,t){throw o("Readable.find")}findIndex(e,t){throw o("Readable.findIndex")}some(e,t){throw o("Readable.some")}toArray(e){throw o("Readable.toArray")}every(e,t){throw o("Readable.every")}flatMap(e,t){throw o("Readable.flatMap")}drop(e,t){throw o("Readable.drop")}take(e,t){throw o("Readable.take")}asIndexedPairs(e){throw o("Readable.asIndexedPairs")}};let l$1 = class l extends EventEmitter{__unenv__={};writable=true;writableEnded=false;writableFinished=false;writableHighWaterMark=0;writableLength=0;writableObjectMode=false;writableCorked=0;closed=false;errored=null;writableNeedDrain=false;writableAborted=false;destroyed=false;_data;_encoding="utf8";constructor(e){super();}pipe(e,t){return {}}_write(e,t,r){if(this.writableEnded){r&&r();return}if(this._data===void 0)this._data=e;else {const s=typeof this._data=="string"?Buffer$1.from(this._data,this._encoding||t||"utf8"):this._data,a=typeof e=="string"?Buffer$1.from(e,t||this._encoding||"utf8"):e;this._data=Buffer$1.concat([s,a]);}this._encoding=t,r&&r();}_writev(e,t){}_destroy(e,t){}_final(e){}write(e,t,r){const s=typeof t=="string"?this._encoding:"utf8",a=typeof t=="function"?t:typeof r=="function"?r:void 0;return this._write(e,s,a),true}setDefaultEncoding(e){return this}end(e,t,r){const s=typeof e=="function"?e:typeof t=="function"?t:typeof r=="function"?r:void 0;if(this.writableEnded)return s&&s(),this;const a=e===s?void 0:e;if(a){const u=t===s?void 0:t;this.write(a,u,s);}return this.writableEnded=true,this.writableFinished=true,this.emit("close"),this.emit("finish"),this}cork(){}uncork(){}destroy(e){return this.destroyed=true,delete this._data,this.removeAllListeners(),this}compose(e,t){throw new Error("Method not implemented.")}[Symbol.asyncDispose](){return Promise.resolve()}};const c=class{allowHalfOpen=true;_destroy;constructor(e=new i$1,t=new l$1){Object.assign(this,e),Object.assign(this,t),this._destroy=m(e._destroy,t._destroy);}};function _(){return Object.assign(c.prototype,i$1.prototype),Object.assign(c.prototype,l$1.prototype),c}function m(...n){return function(...e){for(const t of n)t(...e);}}const g=_();class A extends g{__unenv__={};bufferSize=0;bytesRead=0;bytesWritten=0;connecting=false;destroyed=false;pending=false;localAddress="";localPort=0;remoteAddress="";remoteFamily="";remotePort=0;autoSelectFamilyAttemptedAddresses=[];readyState="readOnly";constructor(e){super();}write(e,t,r){return  false}connect(e,t,r){return this}end(e,t,r){return this}setEncoding(e){return this}pause(){return this}resume(){return this}setTimeout(e,t){return this}setNoDelay(e){return this}setKeepAlive(e,t){return this}address(){return {}}unref(){return this}ref(){return this}destroySoon(){this.destroy();}resetAndDestroy(){const e=new Error("ERR_SOCKET_CLOSED");return e.code="ERR_SOCKET_CLOSED",this.destroy(e),this}}class y extends i$1{aborted=false;httpVersion="1.1";httpVersionMajor=1;httpVersionMinor=1;complete=true;connection;socket;headers={};trailers={};method="GET";url="/";statusCode=200;statusMessage="";closed=false;errored=null;readable=false;constructor(e){super(),this.socket=this.connection=e||new A;}get rawHeaders(){const e=this.headers,t=[];for(const r in e)if(Array.isArray(e[r]))for(const s of e[r])t.push(r,s);else t.push(r,e[r]);return t}get rawTrailers(){return []}setTimeout(e,t){return this}get headersDistinct(){return p(this.headers)}get trailersDistinct(){return p(this.trailers)}}function p(n){const e={};for(const[t,r]of Object.entries(n))t&&(e[t]=(Array.isArray(r)?r:[r]).filter(Boolean));return e}class w extends l$1{statusCode=200;statusMessage="";upgrading=false;chunkedEncoding=false;shouldKeepAlive=false;useChunkedEncodingByDefault=false;sendDate=false;finished=false;headersSent=false;strictContentLength=false;connection=null;socket=null;req;_headers={};constructor(e){super(),this.req=e;}assignSocket(e){e._httpMessage=this,this.socket=e,this.connection=e,this.emit("socket",e),this._flush();}_flush(){this.flushHeaders();}detachSocket(e){}writeContinue(e){}writeHead(e,t,r){e&&(this.statusCode=e),typeof t=="string"&&(this.statusMessage=t,t=void 0);const s=r||t;if(s&&!Array.isArray(s))for(const a in s)this.setHeader(a,s[a]);return this.headersSent=true,this}writeProcessing(){}setTimeout(e,t){return this}appendHeader(e,t){e=e.toLowerCase();const r=this._headers[e],s=[...Array.isArray(r)?r:[r],...Array.isArray(t)?t:[t]].filter(Boolean);return this._headers[e]=s.length>1?s:s[0],this}setHeader(e,t){return this._headers[e.toLowerCase()]=t,this}setHeaders(e){for(const[t,r]of Object.entries(e))this.setHeader(t,r);return this}getHeader(e){return this._headers[e.toLowerCase()]}getHeaders(){return this._headers}getHeaderNames(){return Object.keys(this._headers)}hasHeader(e){return e.toLowerCase()in this._headers}removeHeader(e){delete this._headers[e.toLowerCase()];}addTrailers(e){}flushHeaders(){}writeEarlyHints(e,t){typeof t=="function"&&t();}}const E=(()=>{const n=function(){};return n.prototype=Object.create(null),n})();function R(n={}){const e=new E,t=Array.isArray(n)||H(n)?n:Object.entries(n);for(const[r,s]of t)if(s){if(e[r]===void 0){e[r]=s;continue}e[r]=[...Array.isArray(e[r])?e[r]:[e[r]],...Array.isArray(s)?s:[s]];}return e}function H(n){return typeof n?.entries=="function"}function v(n={}){if(n instanceof Headers)return n;const e=new Headers;for(const[t,r]of Object.entries(n))if(r!==void 0){if(Array.isArray(r)){for(const s of r)e.append(t,String(s));continue}e.set(t,String(r));}return e}const S=new Set([101,204,205,304]);async function b(n,e){const t=new y,r=new w(t);t.url=e.url?.toString()||"/";let s;if(!t.url.startsWith("/")){const d=new URL(t.url);s=d.host,t.url=d.pathname+d.search+d.hash;}t.method=e.method||"GET",t.headers=R(e.headers||{}),t.headers.host||(t.headers.host=e.host||s||"localhost"),t.connection.encrypted=t.connection.encrypted||e.protocol==="https",t.body=e.body||null,t.__unenv__=e.context,await n(t,r);let a=r._data;(S.has(r.statusCode)||t.method.toUpperCase()==="HEAD")&&(a=null,delete r._headers["content-length"]);const u={status:r.statusCode,statusText:r.statusMessage,headers:r._headers,body:a};return t.destroy(),r.destroy(),u}async function C(n,e,t={}){try{const r=await b(n,{url:e,...t});return new Response(r.body,{status:r.status,statusText:r.statusText,headers:v(r.headers)})}catch(r){return new Response(r.toString(),{status:Number.parseInt(r.statusCode||r.code)||500,statusText:r.statusText})}}
+
 function hasProp(obj, prop) {
   try {
     return prop in obj;
@@ -687,7 +700,7 @@ class H3Error extends Error {
     if (this.statusMessage) {
       obj.statusMessage = sanitizeStatusMessage(this.statusMessage);
     }
-    if (this.data !== undefined) {
+    if (this.data !== void 0) {
       obj.data = this.data;
     }
     return obj;
@@ -739,10 +752,10 @@ function createError$1(input) {
       );
     }
   }
-  if (input.fatal !== undefined) {
+  if (input.fatal !== void 0) {
     err.fatal = input.fatal;
   }
-  if (input.unhandled !== undefined) {
+  if (input.unhandled !== void 0) {
     err.unhandled = input.unhandled;
   }
   return err;
@@ -767,7 +780,7 @@ function sendError(event, error, debug) {
   const _code = Number.parseInt(h3Error.statusCode);
   setResponseStatus(event, _code, h3Error.statusMessage);
   event.node.res.setHeader("content-type", MIMES.json);
-  event.node.res.end(JSON.stringify(responseBody, undefined, 2));
+  event.node.res.end(JSON.stringify(responseBody, void 0, 2));
 }
 function isError(input) {
   return input?.constructor?.__h3_error__ === true;
@@ -775,6 +788,20 @@ function isError(input) {
 
 function getQuery(event) {
   return getQuery$1(event.path || "");
+}
+function getRouterParams(event, opts = {}) {
+  let params = event.context.params || {};
+  if (opts.decode) {
+    params = { ...params };
+    for (const key in params) {
+      params[key] = decode(params[key]);
+    }
+  }
+  return params;
+}
+function getRouterParam(event, name, opts = {}) {
+  const params = getRouterParams(event, opts);
+  return params[name];
 }
 function isMethod(event, expected, allowHead) {
   if (typeof expected === "string") {
@@ -807,8 +834,34 @@ function getRequestHeader(event, name) {
   const value = headers[name.toLowerCase()];
   return value;
 }
+function getRequestHost(event, opts = {}) {
+  if (opts.xForwardedHost) {
+    const _header = event.node.req.headers["x-forwarded-host"];
+    const xForwardedHost = (_header || "").split(",").shift()?.trim();
+    if (xForwardedHost) {
+      return xForwardedHost;
+    }
+  }
+  return event.node.req.headers.host || "localhost";
+}
+function getRequestProtocol(event, opts = {}) {
+  if (opts.xForwardedProto !== false && event.node.req.headers["x-forwarded-proto"] === "https") {
+    return "https";
+  }
+  return event.node.req.connection?.encrypted ? "https" : "http";
+}
+function getRequestURL(event, opts = {}) {
+  const host = getRequestHost(event, opts);
+  const protocol = getRequestProtocol(event, opts);
+  const path = (event.node.req.originalUrl || event.path).replace(
+    /^[/\\]+/g,
+    "/"
+  );
+  return new URL(path, `${protocol}://${host}`);
+}
 
 const RawBodySymbol = Symbol.for("h3RawBody");
+const ParsedBodySymbol = Symbol.for("h3ParsedBody");
 const PayloadMethods$1 = ["PATCH", "POST", "PUT", "DELETE"];
 function readRawBody(event, encoding = "utf8") {
   assertMethod(event, PayloadMethods$1);
@@ -851,12 +904,17 @@ function readRawBody(event, encoding = "utf8") {
       if (_resolved instanceof URLSearchParams) {
         return Buffer.from(_resolved.toString());
       }
+      if (_resolved instanceof FormData) {
+        return new Response(_resolved).bytes().then((uint8arr) => Buffer.from(uint8arr));
+      }
       return Buffer.from(_resolved);
     });
     return encoding ? promise2.then((buff) => buff.toString(encoding)) : promise2;
   }
-  if (!Number.parseInt(event.node.req.headers["content-length"] || "") && !String(event.node.req.headers["transfer-encoding"] ?? "").split(",").map((e) => e.trim()).filter(Boolean).includes("chunked")) {
-    return Promise.resolve(undefined);
+  if (!Number.parseInt(event.node.req.headers["content-length"] || "") && !/\bchunked\b/i.test(
+    String(event.node.req.headers["transfer-encoding"] ?? "")
+  )) {
+    return Promise.resolve(void 0);
   }
   const promise = event.node.req[RawBodySymbol] = new Promise(
     (resolve, reject) => {
@@ -872,6 +930,26 @@ function readRawBody(event, encoding = "utf8") {
   );
   const result = encoding ? promise.then((buff) => buff.toString(encoding)) : promise;
   return result;
+}
+async function readBody(event, options = {}) {
+  const request = event.node.req;
+  if (hasProp(request, ParsedBodySymbol)) {
+    return request[ParsedBodySymbol];
+  }
+  const contentType = request.headers["content-type"] || "";
+  const body = await readRawBody(event);
+  let parsed;
+  if (contentType === "application/json") {
+    parsed = _parseJSON(body, options.strict ?? true);
+  } else if (contentType.startsWith("application/x-www-form-urlencoded")) {
+    parsed = _parseURLEncodedBody(body);
+  } else if (contentType.startsWith("text/")) {
+    parsed = body;
+  } else {
+    parsed = _parseJSON(body, options.strict ?? false);
+  }
+  request[ParsedBodySymbol] = parsed;
+  return parsed;
 }
 function getRequestWebStream(event) {
   if (!PayloadMethods$1.includes(event.method)) {
@@ -907,18 +985,47 @@ function getRequestWebStream(event) {
     }
   });
 }
+function _parseJSON(body = "", strict) {
+  if (!body) {
+    return void 0;
+  }
+  try {
+    return destr(body, { strict });
+  } catch {
+    throw createError$1({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+      message: "Invalid JSON body"
+    });
+  }
+}
+function _parseURLEncodedBody(body) {
+  const form = new URLSearchParams(body);
+  const parsedForm = /* @__PURE__ */ Object.create(null);
+  for (const [key, value] of form.entries()) {
+    if (hasProp(parsedForm, key)) {
+      if (!Array.isArray(parsedForm[key])) {
+        parsedForm[key] = [parsedForm[key]];
+      }
+      parsedForm[key].push(value);
+    } else {
+      parsedForm[key] = value;
+    }
+  }
+  return parsedForm;
+}
 
 function handleCacheHeaders(event, opts) {
   const cacheControls = ["public", ...opts.cacheControls || []];
   let cacheMatched = false;
-  if (opts.maxAge !== undefined) {
+  if (opts.maxAge !== void 0) {
     cacheControls.push(`max-age=${+opts.maxAge}`, `s-maxage=${+opts.maxAge}`);
   }
   if (opts.modifiedTime) {
     const modifiedTime = new Date(opts.modifiedTime);
     const ifModifiedSince = event.node.req.headers["if-modified-since"];
     event.node.res.setHeader("last-modified", modifiedTime.toUTCString());
-    if (ifModifiedSince && new Date(ifModifiedSince) >= opts.modifiedTime) {
+    if (ifModifiedSince && new Date(ifModifiedSince) >= modifiedTime) {
       cacheMatched = true;
     }
   }
@@ -1092,6 +1199,7 @@ const setHeaders = setResponseHeaders;
 function setResponseHeader(event, name, value) {
   event.node.res.setHeader(name, value);
 }
+const setHeader = setResponseHeader;
 function appendResponseHeader(event, name, value) {
   let current = event.node.res.getHeader(name);
   if (!current) {
@@ -1213,7 +1321,7 @@ async function proxyRequest(event, target, opts = {}) {
       body = getRequestWebStream(event);
       duplex = "half";
     } else {
-      body = await readRawBody(event, false).catch(() => undefined);
+      body = await readRawBody(event, false).catch(() => void 0);
     }
   }
   const method = opts.fetchOptions?.method || event.method;
@@ -1293,7 +1401,7 @@ async function sendProxy(event, target, opts = {}) {
   if (opts.onResponse) {
     await opts.onResponse(event, response);
   }
-  if (response._data !== undefined) {
+  if (response._data !== void 0) {
     return response._data;
   }
   if (event.handled) {
@@ -1367,8 +1475,9 @@ function mergeHeaders$1(defaults, ...inputs) {
   }
   const merged = new Headers(defaults);
   for (const input of _inputs) {
-    for (const [key, value] of Object.entries(input)) {
-      if (value !== undefined) {
+    const entries = Array.isArray(input) ? input : typeof input.entries === "function" ? input.entries() : Object.entries(input);
+    for (const [key, value] of entries) {
+      if (value !== void 0) {
         merged.set(key, value);
       }
     }
@@ -1478,7 +1587,7 @@ function defineEventHandler(handler) {
   return _handler;
 }
 function _normalizeArray(input) {
-  return input ? Array.isArray(input) ? input : [input] : undefined;
+  return input ? Array.isArray(input) ? input : [input] : void 0;
 }
 async function _callHandler(event, handler, hooks) {
   if (hooks.onRequest) {
@@ -1587,7 +1696,7 @@ function use(app, arg1, arg2, arg3) {
   return app;
 }
 function createAppEventHandler(stack, options) {
-  const spacing = options.debug ? 2 : undefined;
+  const spacing = options.debug ? 2 : void 0;
   return eventHandler(async (event) => {
     event.node.req.originalUrl = event.node.req.originalUrl || event.node.req.url || "/";
     const _reqPath = event._path || event.node.req.url || "/";
@@ -1610,8 +1719,8 @@ function createAppEventHandler(stack, options) {
       event._path = _layerPath;
       event.node.req.url = _layerPath;
       const val = await layer.handler(event);
-      const _body = val === undefined ? undefined : await val;
-      if (_body !== undefined) {
+      const _body = val === void 0 ? void 0 : await val;
+      if (_body !== void 0) {
         const _response = { body: _body };
         if (options.onBeforeResponse) {
           event._onBeforeResponseCalled = true;
@@ -1627,7 +1736,7 @@ function createAppEventHandler(stack, options) {
       if (event.handled) {
         if (options.onAfterResponse) {
           event._onAfterResponseCalled = true;
-          await options.onAfterResponse(event, undefined);
+          await options.onAfterResponse(event, void 0);
         }
         return;
       }
@@ -1640,7 +1749,7 @@ function createAppEventHandler(stack, options) {
     }
     if (options.onAfterResponse) {
       event._onAfterResponseCalled = true;
-      await options.onAfterResponse(event, undefined);
+      await options.onAfterResponse(event, void 0);
     }
   });
 }
@@ -1655,7 +1764,7 @@ function createResolver(stack) {
         continue;
       }
       _layerPath = path.slice(layer.route.length) || "/";
-      if (layer.match && !layer.match(_layerPath, undefined)) {
+      if (layer.match && !layer.match(_layerPath, void 0)) {
         continue;
       }
       let res = { route: layer.route, handler: layer.handler };
@@ -1682,7 +1791,7 @@ function normalizeLayer(input) {
   if (input.lazy) {
     handler = lazyEventHandler(handler);
   } else if (!isEventHandler(handler)) {
-    handler = toEventHandler(handler, undefined, input.route);
+    handler = toEventHandler(handler, void 0, input.route);
   }
   return {
     route: withoutTrailingSlash(input.route),
@@ -1721,7 +1830,7 @@ function handleHandlerResponse(event, val, jsonSpace) {
     return send(event, val, MIMES.html);
   }
   if (valType === "object" || valType === "boolean" || valType === "number") {
-    return send(event, JSON.stringify(val, undefined, jsonSpace), MIMES.json);
+    return send(event, JSON.stringify(val, void 0, jsonSpace), MIMES.json);
   }
   if (valType === "bigint") {
     return send(event, val.toString(), MIMES.json);
@@ -1779,7 +1888,7 @@ function createRouter(opts = {}) {
         addRoute(path, handler, m);
       }
     } else {
-      route.handlers[method] = toEventHandler(handler, undefined, path);
+      route.handlers[method] = toEventHandler(handler, void 0, path);
     }
     return router;
   };
@@ -1849,7 +1958,7 @@ function createRouter(opts = {}) {
     const params = match.matched.params || {};
     event.context.params = params;
     return Promise.resolve(match.handler(event)).then((res) => {
-      if (res === undefined && isPreemptive) {
+      if (res === void 0 && isPreemptive) {
         return null;
       }
       return res;
@@ -2160,7 +2269,7 @@ function createDebugger(hooks, _options = {}) {
   };
 }
 
-const s=globalThis.Headers,i=globalThis.AbortController,l=globalThis.fetch||(()=>{throw new Error("[node-fetch-native] Failed to fetch: `globalThis.fetch` is not available!")});
+const s$1=globalThis.Headers,i=globalThis.AbortController,l=globalThis.fetch||(()=>{throw new Error("[node-fetch-native] Failed to fetch: `globalThis.fetch` is not available!")});
 
 class FetchError extends Error {
   constructor(message, opts) {
@@ -2228,6 +2337,9 @@ function isJSONSerializable(value) {
   if (value.buffer) {
     return false;
   }
+  if (value instanceof FormData || value instanceof URLSearchParams) {
+    return false;
+  }
   return value.constructor && value.constructor.name === "Object" || typeof value.toJSON === "function";
 }
 const textTypes = /* @__PURE__ */ new Set([
@@ -2244,6 +2356,9 @@ function detectResponseType(_contentType = "") {
   const contentType = _contentType.split(";").shift() || "";
   if (JSON_RE.test(contentType)) {
     return "json";
+  }
+  if (contentType === "text/event-stream") {
+    return "stream";
   }
   if (textTypes.has(contentType) || contentType.startsWith("text/")) {
     return "text";
@@ -2315,8 +2430,8 @@ const retryStatusCodes = /* @__PURE__ */ new Set([
   504
   // Gateway Timeout
 ]);
-const nullBodyResponses$1 = /* @__PURE__ */ new Set([101, 204, 205, 304]);
-function createFetch$1(globalOptions = {}) {
+const nullBodyResponses = /* @__PURE__ */ new Set([101, 204, 205, 304]);
+function createFetch(globalOptions = {}) {
   const {
     fetch = globalThis.fetch,
     Headers = globalThis.Headers,
@@ -2366,6 +2481,12 @@ function createFetch$1(globalOptions = {}) {
     }
     if (context.options.onRequest) {
       await callHooks(context, context.options.onRequest);
+      if (!(context.options.headers instanceof Headers)) {
+        context.options.headers = new Headers(
+          context.options.headers || {}
+          /* compat */
+        );
+      }
     }
     if (typeof context.request === "string") {
       if (context.options.baseURL) {
@@ -2384,9 +2505,13 @@ function createFetch$1(globalOptions = {}) {
     }
     if (context.options.body && isPayloadMethod(context.options.method)) {
       if (isJSONSerializable(context.options.body)) {
-        context.options.body = typeof context.options.body === "string" ? context.options.body : JSON.stringify(context.options.body);
-        context.options.headers = new Headers(context.options.headers || {});
-        if (!context.options.headers.has("content-type")) {
+        const contentType = context.options.headers.get("content-type");
+        if (typeof context.options.body !== "string") {
+          context.options.body = contentType === "application/x-www-form-urlencoded" ? new URLSearchParams(
+            context.options.body
+          ).toString() : JSON.stringify(context.options.body);
+        }
+        if (!contentType) {
           context.options.headers.set("content-type", "application/json");
         }
         if (!context.options.headers.has("accept")) {
@@ -2437,7 +2562,7 @@ function createFetch$1(globalOptions = {}) {
     const hasBody = (context.response.body || // https://github.com/unjs/ofetch/issues/324
     // https://github.com/unjs/ofetch/issues/294
     // https://github.com/JakeChampion/fetch/issues/1454
-    context.response._bodyInit) && !nullBodyResponses$1.has(context.response.status) && context.options.method !== "HEAD";
+    context.response._bodyInit) && !nullBodyResponses.has(context.response.status) && context.options.method !== "HEAD";
     if (hasBody) {
       const responseType = (context.options.parseResponse ? "json" : context.options.responseType) || detectResponseType(context.response.headers.get("content-type") || "");
       switch (responseType) {
@@ -2479,7 +2604,7 @@ function createFetch$1(globalOptions = {}) {
   };
   $fetch.raw = $fetchRaw;
   $fetch.native = (...args) => fetch(...args);
-  $fetch.create = (defaultOptions = {}, customGlobalOptions = {}) => createFetch$1({
+  $fetch.create = (defaultOptions = {}, customGlobalOptions = {}) => createFetch({
     ...globalOptions,
     ...customGlobalOptions,
     defaults: {
@@ -2509,1685 +2634,10 @@ function createNodeFetch() {
   };
 }
 const fetch = globalThis.fetch ? (...args) => globalThis.fetch(...args) : createNodeFetch();
-const Headers$1 = globalThis.Headers || s;
+const Headers$1 = globalThis.Headers || s$1;
 const AbortController = globalThis.AbortController || i;
-const ofetch = createFetch$1({ fetch, Headers: Headers$1, AbortController });
-const $fetch = ofetch;
-
-function rawHeaders(headers) {
-  const rawHeaders2 = [];
-  for (const key in headers) {
-    if (Array.isArray(headers[key])) {
-      for (const h of headers[key]) {
-        rawHeaders2.push(key, h);
-      }
-    } else {
-      rawHeaders2.push(key, headers[key]);
-    }
-  }
-  return rawHeaders2;
-}
-function mergeFns(...functions) {
-  return function(...args) {
-    for (const fn of functions) {
-      fn(...args);
-    }
-  };
-}
-function createNotImplementedError(name) {
-  throw new Error(`[unenv] ${name} is not implemented yet!`);
-}
-
-let defaultMaxListeners = 10;
-let EventEmitter$1 = class EventEmitter {
-  __unenv__ = true;
-  _events = /* @__PURE__ */ Object.create(null);
-  _maxListeners;
-  static get defaultMaxListeners() {
-    return defaultMaxListeners;
-  }
-  static set defaultMaxListeners(arg) {
-    if (typeof arg !== "number" || arg < 0 || Number.isNaN(arg)) {
-      throw new RangeError(
-        'The value of "defaultMaxListeners" is out of range. It must be a non-negative number. Received ' + arg + "."
-      );
-    }
-    defaultMaxListeners = arg;
-  }
-  setMaxListeners(n) {
-    if (typeof n !== "number" || n < 0 || Number.isNaN(n)) {
-      throw new RangeError(
-        'The value of "n" is out of range. It must be a non-negative number. Received ' + n + "."
-      );
-    }
-    this._maxListeners = n;
-    return this;
-  }
-  getMaxListeners() {
-    return _getMaxListeners(this);
-  }
-  emit(type, ...args) {
-    if (!this._events[type] || this._events[type].length === 0) {
-      return false;
-    }
-    if (type === "error") {
-      let er;
-      if (args.length > 0) {
-        er = args[0];
-      }
-      if (er instanceof Error) {
-        throw er;
-      }
-      const err = new Error(
-        "Unhandled error." + (er ? " (" + er.message + ")" : "")
-      );
-      err.context = er;
-      throw err;
-    }
-    for (const _listener of this._events[type]) {
-      (_listener.listener || _listener).apply(this, args);
-    }
-    return true;
-  }
-  addListener(type, listener) {
-    return _addListener(this, type, listener, false);
-  }
-  on(type, listener) {
-    return _addListener(this, type, listener, false);
-  }
-  prependListener(type, listener) {
-    return _addListener(this, type, listener, true);
-  }
-  once(type, listener) {
-    return this.on(type, _wrapOnce(this, type, listener));
-  }
-  prependOnceListener(type, listener) {
-    return this.prependListener(type, _wrapOnce(this, type, listener));
-  }
-  removeListener(type, listener) {
-    return _removeListener(this, type, listener);
-  }
-  off(type, listener) {
-    return this.removeListener(type, listener);
-  }
-  removeAllListeners(type) {
-    return _removeAllListeners(this, type);
-  }
-  listeners(type) {
-    return _listeners(this, type, true);
-  }
-  rawListeners(type) {
-    return _listeners(this, type, false);
-  }
-  listenerCount(type) {
-    return this.rawListeners(type).length;
-  }
-  eventNames() {
-    return Object.keys(this._events);
-  }
-};
-function _addListener(target, type, listener, prepend) {
-  _checkListener(listener);
-  if (target._events.newListener !== void 0) {
-    target.emit("newListener", type, listener.listener || listener);
-  }
-  if (!target._events[type]) {
-    target._events[type] = [];
-  }
-  if (prepend) {
-    target._events[type].unshift(listener);
-  } else {
-    target._events[type].push(listener);
-  }
-  const maxListeners = _getMaxListeners(target);
-  if (maxListeners > 0 && target._events[type].length > maxListeners && !target._events[type].warned) {
-    target._events[type].warned = true;
-    const warning = new Error(
-      `[unenv] Possible EventEmitter memory leak detected. ${target._events[type].length} ${type} listeners added. Use emitter.setMaxListeners() to increase limit`
-    );
-    warning.name = "MaxListenersExceededWarning";
-    warning.emitter = target;
-    warning.type = type;
-    warning.count = target._events[type]?.length;
-    console.warn(warning);
-  }
-  return target;
-}
-function _removeListener(target, type, listener) {
-  _checkListener(listener);
-  if (!target._events[type] || target._events[type].length === 0) {
-    return target;
-  }
-  const lenBeforeFilter = target._events[type].length;
-  target._events[type] = target._events[type].filter((fn) => fn !== listener);
-  if (lenBeforeFilter === target._events[type].length) {
-    return target;
-  }
-  if (target._events.removeListener) {
-    target.emit("removeListener", type, listener.listener || listener);
-  }
-  if (target._events[type].length === 0) {
-    delete target._events[type];
-  }
-  return target;
-}
-function _removeAllListeners(target, type) {
-  if (!target._events[type] || target._events[type].length === 0) {
-    return target;
-  }
-  if (target._events.removeListener) {
-    for (const _listener of target._events[type]) {
-      target.emit("removeListener", type, _listener.listener || _listener);
-    }
-  }
-  delete target._events[type];
-  return target;
-}
-function _wrapOnce(target, type, listener) {
-  let fired = false;
-  const wrapper = (...args) => {
-    if (fired) {
-      return;
-    }
-    target.removeListener(type, wrapper);
-    fired = true;
-    return args.length === 0 ? listener.call(target) : listener.apply(target, args);
-  };
-  wrapper.listener = listener;
-  return wrapper;
-}
-function _getMaxListeners(target) {
-  return target._maxListeners ?? EventEmitter$1.defaultMaxListeners;
-}
-function _listeners(target, type, unwrap) {
-  let listeners = target._events[type];
-  if (typeof listeners === "function") {
-    listeners = [listeners];
-  }
-  return unwrap ? listeners.map((l) => l.listener || l) : listeners;
-}
-function _checkListener(listener) {
-  if (typeof listener !== "function") {
-    throw new TypeError(
-      'The "listener" argument must be of type Function. Received type ' + typeof listener
-    );
-  }
-}
-
-const EventEmitter = globalThis.EventEmitter || EventEmitter$1;
-
-class _Readable extends EventEmitter {
-  __unenv__ = true;
-  readableEncoding = null;
-  readableEnded = true;
-  readableFlowing = false;
-  readableHighWaterMark = 0;
-  readableLength = 0;
-  readableObjectMode = false;
-  readableAborted = false;
-  readableDidRead = false;
-  closed = false;
-  errored = null;
-  readable = false;
-  destroyed = false;
-  static from(_iterable, options) {
-    return new _Readable(options);
-  }
-  constructor(_opts) {
-    super();
-  }
-  _read(_size) {
-  }
-  read(_size) {
-  }
-  setEncoding(_encoding) {
-    return this;
-  }
-  pause() {
-    return this;
-  }
-  resume() {
-    return this;
-  }
-  isPaused() {
-    return true;
-  }
-  unpipe(_destination) {
-    return this;
-  }
-  unshift(_chunk, _encoding) {
-  }
-  wrap(_oldStream) {
-    return this;
-  }
-  push(_chunk, _encoding) {
-    return false;
-  }
-  _destroy(_error, _callback) {
-    this.removeAllListeners();
-  }
-  destroy(error) {
-    this.destroyed = true;
-    this._destroy(error);
-    return this;
-  }
-  pipe(_destenition, _options) {
-    return {};
-  }
-  compose(stream, options) {
-    throw new Error("[unenv] Method not implemented.");
-  }
-  [Symbol.asyncDispose]() {
-    this.destroy();
-    return Promise.resolve();
-  }
-  // eslint-disable-next-line require-yield
-  async *[Symbol.asyncIterator]() {
-    throw createNotImplementedError("Readable.asyncIterator");
-  }
-  iterator(options) {
-    throw createNotImplementedError("Readable.iterator");
-  }
-  map(fn, options) {
-    throw createNotImplementedError("Readable.map");
-  }
-  filter(fn, options) {
-    throw createNotImplementedError("Readable.filter");
-  }
-  forEach(fn, options) {
-    throw createNotImplementedError("Readable.forEach");
-  }
-  reduce(fn, initialValue, options) {
-    throw createNotImplementedError("Readable.reduce");
-  }
-  find(fn, options) {
-    throw createNotImplementedError("Readable.find");
-  }
-  findIndex(fn, options) {
-    throw createNotImplementedError("Readable.findIndex");
-  }
-  some(fn, options) {
-    throw createNotImplementedError("Readable.some");
-  }
-  toArray(options) {
-    throw createNotImplementedError("Readable.toArray");
-  }
-  every(fn, options) {
-    throw createNotImplementedError("Readable.every");
-  }
-  flatMap(fn, options) {
-    throw createNotImplementedError("Readable.flatMap");
-  }
-  drop(limit, options) {
-    throw createNotImplementedError("Readable.drop");
-  }
-  take(limit, options) {
-    throw createNotImplementedError("Readable.take");
-  }
-  asIndexedPairs(options) {
-    throw createNotImplementedError("Readable.asIndexedPairs");
-  }
-}
-const Readable = globalThis.Readable || _Readable;
-
-class _Writable extends EventEmitter {
-  __unenv__ = true;
-  writable = true;
-  writableEnded = false;
-  writableFinished = false;
-  writableHighWaterMark = 0;
-  writableLength = 0;
-  writableObjectMode = false;
-  writableCorked = 0;
-  closed = false;
-  errored = null;
-  writableNeedDrain = false;
-  destroyed = false;
-  _data;
-  _encoding = "utf-8";
-  constructor(_opts) {
-    super();
-  }
-  pipe(_destenition, _options) {
-    return {};
-  }
-  _write(chunk, encoding, callback) {
-    if (this.writableEnded) {
-      if (callback) {
-        callback();
-      }
-      return;
-    }
-    if (this._data === void 0) {
-      this._data = chunk;
-    } else {
-      const a = typeof this._data === "string" ? Buffer.from(this._data, this._encoding || encoding || "utf8") : this._data;
-      const b = typeof chunk === "string" ? Buffer.from(chunk, encoding || this._encoding || "utf8") : chunk;
-      this._data = Buffer.concat([a, b]);
-    }
-    this._encoding = encoding;
-    if (callback) {
-      callback();
-    }
-  }
-  _writev(_chunks, _callback) {
-  }
-  _destroy(_error, _callback) {
-  }
-  _final(_callback) {
-  }
-  write(chunk, arg2, arg3) {
-    const encoding = typeof arg2 === "string" ? this._encoding : "utf-8";
-    const cb = typeof arg2 === "function" ? arg2 : typeof arg3 === "function" ? arg3 : void 0;
-    this._write(chunk, encoding, cb);
-    return true;
-  }
-  setDefaultEncoding(_encoding) {
-    return this;
-  }
-  end(arg1, arg2, arg3) {
-    const callback = typeof arg1 === "function" ? arg1 : typeof arg2 === "function" ? arg2 : typeof arg3 === "function" ? arg3 : void 0;
-    if (this.writableEnded) {
-      if (callback) {
-        callback();
-      }
-      return this;
-    }
-    const data = arg1 === callback ? void 0 : arg1;
-    if (data) {
-      const encoding = arg2 === callback ? void 0 : arg2;
-      this.write(data, encoding, callback);
-    }
-    this.writableEnded = true;
-    this.writableFinished = true;
-    this.emit("close");
-    this.emit("finish");
-    return this;
-  }
-  cork() {
-  }
-  uncork() {
-  }
-  destroy(_error) {
-    this.destroyed = true;
-    delete this._data;
-    this.removeAllListeners();
-    return this;
-  }
-  compose(stream, options) {
-    throw new Error("[h3] Method not implemented.");
-  }
-}
-const Writable = globalThis.Writable || _Writable;
-
-const __Duplex = class {
-  allowHalfOpen = true;
-  _destroy;
-  constructor(readable = new Readable(), writable = new Writable()) {
-    Object.assign(this, readable);
-    Object.assign(this, writable);
-    this._destroy = mergeFns(readable._destroy, writable._destroy);
-  }
-};
-function getDuplex() {
-  Object.assign(__Duplex.prototype, Readable.prototype);
-  Object.assign(__Duplex.prototype, Writable.prototype);
-  return __Duplex;
-}
-const _Duplex = /* @__PURE__ */ getDuplex();
-const Duplex = globalThis.Duplex || _Duplex;
-
-class Socket extends Duplex {
-  __unenv__ = true;
-  bufferSize = 0;
-  bytesRead = 0;
-  bytesWritten = 0;
-  connecting = false;
-  destroyed = false;
-  pending = false;
-  localAddress = "";
-  localPort = 0;
-  remoteAddress = "";
-  remoteFamily = "";
-  remotePort = 0;
-  autoSelectFamilyAttemptedAddresses = [];
-  readyState = "readOnly";
-  constructor(_options) {
-    super();
-  }
-  write(_buffer, _arg1, _arg2) {
-    return false;
-  }
-  connect(_arg1, _arg2, _arg3) {
-    return this;
-  }
-  end(_arg1, _arg2, _arg3) {
-    return this;
-  }
-  setEncoding(_encoding) {
-    return this;
-  }
-  pause() {
-    return this;
-  }
-  resume() {
-    return this;
-  }
-  setTimeout(_timeout, _callback) {
-    return this;
-  }
-  setNoDelay(_noDelay) {
-    return this;
-  }
-  setKeepAlive(_enable, _initialDelay) {
-    return this;
-  }
-  address() {
-    return {};
-  }
-  unref() {
-    return this;
-  }
-  ref() {
-    return this;
-  }
-  destroySoon() {
-    this.destroy();
-  }
-  resetAndDestroy() {
-    const err = new Error("ERR_SOCKET_CLOSED");
-    err.code = "ERR_SOCKET_CLOSED";
-    this.destroy(err);
-    return this;
-  }
-}
-
-class IncomingMessage extends Readable {
-  __unenv__ = {};
-  aborted = false;
-  httpVersion = "1.1";
-  httpVersionMajor = 1;
-  httpVersionMinor = 1;
-  complete = true;
-  connection;
-  socket;
-  headers = {};
-  trailers = {};
-  method = "GET";
-  url = "/";
-  statusCode = 200;
-  statusMessage = "";
-  closed = false;
-  errored = null;
-  readable = false;
-  constructor(socket) {
-    super();
-    this.socket = this.connection = socket || new Socket();
-  }
-  get rawHeaders() {
-    return rawHeaders(this.headers);
-  }
-  get rawTrailers() {
-    return [];
-  }
-  setTimeout(_msecs, _callback) {
-    return this;
-  }
-  get headersDistinct() {
-    return _distinct(this.headers);
-  }
-  get trailersDistinct() {
-    return _distinct(this.trailers);
-  }
-}
-function _distinct(obj) {
-  const d = {};
-  for (const [key, value] of Object.entries(obj)) {
-    if (key) {
-      d[key] = (Array.isArray(value) ? value : [value]).filter(
-        Boolean
-      );
-    }
-  }
-  return d;
-}
-
-class ServerResponse extends Writable {
-  __unenv__ = true;
-  statusCode = 200;
-  statusMessage = "";
-  upgrading = false;
-  chunkedEncoding = false;
-  shouldKeepAlive = false;
-  useChunkedEncodingByDefault = false;
-  sendDate = false;
-  finished = false;
-  headersSent = false;
-  strictContentLength = false;
-  connection = null;
-  socket = null;
-  req;
-  _headers = {};
-  constructor(req) {
-    super();
-    this.req = req;
-  }
-  assignSocket(socket) {
-    socket._httpMessage = this;
-    this.socket = socket;
-    this.connection = socket;
-    this.emit("socket", socket);
-    this._flush();
-  }
-  _flush() {
-    this.flushHeaders();
-  }
-  detachSocket(_socket) {
-  }
-  writeContinue(_callback) {
-  }
-  writeHead(statusCode, arg1, arg2) {
-    if (statusCode) {
-      this.statusCode = statusCode;
-    }
-    if (typeof arg1 === "string") {
-      this.statusMessage = arg1;
-      arg1 = void 0;
-    }
-    const headers = arg2 || arg1;
-    if (headers) {
-      if (Array.isArray(headers)) ; else {
-        for (const key in headers) {
-          this.setHeader(key, headers[key]);
-        }
-      }
-    }
-    this.headersSent = true;
-    return this;
-  }
-  writeProcessing() {
-  }
-  setTimeout(_msecs, _callback) {
-    return this;
-  }
-  appendHeader(name, value) {
-    name = name.toLowerCase();
-    const current = this._headers[name];
-    const all = [
-      ...Array.isArray(current) ? current : [current],
-      ...Array.isArray(value) ? value : [value]
-    ].filter(Boolean);
-    this._headers[name] = all.length > 1 ? all : all[0];
-    return this;
-  }
-  setHeader(name, value) {
-    this._headers[name.toLowerCase()] = value;
-    return this;
-  }
-  getHeader(name) {
-    return this._headers[name.toLowerCase()];
-  }
-  getHeaders() {
-    return this._headers;
-  }
-  getHeaderNames() {
-    return Object.keys(this._headers);
-  }
-  hasHeader(name) {
-    return name.toLowerCase() in this._headers;
-  }
-  removeHeader(name) {
-    delete this._headers[name.toLowerCase()];
-  }
-  addTrailers(_headers) {
-  }
-  flushHeaders() {
-  }
-  writeEarlyHints(_headers, cb) {
-    if (typeof cb === "function") {
-      cb();
-    }
-  }
-}
-
-const nullBodyResponses = /* @__PURE__ */ new Set([101, 204, 205, 304]);
-function createCall(handle) {
-  return function callHandle(context) {
-    const req = new IncomingMessage();
-    const res = new ServerResponse(req);
-    req.url = context.url || "/";
-    req.method = context.method || "GET";
-    req.headers = {};
-    if (context.headers) {
-      const headerEntries = typeof context.headers.entries === "function" ? context.headers.entries() : Object.entries(context.headers);
-      for (const [name, value] of headerEntries) {
-        if (!value) {
-          continue;
-        }
-        req.headers[name.toLowerCase()] = value;
-      }
-    }
-    req.headers.host = req.headers.host || context.host || "localhost";
-    req.connection.encrypted = // @ts-ignore
-    req.connection.encrypted || context.protocol === "https";
-    req.body = context.body || null;
-    req.__unenv__ = context.context;
-    return handle(req, res).then(() => {
-      let body = res._data;
-      if (nullBodyResponses.has(res.statusCode) || req.method.toUpperCase() === "HEAD") {
-        body = null;
-        delete res._headers["content-length"];
-      }
-      const r = {
-        body,
-        headers: res._headers,
-        status: res.statusCode,
-        statusText: res.statusMessage
-      };
-      req.destroy();
-      res.destroy();
-      return r;
-    });
-  };
-}
-
-function createFetch(call, _fetch = global.fetch) {
-  return async function ufetch(input, init) {
-    const url = input.toString();
-    if (!url.startsWith("/")) {
-      return _fetch(url, init);
-    }
-    try {
-      const r = await call({ url, ...init });
-      return new Response(r.body, {
-        status: r.status,
-        statusText: r.statusText,
-        headers: Object.fromEntries(
-          Object.entries(r.headers).map(([name, value]) => [
-            name,
-            Array.isArray(value) ? value.join(",") : String(value) || ""
-          ])
-        )
-      });
-    } catch (error) {
-      return new Response(error.toString(), {
-        status: Number.parseInt(error.statusCode || error.code) || 500,
-        statusText: error.statusText
-      });
-    }
-  };
-}
-
-function hasReqHeader(event, name, includes) {
-  const value = getRequestHeader(event, name);
-  return value && typeof value === "string" && value.toLowerCase().includes(includes);
-}
-function isJsonRequest(event) {
-  if (hasReqHeader(event, "accept", "text/html")) {
-    return false;
-  }
-  return hasReqHeader(event, "accept", "application/json") || hasReqHeader(event, "user-agent", "curl/") || hasReqHeader(event, "user-agent", "httpie/") || hasReqHeader(event, "sec-fetch-mode", "cors") || event.path.startsWith("/api/") || event.path.endsWith(".json");
-}
-function normalizeError(error, isDev) {
-  const cwd = typeof process.cwd === "function" ? process.cwd() : "/";
-  const stack = (error.unhandled || error.fatal) ? [] : (error.stack || "").split("\n").splice(1).filter((line) => line.includes("at ")).map((line) => {
-    const text = line.replace(cwd + "/", "./").replace("webpack:/", "").replace("file://", "").trim();
-    return {
-      text,
-      internal: line.includes("node_modules") && !line.includes(".cache") || line.includes("internal") || line.includes("new Promise")
-    };
-  });
-  const statusCode = error.statusCode || 500;
-  const statusMessage = error.statusMessage ?? (statusCode === 404 ? "Not Found" : "");
-  const message = error.unhandled ? "internal server error" : error.message || error.toString();
-  return {
-    stack,
-    statusCode,
-    statusMessage,
-    message
-  };
-}
-function _captureError(error, type) {
-  console.error(`[nitro] [${type}]`, error);
-  useNitroApp().captureError(error, { tags: [type] });
-}
-function trapUnhandledNodeErrors() {
-  process.on(
-    "unhandledRejection",
-    (error) => _captureError(error, "unhandledRejection")
-  );
-  process.on(
-    "uncaughtException",
-    (error) => _captureError(error, "uncaughtException")
-  );
-}
-function joinHeaders(value) {
-  return Array.isArray(value) ? value.join(", ") : String(value);
-}
-function normalizeFetchResponse(response) {
-  if (!response.headers.has("set-cookie")) {
-    return response;
-  }
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: normalizeCookieHeaders(response.headers)
-  });
-}
-function normalizeCookieHeader(header = "") {
-  return splitCookiesString(joinHeaders(header));
-}
-function normalizeCookieHeaders(headers) {
-  const outgoingHeaders = new Headers();
-  for (const [name, header] of headers) {
-    if (name === "set-cookie") {
-      for (const cookie of normalizeCookieHeader(header)) {
-        outgoingHeaders.append("set-cookie", cookie);
-      }
-    } else {
-      outgoingHeaders.set(name, joinHeaders(header));
-    }
-  }
-  return outgoingHeaders;
-}
-
-const errorHandler = (async function errorhandler(error, event) {
-  const { stack, statusCode, statusMessage, message } = normalizeError(error);
-  const errorObject = {
-    url: event.path,
-    statusCode,
-    statusMessage,
-    message,
-    stack: "",
-    // TODO: check and validate error.data for serialisation into query
-    data: error.data
-  };
-  if (error.unhandled || error.fatal) {
-    const tags = [
-      "[nuxt]",
-      "[request error]",
-      error.unhandled && "[unhandled]",
-      error.fatal && "[fatal]",
-      Number(errorObject.statusCode) !== 200 && `[${errorObject.statusCode}]`
-    ].filter(Boolean).join(" ");
-    console.error(tags, (error.message || error.toString() || "internal server error") + "\n" + stack.map((l) => "  " + l.text).join("  \n"));
-  }
-  if (event.handled) {
-    return;
-  }
-  setResponseStatus(event, errorObject.statusCode !== 200 && errorObject.statusCode || 500, errorObject.statusMessage);
-  if (isJsonRequest(event)) {
-    setResponseHeader(event, "Content-Type", "application/json");
-    return send(event, JSON.stringify(errorObject));
-  }
-  const reqHeaders = getRequestHeaders(event);
-  const isRenderingError = event.path.startsWith("/__nuxt_error") || !!reqHeaders["x-nuxt-error"];
-  const res = isRenderingError ? null : await useNitroApp().localFetch(
-    withQuery(joinURL(useRuntimeConfig(event).app.baseURL, "/__nuxt_error"), errorObject),
-    {
-      headers: { ...reqHeaders, "x-nuxt-error": "true" },
-      redirect: "manual"
-    }
-  ).catch(() => null);
-  if (!res) {
-    const { template } = await import('../_/error-500.mjs');
-    if (event.handled) {
-      return;
-    }
-    setResponseHeader(event, "Content-Type", "text/html;charset=UTF-8");
-    return send(event, template(errorObject));
-  }
-  const html = await res.text();
-  if (event.handled) {
-    return;
-  }
-  for (const [header, value] of res.headers.entries()) {
-    setResponseHeader(event, header, value);
-  }
-  setResponseStatus(event, res.status && res.status !== 200 ? res.status : void 0, res.statusText);
-  return send(event, html);
-});
-
-function defineNitroPlugin(def) {
-  return def;
-}
-
-const _PVQ291mr5N = defineNitroPlugin((nitro) => {
-  createDebugger(nitro.hooks, { tag: "nitro-runtime" });
-});
-
-const plugins = [
-  _PVQ291mr5N
-];
-
-const assets$1 = {};
-
-const _DRIVE_LETTER_START_RE = /^[A-Za-z]:\//;
-function normalizeWindowsPath(input = "") {
-  if (!input) {
-    return input;
-  }
-  return input.replace(/\\/g, "/").replace(_DRIVE_LETTER_START_RE, (r) => r.toUpperCase());
-}
-const _IS_ABSOLUTE_RE = /^[/\\](?![/\\])|^[/\\]{2}(?!\.)|^[A-Za-z]:[/\\]/;
-const _DRIVE_LETTER_RE = /^[A-Za-z]:$/;
-function cwd() {
-  if (typeof process !== "undefined" && typeof process.cwd === "function") {
-    return process.cwd().replace(/\\/g, "/");
-  }
-  return "/";
-}
-const resolve = function(...arguments_) {
-  arguments_ = arguments_.map((argument) => normalizeWindowsPath(argument));
-  let resolvedPath = "";
-  let resolvedAbsolute = false;
-  for (let index = arguments_.length - 1; index >= -1 && !resolvedAbsolute; index--) {
-    const path = index >= 0 ? arguments_[index] : cwd();
-    if (!path || path.length === 0) {
-      continue;
-    }
-    resolvedPath = `${path}/${resolvedPath}`;
-    resolvedAbsolute = isAbsolute(path);
-  }
-  resolvedPath = normalizeString(resolvedPath, !resolvedAbsolute);
-  if (resolvedAbsolute && !isAbsolute(resolvedPath)) {
-    return `/${resolvedPath}`;
-  }
-  return resolvedPath.length > 0 ? resolvedPath : ".";
-};
-function normalizeString(path, allowAboveRoot) {
-  let res = "";
-  let lastSegmentLength = 0;
-  let lastSlash = -1;
-  let dots = 0;
-  let char = null;
-  for (let index = 0; index <= path.length; ++index) {
-    if (index < path.length) {
-      char = path[index];
-    } else if (char === "/") {
-      break;
-    } else {
-      char = "/";
-    }
-    if (char === "/") {
-      if (lastSlash === index - 1 || dots === 1) ; else if (dots === 2) {
-        if (res.length < 2 || lastSegmentLength !== 2 || res[res.length - 1] !== "." || res[res.length - 2] !== ".") {
-          if (res.length > 2) {
-            const lastSlashIndex = res.lastIndexOf("/");
-            if (lastSlashIndex === -1) {
-              res = "";
-              lastSegmentLength = 0;
-            } else {
-              res = res.slice(0, lastSlashIndex);
-              lastSegmentLength = res.length - 1 - res.lastIndexOf("/");
-            }
-            lastSlash = index;
-            dots = 0;
-            continue;
-          } else if (res.length > 0) {
-            res = "";
-            lastSegmentLength = 0;
-            lastSlash = index;
-            dots = 0;
-            continue;
-          }
-        }
-        if (allowAboveRoot) {
-          res += res.length > 0 ? "/.." : "..";
-          lastSegmentLength = 2;
-        }
-      } else {
-        if (res.length > 0) {
-          res += `/${path.slice(lastSlash + 1, index)}`;
-        } else {
-          res = path.slice(lastSlash + 1, index);
-        }
-        lastSegmentLength = index - lastSlash - 1;
-      }
-      lastSlash = index;
-      dots = 0;
-    } else if (char === "." && dots !== -1) {
-      ++dots;
-    } else {
-      dots = -1;
-    }
-  }
-  return res;
-}
-const isAbsolute = function(p) {
-  return _IS_ABSOLUTE_RE.test(p);
-};
-const dirname = function(p) {
-  const segments = normalizeWindowsPath(p).replace(/\/$/, "").split("/").slice(0, -1);
-  if (segments.length === 1 && _DRIVE_LETTER_RE.test(segments[0])) {
-    segments[0] += "/";
-  }
-  return segments.join("/") || (isAbsolute(p) ? "/" : ".");
-};
-
-function readAsset (id) {
-  const serverDir = dirname(fileURLToPath(globalThis._importMeta_.url));
-  return promises.readFile(resolve(serverDir, assets$1[id].path))
-}
-
-const publicAssetBases = {"/static/builds/meta/":{"maxAge":31536000},"/static/builds/":{"maxAge":1},"/static/":{"maxAge":31536000}};
-
-function isPublicAssetURL(id = '') {
-  if (assets$1[id]) {
-    return true
-  }
-  for (const base in publicAssetBases) {
-    if (id.startsWith(base)) { return true }
-  }
-  return false
-}
-
-function getAsset (id) {
-  return assets$1[id]
-}
-
-const METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
-const EncodingMap = { gzip: ".gz", br: ".br" };
-const _NEbolb = eventHandler((event) => {
-  if (event.method && !METHODS.has(event.method)) {
-    return;
-  }
-  let id = decodePath(
-    withLeadingSlash(withoutTrailingSlash(parseURL(event.path).pathname))
-  );
-  let asset;
-  const encodingHeader = String(
-    getRequestHeader(event, "accept-encoding") || ""
-  );
-  const encodings = [
-    ...encodingHeader.split(",").map((e) => EncodingMap[e.trim()]).filter(Boolean).sort(),
-    ""
-  ];
-  if (encodings.length > 1) {
-    appendResponseHeader(event, "Vary", "Accept-Encoding");
-  }
-  for (const encoding of encodings) {
-    for (const _id of [id + encoding, joinURL(id, "index.html" + encoding)]) {
-      const _asset = getAsset(_id);
-      if (_asset) {
-        asset = _asset;
-        id = _id;
-        break;
-      }
-    }
-  }
-  if (!asset) {
-    if (isPublicAssetURL(id)) {
-      removeResponseHeader(event, "Cache-Control");
-      throw createError$1({
-        statusMessage: "Cannot find static asset " + id,
-        statusCode: 404
-      });
-    }
-    return;
-  }
-  const ifNotMatch = getRequestHeader(event, "if-none-match") === asset.etag;
-  if (ifNotMatch) {
-    setResponseStatus(event, 304, "Not Modified");
-    return "";
-  }
-  const ifModifiedSinceH = getRequestHeader(event, "if-modified-since");
-  const mtimeDate = new Date(asset.mtime);
-  if (ifModifiedSinceH && asset.mtime && new Date(ifModifiedSinceH) >= mtimeDate) {
-    setResponseStatus(event, 304, "Not Modified");
-    return "";
-  }
-  if (asset.type && !getResponseHeader(event, "Content-Type")) {
-    setResponseHeader(event, "Content-Type", asset.type);
-  }
-  if (asset.etag && !getResponseHeader(event, "ETag")) {
-    setResponseHeader(event, "ETag", asset.etag);
-  }
-  if (asset.mtime && !getResponseHeader(event, "Last-Modified")) {
-    setResponseHeader(event, "Last-Modified", mtimeDate.toUTCString());
-  }
-  if (asset.encoding && !getResponseHeader(event, "Content-Encoding")) {
-    setResponseHeader(event, "Content-Encoding", asset.encoding);
-  }
-  if (asset.size > 0 && !getResponseHeader(event, "Content-Length")) {
-    setResponseHeader(event, "Content-Length", asset.size);
-  }
-  return readAsset(id);
-});
-
-const _lazy_ewECDr = () => import('../routes/renderer.mjs').then(function (n) { return n.r; });
-
-const handlers = [
-  { route: '', handler: _NEbolb, lazy: false, middleware: true, method: undefined },
-  { route: '/__nuxt_error', handler: _lazy_ewECDr, lazy: true, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_ewECDr, lazy: true, middleware: false, method: undefined }
-];
-
-const defaults = Object.freeze({
-  ignoreUnknown: false,
-  respectType: false,
-  respectFunctionNames: false,
-  respectFunctionProperties: false,
-  unorderedObjects: true,
-  unorderedArrays: false,
-  unorderedSets: false,
-  excludeKeys: void 0,
-  excludeValues: void 0,
-  replacer: void 0
-});
-function objectHash(object, options) {
-  if (options) {
-    options = { ...defaults, ...options };
-  } else {
-    options = defaults;
-  }
-  const hasher = createHasher(options);
-  hasher.dispatch(object);
-  return hasher.toString();
-}
-const defaultPrototypesKeys = Object.freeze([
-  "prototype",
-  "__proto__",
-  "constructor"
-]);
-function createHasher(options) {
-  let buff = "";
-  let context = /* @__PURE__ */ new Map();
-  const write = (str) => {
-    buff += str;
-  };
-  return {
-    toString() {
-      return buff;
-    },
-    getContext() {
-      return context;
-    },
-    dispatch(value) {
-      if (options.replacer) {
-        value = options.replacer(value);
-      }
-      const type = value === null ? "null" : typeof value;
-      return this[type](value);
-    },
-    object(object) {
-      if (object && typeof object.toJSON === "function") {
-        return this.object(object.toJSON());
-      }
-      const objString = Object.prototype.toString.call(object);
-      let objType = "";
-      const objectLength = objString.length;
-      if (objectLength < 10) {
-        objType = "unknown:[" + objString + "]";
-      } else {
-        objType = objString.slice(8, objectLength - 1);
-      }
-      objType = objType.toLowerCase();
-      let objectNumber = null;
-      if ((objectNumber = context.get(object)) === void 0) {
-        context.set(object, context.size);
-      } else {
-        return this.dispatch("[CIRCULAR:" + objectNumber + "]");
-      }
-      if (typeof Buffer !== "undefined" && Buffer.isBuffer && Buffer.isBuffer(object)) {
-        write("buffer:");
-        return write(object.toString("utf8"));
-      }
-      if (objType !== "object" && objType !== "function" && objType !== "asyncfunction") {
-        if (this[objType]) {
-          this[objType](object);
-        } else if (!options.ignoreUnknown) {
-          this.unkown(object, objType);
-        }
-      } else {
-        let keys = Object.keys(object);
-        if (options.unorderedObjects) {
-          keys = keys.sort();
-        }
-        let extraKeys = [];
-        if (options.respectType !== false && !isNativeFunction(object)) {
-          extraKeys = defaultPrototypesKeys;
-        }
-        if (options.excludeKeys) {
-          keys = keys.filter((key) => {
-            return !options.excludeKeys(key);
-          });
-          extraKeys = extraKeys.filter((key) => {
-            return !options.excludeKeys(key);
-          });
-        }
-        write("object:" + (keys.length + extraKeys.length) + ":");
-        const dispatchForKey = (key) => {
-          this.dispatch(key);
-          write(":");
-          if (!options.excludeValues) {
-            this.dispatch(object[key]);
-          }
-          write(",");
-        };
-        for (const key of keys) {
-          dispatchForKey(key);
-        }
-        for (const key of extraKeys) {
-          dispatchForKey(key);
-        }
-      }
-    },
-    array(arr, unordered) {
-      unordered = unordered === void 0 ? options.unorderedArrays !== false : unordered;
-      write("array:" + arr.length + ":");
-      if (!unordered || arr.length <= 1) {
-        for (const entry of arr) {
-          this.dispatch(entry);
-        }
-        return;
-      }
-      const contextAdditions = /* @__PURE__ */ new Map();
-      const entries = arr.map((entry) => {
-        const hasher = createHasher(options);
-        hasher.dispatch(entry);
-        for (const [key, value] of hasher.getContext()) {
-          contextAdditions.set(key, value);
-        }
-        return hasher.toString();
-      });
-      context = contextAdditions;
-      entries.sort();
-      return this.array(entries, false);
-    },
-    date(date) {
-      return write("date:" + date.toJSON());
-    },
-    symbol(sym) {
-      return write("symbol:" + sym.toString());
-    },
-    unkown(value, type) {
-      write(type);
-      if (!value) {
-        return;
-      }
-      write(":");
-      if (value && typeof value.entries === "function") {
-        return this.array(
-          Array.from(value.entries()),
-          true
-          /* ordered */
-        );
-      }
-    },
-    error(err) {
-      return write("error:" + err.toString());
-    },
-    boolean(bool) {
-      return write("bool:" + bool);
-    },
-    string(string) {
-      write("string:" + string.length + ":");
-      write(string);
-    },
-    function(fn) {
-      write("fn:");
-      if (isNativeFunction(fn)) {
-        this.dispatch("[native]");
-      } else {
-        this.dispatch(fn.toString());
-      }
-      if (options.respectFunctionNames !== false) {
-        this.dispatch("function-name:" + String(fn.name));
-      }
-      if (options.respectFunctionProperties) {
-        this.object(fn);
-      }
-    },
-    number(number) {
-      return write("number:" + number);
-    },
-    xml(xml) {
-      return write("xml:" + xml.toString());
-    },
-    null() {
-      return write("Null");
-    },
-    undefined() {
-      return write("Undefined");
-    },
-    regexp(regex) {
-      return write("regex:" + regex.toString());
-    },
-    uint8array(arr) {
-      write("uint8array:");
-      return this.dispatch(Array.prototype.slice.call(arr));
-    },
-    uint8clampedarray(arr) {
-      write("uint8clampedarray:");
-      return this.dispatch(Array.prototype.slice.call(arr));
-    },
-    int8array(arr) {
-      write("int8array:");
-      return this.dispatch(Array.prototype.slice.call(arr));
-    },
-    uint16array(arr) {
-      write("uint16array:");
-      return this.dispatch(Array.prototype.slice.call(arr));
-    },
-    int16array(arr) {
-      write("int16array:");
-      return this.dispatch(Array.prototype.slice.call(arr));
-    },
-    uint32array(arr) {
-      write("uint32array:");
-      return this.dispatch(Array.prototype.slice.call(arr));
-    },
-    int32array(arr) {
-      write("int32array:");
-      return this.dispatch(Array.prototype.slice.call(arr));
-    },
-    float32array(arr) {
-      write("float32array:");
-      return this.dispatch(Array.prototype.slice.call(arr));
-    },
-    float64array(arr) {
-      write("float64array:");
-      return this.dispatch(Array.prototype.slice.call(arr));
-    },
-    arraybuffer(arr) {
-      write("arraybuffer:");
-      return this.dispatch(new Uint8Array(arr));
-    },
-    url(url) {
-      return write("url:" + url.toString());
-    },
-    map(map) {
-      write("map:");
-      const arr = [...map];
-      return this.array(arr, options.unorderedSets !== false);
-    },
-    set(set) {
-      write("set:");
-      const arr = [...set];
-      return this.array(arr, options.unorderedSets !== false);
-    },
-    file(file) {
-      write("file:");
-      return this.dispatch([file.name, file.size, file.type, file.lastModfied]);
-    },
-    blob() {
-      if (options.ignoreUnknown) {
-        return write("[blob]");
-      }
-      throw new Error(
-        'Hashing Blob objects is currently not supported\nUse "options.replacer" or "options.ignoreUnknown"\n'
-      );
-    },
-    domwindow() {
-      return write("domwindow");
-    },
-    bigint(number) {
-      return write("bigint:" + number.toString());
-    },
-    /* Node.js standard native objects */
-    process() {
-      return write("process");
-    },
-    timer() {
-      return write("timer");
-    },
-    pipe() {
-      return write("pipe");
-    },
-    tcp() {
-      return write("tcp");
-    },
-    udp() {
-      return write("udp");
-    },
-    tty() {
-      return write("tty");
-    },
-    statwatcher() {
-      return write("statwatcher");
-    },
-    securecontext() {
-      return write("securecontext");
-    },
-    connection() {
-      return write("connection");
-    },
-    zlib() {
-      return write("zlib");
-    },
-    context() {
-      return write("context");
-    },
-    nodescript() {
-      return write("nodescript");
-    },
-    httpparser() {
-      return write("httpparser");
-    },
-    dataview() {
-      return write("dataview");
-    },
-    signal() {
-      return write("signal");
-    },
-    fsevent() {
-      return write("fsevent");
-    },
-    tlswrap() {
-      return write("tlswrap");
-    }
-  };
-}
-const nativeFunc = "[native code] }";
-const nativeFuncLength = nativeFunc.length;
-function isNativeFunction(f) {
-  if (typeof f !== "function") {
-    return false;
-  }
-  return Function.prototype.toString.call(f).slice(-nativeFuncLength) === nativeFunc;
-}
-
-var __defProp$1 = Object.defineProperty;
-var __defNormalProp$1 = (obj, key, value) => key in obj ? __defProp$1(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField$1 = (obj, key, value) => {
-  __defNormalProp$1(obj, typeof key !== "symbol" ? key + "" : key, value);
-  return value;
-};
-class WordArray {
-  constructor(words, sigBytes) {
-    __publicField$1(this, "words");
-    __publicField$1(this, "sigBytes");
-    words = this.words = words || [];
-    this.sigBytes = sigBytes === void 0 ? words.length * 4 : sigBytes;
-  }
-  toString(encoder) {
-    return (encoder || Hex).stringify(this);
-  }
-  concat(wordArray) {
-    this.clamp();
-    if (this.sigBytes % 4) {
-      for (let i = 0; i < wordArray.sigBytes; i++) {
-        const thatByte = wordArray.words[i >>> 2] >>> 24 - i % 4 * 8 & 255;
-        this.words[this.sigBytes + i >>> 2] |= thatByte << 24 - (this.sigBytes + i) % 4 * 8;
-      }
-    } else {
-      for (let j = 0; j < wordArray.sigBytes; j += 4) {
-        this.words[this.sigBytes + j >>> 2] = wordArray.words[j >>> 2];
-      }
-    }
-    this.sigBytes += wordArray.sigBytes;
-    return this;
-  }
-  clamp() {
-    this.words[this.sigBytes >>> 2] &= 4294967295 << 32 - this.sigBytes % 4 * 8;
-    this.words.length = Math.ceil(this.sigBytes / 4);
-  }
-  clone() {
-    return new WordArray([...this.words]);
-  }
-}
-const Hex = {
-  stringify(wordArray) {
-    const hexChars = [];
-    for (let i = 0; i < wordArray.sigBytes; i++) {
-      const bite = wordArray.words[i >>> 2] >>> 24 - i % 4 * 8 & 255;
-      hexChars.push((bite >>> 4).toString(16), (bite & 15).toString(16));
-    }
-    return hexChars.join("");
-  }
-};
-const Base64 = {
-  stringify(wordArray) {
-    const keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const base64Chars = [];
-    for (let i = 0; i < wordArray.sigBytes; i += 3) {
-      const byte1 = wordArray.words[i >>> 2] >>> 24 - i % 4 * 8 & 255;
-      const byte2 = wordArray.words[i + 1 >>> 2] >>> 24 - (i + 1) % 4 * 8 & 255;
-      const byte3 = wordArray.words[i + 2 >>> 2] >>> 24 - (i + 2) % 4 * 8 & 255;
-      const triplet = byte1 << 16 | byte2 << 8 | byte3;
-      for (let j = 0; j < 4 && i * 8 + j * 6 < wordArray.sigBytes * 8; j++) {
-        base64Chars.push(keyStr.charAt(triplet >>> 6 * (3 - j) & 63));
-      }
-    }
-    return base64Chars.join("");
-  }
-};
-const Latin1 = {
-  parse(latin1Str) {
-    const latin1StrLength = latin1Str.length;
-    const words = [];
-    for (let i = 0; i < latin1StrLength; i++) {
-      words[i >>> 2] |= (latin1Str.charCodeAt(i) & 255) << 24 - i % 4 * 8;
-    }
-    return new WordArray(words, latin1StrLength);
-  }
-};
-const Utf8 = {
-  parse(utf8Str) {
-    return Latin1.parse(unescape(encodeURIComponent(utf8Str)));
-  }
-};
-class BufferedBlockAlgorithm {
-  constructor() {
-    __publicField$1(this, "_data", new WordArray());
-    __publicField$1(this, "_nDataBytes", 0);
-    __publicField$1(this, "_minBufferSize", 0);
-    __publicField$1(this, "blockSize", 512 / 32);
-  }
-  reset() {
-    this._data = new WordArray();
-    this._nDataBytes = 0;
-  }
-  _append(data) {
-    if (typeof data === "string") {
-      data = Utf8.parse(data);
-    }
-    this._data.concat(data);
-    this._nDataBytes += data.sigBytes;
-  }
-  _doProcessBlock(_dataWords, _offset) {
-  }
-  _process(doFlush) {
-    let processedWords;
-    let nBlocksReady = this._data.sigBytes / (this.blockSize * 4);
-    if (doFlush) {
-      nBlocksReady = Math.ceil(nBlocksReady);
-    } else {
-      nBlocksReady = Math.max((nBlocksReady | 0) - this._minBufferSize, 0);
-    }
-    const nWordsReady = nBlocksReady * this.blockSize;
-    const nBytesReady = Math.min(nWordsReady * 4, this._data.sigBytes);
-    if (nWordsReady) {
-      for (let offset = 0; offset < nWordsReady; offset += this.blockSize) {
-        this._doProcessBlock(this._data.words, offset);
-      }
-      processedWords = this._data.words.splice(0, nWordsReady);
-      this._data.sigBytes -= nBytesReady;
-    }
-    return new WordArray(processedWords, nBytesReady);
-  }
-}
-class Hasher extends BufferedBlockAlgorithm {
-  update(messageUpdate) {
-    this._append(messageUpdate);
-    this._process();
-    return this;
-  }
-  finalize(messageUpdate) {
-    if (messageUpdate) {
-      this._append(messageUpdate);
-    }
-  }
-}
-
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => {
-  __defNormalProp(obj, key + "" , value);
-  return value;
-};
-const H = [
-  1779033703,
-  -1150833019,
-  1013904242,
-  -1521486534,
-  1359893119,
-  -1694144372,
-  528734635,
-  1541459225
-];
-const K = [
-  1116352408,
-  1899447441,
-  -1245643825,
-  -373957723,
-  961987163,
-  1508970993,
-  -1841331548,
-  -1424204075,
-  -670586216,
-  310598401,
-  607225278,
-  1426881987,
-  1925078388,
-  -2132889090,
-  -1680079193,
-  -1046744716,
-  -459576895,
-  -272742522,
-  264347078,
-  604807628,
-  770255983,
-  1249150122,
-  1555081692,
-  1996064986,
-  -1740746414,
-  -1473132947,
-  -1341970488,
-  -1084653625,
-  -958395405,
-  -710438585,
-  113926993,
-  338241895,
-  666307205,
-  773529912,
-  1294757372,
-  1396182291,
-  1695183700,
-  1986661051,
-  -2117940946,
-  -1838011259,
-  -1564481375,
-  -1474664885,
-  -1035236496,
-  -949202525,
-  -778901479,
-  -694614492,
-  -200395387,
-  275423344,
-  430227734,
-  506948616,
-  659060556,
-  883997877,
-  958139571,
-  1322822218,
-  1537002063,
-  1747873779,
-  1955562222,
-  2024104815,
-  -2067236844,
-  -1933114872,
-  -1866530822,
-  -1538233109,
-  -1090935817,
-  -965641998
-];
-const W = [];
-class SHA256 extends Hasher {
-  constructor() {
-    super(...arguments);
-    __publicField(this, "_hash", new WordArray([...H]));
-  }
-  /**
-   * Resets the internal state of the hash object to initial values.
-   */
-  reset() {
-    super.reset();
-    this._hash = new WordArray([...H]);
-  }
-  _doProcessBlock(M, offset) {
-    const H2 = this._hash.words;
-    let a = H2[0];
-    let b = H2[1];
-    let c = H2[2];
-    let d = H2[3];
-    let e = H2[4];
-    let f = H2[5];
-    let g = H2[6];
-    let h = H2[7];
-    for (let i = 0; i < 64; i++) {
-      if (i < 16) {
-        W[i] = M[offset + i] | 0;
-      } else {
-        const gamma0x = W[i - 15];
-        const gamma0 = (gamma0x << 25 | gamma0x >>> 7) ^ (gamma0x << 14 | gamma0x >>> 18) ^ gamma0x >>> 3;
-        const gamma1x = W[i - 2];
-        const gamma1 = (gamma1x << 15 | gamma1x >>> 17) ^ (gamma1x << 13 | gamma1x >>> 19) ^ gamma1x >>> 10;
-        W[i] = gamma0 + W[i - 7] + gamma1 + W[i - 16];
-      }
-      const ch = e & f ^ ~e & g;
-      const maj = a & b ^ a & c ^ b & c;
-      const sigma0 = (a << 30 | a >>> 2) ^ (a << 19 | a >>> 13) ^ (a << 10 | a >>> 22);
-      const sigma1 = (e << 26 | e >>> 6) ^ (e << 21 | e >>> 11) ^ (e << 7 | e >>> 25);
-      const t1 = h + sigma1 + ch + K[i] + W[i];
-      const t2 = sigma0 + maj;
-      h = g;
-      g = f;
-      f = e;
-      e = d + t1 | 0;
-      d = c;
-      c = b;
-      b = a;
-      a = t1 + t2 | 0;
-    }
-    H2[0] = H2[0] + a | 0;
-    H2[1] = H2[1] + b | 0;
-    H2[2] = H2[2] + c | 0;
-    H2[3] = H2[3] + d | 0;
-    H2[4] = H2[4] + e | 0;
-    H2[5] = H2[5] + f | 0;
-    H2[6] = H2[6] + g | 0;
-    H2[7] = H2[7] + h | 0;
-  }
-  /**
-   * Finishes the hash calculation and returns the hash as a WordArray.
-   *
-   * @param {string} messageUpdate - Additional message content to include in the hash.
-   * @returns {WordArray} The finalised hash as a WordArray.
-   */
-  finalize(messageUpdate) {
-    super.finalize(messageUpdate);
-    const nBitsTotal = this._nDataBytes * 8;
-    const nBitsLeft = this._data.sigBytes * 8;
-    this._data.words[nBitsLeft >>> 5] |= 128 << 24 - nBitsLeft % 32;
-    this._data.words[(nBitsLeft + 64 >>> 9 << 4) + 14] = Math.floor(
-      nBitsTotal / 4294967296
-    );
-    this._data.words[(nBitsLeft + 64 >>> 9 << 4) + 15] = nBitsTotal;
-    this._data.sigBytes = this._data.words.length * 4;
-    this._process();
-    return this._hash;
-  }
-}
-function sha256base64(message) {
-  return new SHA256().finalize(message).toString(Base64);
-}
-
-function hash(object, options = {}) {
-  const hashed = typeof object === "string" ? object : objectHash(object, options);
-  return sha256base64(hashed).slice(0, 10);
-}
+const ofetch = createFetch({ fetch, Headers: Headers$1, AbortController });
+const $fetch$1 = ofetch;
 
 function wrapToPromise(value) {
   if (!value || typeof value.then !== "function") {
@@ -4287,6 +2737,25 @@ function prefixStorage(storage, base) {
     );
   }
   nsStorage.getKeys = (key = "", ...arguments_) => storage.getKeys(base + key, ...arguments_).then((keys) => keys.map((key2) => key2.slice(base.length)));
+  nsStorage.keys = nsStorage.getKeys;
+  nsStorage.getItems = async (items, commonOptions) => {
+    const prefixedItems = items.map(
+      (item) => typeof item === "string" ? base + item : { ...item, key: base + item.key }
+    );
+    const results = await storage.getItems(prefixedItems, commonOptions);
+    return results.map((entry) => ({
+      key: entry.key.slice(base.length),
+      value: entry.value
+    }));
+  };
+  nsStorage.setItems = async (items, commonOptions) => {
+    const prefixedItems = items.map((item) => ({
+      key: base + item.key,
+      value: item.value,
+      options: item.options
+    }));
+    return storage.setItems(prefixedItems, commonOptions);
+  };
   return nsStorage;
 }
 function normalizeKey$1(key) {
@@ -4773,7 +3242,7 @@ const normalizeKey = function normalizeKey(key) {
   return key.split("?")[0]?.replace(/[/\\]/g, ":").replace(/:+/g, ":").replace(/^:|:$/g, "") || "";
 };
 
-const assets = {
+const assets$1 = {
   getKeys() {
     return Promise.resolve(Object.keys(_assets))
   },
@@ -4946,12 +3415,197 @@ const unstorage_47drivers_47fs_45lite = defineDriver((opts = {}) => {
 
 const storage = createStorage({});
 
-storage.mount('/assets', assets);
+storage.mount('/assets', assets$1);
 
-storage.mount('data', unstorage_47drivers_47fs_45lite({"driver":"fsLite","base":"/Users/shiaohan/Desktop/網頁專案/unlimited/unlimited/.data/kv"}));
+storage.mount('data', unstorage_47drivers_47fs_45lite({"driver":"fsLite","base":"./.data/kv"}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
+}
+
+const e=globalThis.process?.getBuiltinModule?.("crypto")?.hash,r="sha256",s="base64url";function digest(t){if(e)return e(r,t,s);const o=createHash(r).update(t);return globalThis.process?.versions?.webcontainer?o.digest().toString(s):o.digest(s)}
+
+const Hasher = /* @__PURE__ */ (() => {
+  class Hasher2 {
+    buff = "";
+    #context = /* @__PURE__ */ new Map();
+    write(str) {
+      this.buff += str;
+    }
+    dispatch(value) {
+      const type = value === null ? "null" : typeof value;
+      return this[type](value);
+    }
+    object(object) {
+      if (object && typeof object.toJSON === "function") {
+        return this.object(object.toJSON());
+      }
+      const objString = Object.prototype.toString.call(object);
+      let objType = "";
+      const objectLength = objString.length;
+      objType = objectLength < 10 ? "unknown:[" + objString + "]" : objString.slice(8, objectLength - 1);
+      objType = objType.toLowerCase();
+      let objectNumber = null;
+      if ((objectNumber = this.#context.get(object)) === void 0) {
+        this.#context.set(object, this.#context.size);
+      } else {
+        return this.dispatch("[CIRCULAR:" + objectNumber + "]");
+      }
+      if (typeof Buffer !== "undefined" && Buffer.isBuffer && Buffer.isBuffer(object)) {
+        this.write("buffer:");
+        return this.write(object.toString("utf8"));
+      }
+      if (objType !== "object" && objType !== "function" && objType !== "asyncfunction") {
+        if (this[objType]) {
+          this[objType](object);
+        } else {
+          this.unknown(object, objType);
+        }
+      } else {
+        const keys = Object.keys(object).sort();
+        const extraKeys = [];
+        this.write("object:" + (keys.length + extraKeys.length) + ":");
+        const dispatchForKey = (key) => {
+          this.dispatch(key);
+          this.write(":");
+          this.dispatch(object[key]);
+          this.write(",");
+        };
+        for (const key of keys) {
+          dispatchForKey(key);
+        }
+        for (const key of extraKeys) {
+          dispatchForKey(key);
+        }
+      }
+    }
+    array(arr, unordered) {
+      unordered = unordered === void 0 ? false : unordered;
+      this.write("array:" + arr.length + ":");
+      if (!unordered || arr.length <= 1) {
+        for (const entry of arr) {
+          this.dispatch(entry);
+        }
+        return;
+      }
+      const contextAdditions = /* @__PURE__ */ new Map();
+      const entries = arr.map((entry) => {
+        const hasher = new Hasher2();
+        hasher.dispatch(entry);
+        for (const [key, value] of hasher.#context) {
+          contextAdditions.set(key, value);
+        }
+        return hasher.toString();
+      });
+      this.#context = contextAdditions;
+      entries.sort();
+      return this.array(entries, false);
+    }
+    date(date) {
+      return this.write("date:" + date.toJSON());
+    }
+    symbol(sym) {
+      return this.write("symbol:" + sym.toString());
+    }
+    unknown(value, type) {
+      this.write(type);
+      if (!value) {
+        return;
+      }
+      this.write(":");
+      if (value && typeof value.entries === "function") {
+        return this.array(
+          [...value.entries()],
+          true
+          /* ordered */
+        );
+      }
+    }
+    error(err) {
+      return this.write("error:" + err.toString());
+    }
+    boolean(bool) {
+      return this.write("bool:" + bool);
+    }
+    string(string) {
+      this.write("string:" + string.length + ":");
+      this.write(string);
+    }
+    function(fn) {
+      this.write("fn:");
+      if (isNativeFunction(fn)) {
+        this.dispatch("[native]");
+      } else {
+        this.dispatch(fn.toString());
+      }
+    }
+    number(number) {
+      return this.write("number:" + number);
+    }
+    null() {
+      return this.write("Null");
+    }
+    undefined() {
+      return this.write("Undefined");
+    }
+    regexp(regex) {
+      return this.write("regex:" + regex.toString());
+    }
+    arraybuffer(arr) {
+      this.write("arraybuffer:");
+      return this.dispatch(new Uint8Array(arr));
+    }
+    url(url) {
+      return this.write("url:" + url.toString());
+    }
+    map(map) {
+      this.write("map:");
+      const arr = [...map];
+      return this.array(arr, false);
+    }
+    set(set) {
+      this.write("set:");
+      const arr = [...set];
+      return this.array(arr, false);
+    }
+    bigint(number) {
+      return this.write("bigint:" + number.toString());
+    }
+  }
+  for (const type of [
+    "uint8array",
+    "uint8clampedarray",
+    "unt8array",
+    "uint16array",
+    "unt16array",
+    "uint32array",
+    "unt32array",
+    "float32array",
+    "float64array"
+  ]) {
+    Hasher2.prototype[type] = function(arr) {
+      this.write(type + ":");
+      return this.array([...arr], false);
+    };
+  }
+  function isNativeFunction(f) {
+    if (typeof f !== "function") {
+      return false;
+    }
+    return Function.prototype.toString.call(f).slice(
+      -15
+      /* "[native code] }".length */
+    ) === "[native code] }";
+  }
+  return Hasher2;
+})();
+function serialize(object) {
+  const hasher = new Hasher();
+  hasher.dispatch(object);
+  return hasher.buff;
+}
+function hash(value) {
+  return digest(typeof value === "string" ? value : serialize(value)).replace(/[-_]/g, "").slice(0, 10);
 }
 
 function defaultCacheOptions() {
@@ -4972,13 +3626,13 @@ function defineCachedFunction(fn, opts = {}) {
   async function get(key, resolver, shouldInvalidateCache, event) {
     const cacheKey = [opts.base, group, name, key + ".json"].filter(Boolean).join(":").replace(/:\/$/, ":index");
     let entry = await useStorage().getItem(cacheKey).catch((error) => {
-      console.error(`[nitro] [cache] Cache read error.`, error);
+      console.error(`[cache] Cache read error.`, error);
       useNitroApp().captureError(error, { event, tags: ["cache"] });
     }) || {};
     if (typeof entry !== "object") {
       entry = {};
       const error = new Error("Malformed data read from cache.");
-      console.error("[nitro] [cache]", error);
+      console.error("[cache]", error);
       useNitroApp().captureError(error, { event, tags: ["cache"] });
     }
     const ttl = (opts.maxAge ?? 0) * 1e3;
@@ -5015,7 +3669,7 @@ function defineCachedFunction(fn, opts = {}) {
             setOpts = { ttl: opts.maxAge };
           }
           const promise = useStorage().setItem(cacheKey, entry, setOpts).catch((error) => {
-            console.error(`[nitro] [cache] Cache write error.`, error);
+            console.error(`[cache] Cache write error.`, error);
             useNitroApp().captureError(error, { event, tags: ["cache"] });
           });
           if (event?.waitUntil) {
@@ -5032,7 +3686,7 @@ function defineCachedFunction(fn, opts = {}) {
     }
     if (opts.swr && validate(entry) !== false) {
       _resolvePromise.catch((error) => {
-        console.error(`[nitro] [cache] SWR handler error.`, error);
+        console.error(`[cache] SWR handler error.`, error);
         useNitroApp().captureError(error, { event, tags: ["cache"] });
       });
       return entry;
@@ -5063,7 +3717,7 @@ function cachedFunction(fn, opts = {}) {
   return defineCachedFunction(fn, opts);
 }
 function getKey(...args) {
-  return args.length > 0 ? hash(args, {}) : "";
+  return args.length > 0 ? hash(args) : "";
 }
 function escapeKey(key) {
   return String(key).replace(/\W/g, "");
@@ -5195,6 +3849,7 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions()) {
       event.$fetch = (url, fetchOptions) => fetchWithEvent(event, url, fetchOptions, {
         fetch: globalThis.$fetch
       });
+      event.waitUntil = incomingEvent.waitUntil;
       event.context = incomingEvent.context;
       event.context.cache = {
         options: _opts
@@ -5426,8 +4081,14 @@ function splitByCase(str, separators) {
   parts.push(buff);
   return parts;
 }
+function upperFirst(str) {
+  return str ? str[0].toUpperCase() + str.slice(1) : "";
+}
+function pascalCase(str, opts) {
+  return str ? (Array.isArray(str) ? str : splitByCase(str)).map((p) => upperFirst(p)).join("") : "";
+}
 function kebabCase(str, joiner) {
-  return str ? (Array.isArray(str) ? str : splitByCase(str)).map((p) => p.toLowerCase()).join(joiner) : "";
+  return str ? (Array.isArray(str) ? str : splitByCase(str)).map((p) => p.toLowerCase()).join(joiner ?? "-") : "";
 }
 function snakeCase(str) {
   return kebabCase(str || "", "_");
@@ -5464,7 +4125,7 @@ function applyEnv(obj, opts, parentKey = "") {
   }
   return obj;
 }
-const envExpandRx = /{{(.*?)}}/g;
+const envExpandRx = /\{\{([^{}]*)\}\}/g;
 function _expandFromEnv(value) {
   return value.replace(envExpandRx, (match, key) => {
     return process.env[key] || match;
@@ -5474,7 +4135,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "1da2a5d4-2cf5-4788-b854-1e9481f87159",
+    "buildId": "28ebb520-42d3-46b5-aba2-b40bb8c42cd0",
     "buildAssetsDir": "/static/",
     "cdnURL": ""
   },
@@ -5483,6 +4144,13 @@ const _inlineRuntimeConfig = {
     "routeRules": {
       "/__nuxt_error": {
         "cache": false
+      },
+      "/__nuxt_content/**": {
+        "robots": false,
+        "cache": false
+      },
+      "/__nuxt_content/content/sql_dump.txt": {
+        "prerender": true
       },
       "/static/builds/meta/**": {
         "headers": {
@@ -5501,7 +4169,64 @@ const _inlineRuntimeConfig = {
       }
     }
   },
-  "public": {}
+  "public": {
+    "mdc": {
+      "components": {
+        "prose": true,
+        "map": {},
+        "customElements": []
+      },
+      "headings": {
+        "anchorLinks": {
+          "h1": false,
+          "h2": true,
+          "h3": true,
+          "h4": true,
+          "h5": false,
+          "h6": false
+        }
+      },
+      "highlight": {
+        "noApiRoute": true,
+        "highlighter": "shiki",
+        "theme": {
+          "default": "github-light",
+          "dark": "github-dark"
+        },
+        "shikiEngine": "oniguruma",
+        "langs": [
+          "js",
+          "jsx",
+          "json",
+          "ts",
+          "tsx",
+          "vue",
+          "css",
+          "html",
+          "bash",
+          "md",
+          "mdc",
+          "yaml"
+        ]
+      }
+    },
+    "content": {
+      "wsUrl": ""
+    }
+  },
+  "content": {
+    "databaseVersion": "v3.5.0",
+    "version": "3.11.2",
+    "database": {
+      "type": "sqlite",
+      "filename": "./contents.sqlite"
+    },
+    "localDatabase": {
+      "type": "sqlite",
+      "filename": "/Users/shiaohan/Desktop/project/unlimited/unlimited/.data/content/contents.sqlite"
+    },
+    "integrityCheck": true
+  }
 };
 const envOptions = {
   prefix: "NITRO_",
@@ -5642,6 +4367,28 @@ const defaultNamespace = _globalThis[globalKey] || (_globalThis[globalKey] = cre
 const getContext = (key, opts = {}) => defaultNamespace.get(key, opts);
 const asyncHandlersKey = "__unctx_async_handlers__";
 const asyncHandlers = _globalThis[asyncHandlersKey] || (_globalThis[asyncHandlersKey] = /* @__PURE__ */ new Set());
+function executeAsync(function_) {
+  const restores = [];
+  for (const leaveHandler of asyncHandlers) {
+    const restore2 = leaveHandler();
+    if (restore2) {
+      restores.push(restore2);
+    }
+  }
+  const restore = () => {
+    for (const restore2 of restores) {
+      restore2();
+    }
+  };
+  let awaitable = function_();
+  if (awaitable && typeof awaitable === "object" && "catch" in awaitable) {
+    awaitable = awaitable.catch((error) => {
+      restore();
+      throw error;
+    });
+  }
+  return [awaitable, restore];
+}
 
 getContext("nitro-app", {
   asyncContext: false,
@@ -5706,6 +4453,1481 @@ function getRouteRulesForPath(path) {
   return defu({}, ..._routeRulesMatcher.matchAll(path).reverse());
 }
 
+function _captureError(error, type) {
+  console.error(`[${type}]`, error);
+  useNitroApp().captureError(error, { tags: [type] });
+}
+function trapUnhandledNodeErrors() {
+  process.on(
+    "unhandledRejection",
+    (error) => _captureError(error, "unhandledRejection")
+  );
+  process.on(
+    "uncaughtException",
+    (error) => _captureError(error, "uncaughtException")
+  );
+}
+function joinHeaders(value) {
+  return Array.isArray(value) ? value.join(", ") : String(value);
+}
+function normalizeFetchResponse(response) {
+  if (!response.headers.has("set-cookie")) {
+    return response;
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: normalizeCookieHeaders(response.headers)
+  });
+}
+function normalizeCookieHeader(header = "") {
+  return splitCookiesString(joinHeaders(header));
+}
+function normalizeCookieHeaders(headers) {
+  const outgoingHeaders = new Headers();
+  for (const [name, header] of headers) {
+    if (name === "set-cookie") {
+      for (const cookie of normalizeCookieHeader(header)) {
+        outgoingHeaders.append("set-cookie", cookie);
+      }
+    } else {
+      outgoingHeaders.set(name, joinHeaders(header));
+    }
+  }
+  return outgoingHeaders;
+}
+
+function isJsonRequest(event) {
+  if (hasReqHeader(event, "accept", "text/html")) {
+    return false;
+  }
+  return hasReqHeader(event, "accept", "application/json") || hasReqHeader(event, "user-agent", "curl/") || hasReqHeader(event, "user-agent", "httpie/") || hasReqHeader(event, "sec-fetch-mode", "cors") || event.path.startsWith("/api/") || event.path.endsWith(".json");
+}
+function hasReqHeader(event, name, includes) {
+  const value = getRequestHeader(event, name);
+  return value && typeof value === "string" && value.toLowerCase().includes(includes);
+}
+
+const errorHandler$0 = (async function errorhandler(error, event, { defaultHandler }) {
+  if (event.handled || isJsonRequest(event)) {
+    return;
+  }
+  const defaultRes = await defaultHandler(error, event, { json: true });
+  const statusCode = error.statusCode || 500;
+  if (statusCode === 404 && defaultRes.status === 302) {
+    setResponseHeaders(event, defaultRes.headers);
+    setResponseStatus(event, defaultRes.status, defaultRes.statusText);
+    return send(event, JSON.stringify(defaultRes.body, null, 2));
+  }
+  const errorObject = defaultRes.body;
+  const url = new URL(errorObject.url);
+  errorObject.url = withoutBase(url.pathname, useRuntimeConfig(event).app.baseURL) + url.search + url.hash;
+  errorObject.message ||= "Server Error";
+  errorObject.data ||= error.data;
+  errorObject.statusMessage ||= error.statusMessage;
+  delete defaultRes.headers["content-type"];
+  delete defaultRes.headers["content-security-policy"];
+  setResponseHeaders(event, defaultRes.headers);
+  const reqHeaders = getRequestHeaders(event);
+  const isRenderingError = event.path.startsWith("/__nuxt_error") || !!reqHeaders["x-nuxt-error"];
+  const res = isRenderingError ? null : await useNitroApp().localFetch(
+    withQuery(joinURL(useRuntimeConfig(event).app.baseURL, "/__nuxt_error"), errorObject),
+    {
+      headers: { ...reqHeaders, "x-nuxt-error": "true" },
+      redirect: "manual"
+    }
+  ).catch(() => null);
+  if (event.handled) {
+    return;
+  }
+  if (!res) {
+    const { template } = await import('../_/error-500.mjs');
+    setResponseHeader(event, "Content-Type", "text/html;charset=UTF-8");
+    return send(event, template(errorObject));
+  }
+  const html = await res.text();
+  for (const [header, value] of res.headers.entries()) {
+    if (header === "set-cookie") {
+      appendResponseHeader(event, header, value);
+      continue;
+    }
+    setResponseHeader(event, header, value);
+  }
+  setResponseStatus(event, res.status && res.status !== 200 ? res.status : defaultRes.status, res.statusText || defaultRes.statusText);
+  return send(event, html);
+});
+
+function defineNitroErrorHandler(handler) {
+  return handler;
+}
+
+const errorHandler$1 = defineNitroErrorHandler(
+  function defaultNitroErrorHandler(error, event) {
+    const res = defaultHandler(error, event);
+    setResponseHeaders(event, res.headers);
+    setResponseStatus(event, res.status, res.statusText);
+    return send(event, JSON.stringify(res.body, null, 2));
+  }
+);
+function defaultHandler(error, event, opts) {
+  const isSensitive = error.unhandled || error.fatal;
+  const statusCode = error.statusCode || 500;
+  const statusMessage = error.statusMessage || "Server Error";
+  const url = getRequestURL(event, { xForwardedHost: true, xForwardedProto: true });
+  if (statusCode === 404) {
+    const baseURL = "/";
+    if (/^\/[^/]/.test(baseURL) && !url.pathname.startsWith(baseURL)) {
+      const redirectTo = `${baseURL}${url.pathname.slice(1)}${url.search}`;
+      return {
+        status: 302,
+        statusText: "Found",
+        headers: { location: redirectTo },
+        body: `Redirecting...`
+      };
+    }
+  }
+  if (isSensitive && !opts?.silent) {
+    const tags = [error.unhandled && "[unhandled]", error.fatal && "[fatal]"].filter(Boolean).join(" ");
+    console.error(`[request error] ${tags} [${event.method}] ${url}
+`, error);
+  }
+  const headers = {
+    "content-type": "application/json",
+    // Prevent browser from guessing the MIME types of resources.
+    "x-content-type-options": "nosniff",
+    // Prevent error page from being embedded in an iframe
+    "x-frame-options": "DENY",
+    // Prevent browsers from sending the Referer header
+    "referrer-policy": "no-referrer",
+    // Disable the execution of any js
+    "content-security-policy": "script-src 'none'; frame-ancestors 'none';"
+  };
+  setResponseStatus(event, statusCode, statusMessage);
+  if (statusCode === 404 || !getResponseHeader(event, "cache-control")) {
+    headers["cache-control"] = "no-cache";
+  }
+  const body = {
+    error: true,
+    url: url.href,
+    statusCode,
+    statusMessage,
+    message: isSensitive ? "Server Error" : error.message,
+    data: isSensitive ? void 0 : error.data
+  };
+  return {
+    status: statusCode,
+    statusText: statusMessage,
+    headers,
+    body
+  };
+}
+
+const errorHandlers = [errorHandler$0, errorHandler$1];
+
+async function errorHandler(error, event) {
+  for (const handler of errorHandlers) {
+    try {
+      await handler(error, event, { defaultHandler });
+      if (event.handled) {
+        return; // Response handled
+      }
+    } catch(error) {
+      // Handler itself thrown, log and continue
+      console.error(error);
+    }
+  }
+  // H3 will handle fallback
+}
+
+function defineNitroPlugin(def) {
+  return def;
+}
+
+const _1XtBAABqJqfreSzsp_x4dqe_TQQtD3kI9xsGouq4L0 = defineNitroPlugin((nitro) => {
+  createDebugger(nitro.hooks, { tag: "nitro-runtime" });
+});
+
+const plugins = [
+  _1XtBAABqJqfreSzsp_x4dqe_TQQtD3kI9xsGouq4L0
+];
+
+const assets = {
+  "/.DS_Store": {
+    "type": "text/plain; charset=utf-8",
+    "etag": "\"1804-PVZKuN+zJEWsvKnMRrY1bN7rBMs\"",
+    "mtime": "2026-02-16T18:12:05.374Z",
+    "size": 6148,
+    "path": "../public/.DS_Store"
+  },
+  "/.nojekyll": {
+    "type": "text/plain; charset=utf-8",
+    "etag": "\"0-2jmj7l5rSw0yVb/vlWAYkK/YBwk\"",
+    "mtime": "2026-02-16T18:12:05.374Z",
+    "size": 0,
+    "path": "../public/.nojekyll"
+  },
+  "/favicon.ico": {
+    "type": "image/vnd.microsoft.icon",
+    "etag": "\"423e-ZocbZpUk07P+gMRfofM9KsX5xLA\"",
+    "mtime": "2026-02-16T18:12:05.374Z",
+    "size": 16958,
+    "path": "../public/favicon.ico"
+  },
+  "/logo.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"279-ontdhAjPja33K6pFW6TZiDO44VI\"",
+    "mtime": "2026-02-16T18:12:05.374Z",
+    "size": 633,
+    "path": "../public/logo.svg"
+  },
+  "/images/.DS_Store": {
+    "type": "text/plain; charset=utf-8",
+    "etag": "\"2004-gRA2Af9IPpFJdt79GJi0mi/0y3Y\"",
+    "mtime": "2026-02-16T18:12:05.369Z",
+    "size": 8196,
+    "path": "../public/images/.DS_Store"
+  },
+  "/CNAME": {
+    "type": "text/plain; charset=utf-8",
+    "etag": "\"10-1DuGTBwyefNFQnoSsofUhK0MyA0\"",
+    "mtime": "2026-02-16T18:12:05.374Z",
+    "size": 16,
+    "path": "../public/CNAME"
+  },
+  "/images/og_image.png": {
+    "type": "image/png",
+    "etag": "\"49fd1-lzM+XJuhkBGIAeT8aBRic0wlczQ\"",
+    "mtime": "2026-02-16T18:12:05.370Z",
+    "size": 303057,
+    "path": "../public/images/og_image.png"
+  },
+  "/static/3oXo8UcI.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"21da5-kxaNoMPaY5Hd8567L0NZjZ2dRx0\"",
+    "mtime": "2026-02-16T18:12:05.362Z",
+    "size": 138661,
+    "path": "../public/static/3oXo8UcI.js"
+  },
+  "/images/twitter_image.png": {
+    "type": "image/png",
+    "etag": "\"340c2-o2GuzFbFPhgmjfZQH4lxBV7g+S0\"",
+    "mtime": "2026-02-16T18:12:05.370Z",
+    "size": 213186,
+    "path": "../public/images/twitter_image.png"
+  },
+  "/static/8CjuZLfx.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ad-ELs8QhfXqW7mz9N9V289G/wsiLg\"",
+    "mtime": "2026-02-16T18:12:05.362Z",
+    "size": 173,
+    "path": "../public/static/8CjuZLfx.js"
+  },
+  "/static/B55QBaib.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1e9-EXO1ZMgC4XUQmiqCj+WJ9JO5kvM\"",
+    "mtime": "2026-02-16T18:12:05.362Z",
+    "size": 489,
+    "path": "../public/static/B55QBaib.js"
+  },
+  "/static/B5jyhgd8.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1e9-nGjiekvfFIMa3VzZzGu+KOBQC8A\"",
+    "mtime": "2026-02-16T18:12:05.362Z",
+    "size": 489,
+    "path": "../public/static/B5jyhgd8.js"
+  },
+  "/static/BHrO2Tzn.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"b0-iR5zvWD9rgk9yEtnkYH+1UhNaFs\"",
+    "mtime": "2026-02-16T18:12:05.362Z",
+    "size": 176,
+    "path": "../public/static/BHrO2Tzn.js"
+  },
+  "/static/BMsKdPP4.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ad-mgwOf+6nU/LM9ardpY9+k1E/WXw\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 173,
+    "path": "../public/static/BMsKdPP4.js"
+  },
+  "/static/BMLB1g10.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"84-581bTt0jf2jDUDqLs1O9QxKYKSQ\"",
+    "mtime": "2026-02-16T18:12:05.362Z",
+    "size": 132,
+    "path": "../public/static/BMLB1g10.js"
+  },
+  "/static/3OHGEhOc.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ad-mo1HYXD30+ejuHqeiFSwWQ4iqGA\"",
+    "mtime": "2026-02-16T18:12:05.362Z",
+    "size": 173,
+    "path": "../public/static/3OHGEhOc.js"
+  },
+  "/static/BbOv1ULe.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"b1-P1goZ9vjFAAwaihPcVvG+9uK8uY\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 177,
+    "path": "../public/static/BbOv1ULe.js"
+  },
+  "/static/BdJMIFI8.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1e9-U79sOOEJ2T8YHP0HKmflEHoLpnw\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 489,
+    "path": "../public/static/BdJMIFI8.js"
+  },
+  "/static/BTzCFxEV.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"54a5-pt6i7b8rriXISzowm6/Vy5NGmK8\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 21669,
+    "path": "../public/static/BTzCFxEV.js"
+  },
+  "/static/BmjZ_pdj.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"254-5RE/Z+Hup7UyHDg1coUi27+RHq4\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 596,
+    "path": "../public/static/BmjZ_pdj.js"
+  },
+  "/static/BvU7XWGf.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ebf-zGSCn8IDVlxXmsrhsKISs7dPbLg\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 3775,
+    "path": "../public/static/BvU7XWGf.js"
+  },
+  "/static/C5Q9RXQH.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"192-Xw5LODyf+SoNmBWnBhz5kj7iSAs\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 402,
+    "path": "../public/static/C5Q9RXQH.js"
+  },
+  "/static/CEZXjjUj.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ad-YahJQvf/xXnJMuvA1NVCut+UXRk\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 173,
+    "path": "../public/static/CEZXjjUj.js"
+  },
+  "/static/ChriaQpD.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"b0-wnRelVOlGXuKvzmjuoLsJlDYwGs\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 176,
+    "path": "../public/static/ChriaQpD.js"
+  },
+  "/static/765gH0lE.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"30c4e-Kmol3Yutlly+c5xt3q6KavBO8oY\"",
+    "mtime": "2026-02-16T18:12:05.362Z",
+    "size": 199758,
+    "path": "../public/static/765gH0lE.js"
+  },
+  "/static/ClEn0X6C.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"174-7OfnHpQYw4q9OMFX+B1WQsZN2dY\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 372,
+    "path": "../public/static/ClEn0X6C.js"
+  },
+  "/static/CsMJ3ZuR.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"b0-eMMvrHkCmPehKDkiOKRH7tZr314\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 176,
+    "path": "../public/static/CsMJ3ZuR.js"
+  },
+  "/static/CzMmkD7e.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"b0-Nvb5z2hV6NRybNLqTEDjf+bMwJk\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 176,
+    "path": "../public/static/CzMmkD7e.js"
+  },
+  "/static/CsdNX-tX.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1e9-fya2iBKt/NIGldHluGTPD9Oj54M\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 489,
+    "path": "../public/static/CsdNX-tX.js"
+  },
+  "/static/DGhIRKyy.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ad-RTn3QuO2ANT+V/MUci3Uf5cg4RU\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 173,
+    "path": "../public/static/DGhIRKyy.js"
+  },
+  "/static/DHBjunLG.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"d4d-r4OF3O5XNp58aJPerAhOzYNmXVo\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 3405,
+    "path": "../public/static/DHBjunLG.js"
+  },
+  "/static/DNZLjsXA.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ac-uRuqGC48z7HjqA9LilVDzgFS0UA\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 172,
+    "path": "../public/static/DNZLjsXA.js"
+  },
+  "/static/Dd_DQKBp.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"ad-7aLLFGpKFVOvbvp1+4oiGi+J/IU\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 173,
+    "path": "../public/static/Dd_DQKBp.js"
+  },
+  "/static/Dc4IA4J1.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1e9-nZX1OzaoHFQ2XnWuwpMWT7J0fsM\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 489,
+    "path": "../public/static/Dc4IA4J1.js"
+  },
+  "/static/DiBymcQn.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1e3-k3hMKNqpolQB1pbugu5R9BHOFhc\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 483,
+    "path": "../public/static/DiBymcQn.js"
+  },
+  "/static/DxEJmlGS.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"aa-V0KES+2YCNMAl9G9xbGJUOZcVxs\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 170,
+    "path": "../public/static/DxEJmlGS.js"
+  },
+  "/static/DxEvVIXk.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"a8-fbr6gSNy2Qo295g3EDPctjr43F8\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 168,
+    "path": "../public/static/DxEvVIXk.js"
+  },
+  "/static/Hsbwpiff.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"f0-78hxw4AaCtYrpqjeZy2Gaj/e5VU\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 240,
+    "path": "../public/static/Hsbwpiff.js"
+  },
+  "/static/ProsePre.D5orA6B_.css": {
+    "type": "text/css; charset=utf-8",
+    "etag": "\"1e-jczvRAVUXbzGL6yotozKFbyMO4s\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 30,
+    "path": "../public/static/ProsePre.D5orA6B_.css"
+  },
+  "/static/WWUwsIIm.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"97d1-nahJ5YPmhK0dfyUWs5V0uh0x1Uk\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 38865,
+    "path": "../public/static/WWUwsIIm.js"
+  },
+  "/static/DL7fwgFz.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"30eaa-KNdjpg2uIMXeIDbtWbmDo3/6/nE\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 200362,
+    "path": "../public/static/DL7fwgFz.js"
+  },
+  "/static/error-404.BSvats-j.css": {
+    "type": "text/css; charset=utf-8",
+    "etag": "\"dca-0F+Wq/chhXsiHVhtuXr7IgmxLPY\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 3530,
+    "path": "../public/static/error-404.BSvats-j.css"
+  },
+  "/static/error-500.DOWD7OuR.css": {
+    "type": "text/css; charset=utf-8",
+    "etag": "\"75a-E+EckUQEwkK5PkutZwCZNTJkHsY\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 1882,
+    "path": "../public/static/error-500.DOWD7OuR.css"
+  },
+  "/static/iFGbcxx9.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"13f8-6kuVv+UmBxexkpxb2z78Ag6sWAc\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 5112,
+    "path": "../public/static/iFGbcxx9.js"
+  },
+  "/static/index.tn0RQdqM.css": {
+    "type": "text/css; charset=utf-8",
+    "etag": "\"0-2jmj7l5rSw0yVb/vlWAYkK/YBwk\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 0,
+    "path": "../public/static/index.tn0RQdqM.css"
+  },
+  "/static/jBBO-11H.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"689ad-ZeC+0TYlxBXWLN1TYlqzdyFcVOw\"",
+    "mtime": "2026-02-16T18:12:05.364Z",
+    "size": 428461,
+    "path": "../public/static/jBBO-11H.js"
+  },
+  "/static/oV9QhckE.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"1d4-TkGLqtdXbp4v0CzWdc4JKO0nsLg\"",
+    "mtime": "2026-02-16T18:12:05.363Z",
+    "size": 468,
+    "path": "../public/static/oV9QhckE.js"
+  },
+  "/static/sqlite3-opfs-async-proxy-C_otN2ZJ.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"24eb-/FBLK7guMdffqRNvJNbJgk4Zwss\"",
+    "mtime": "2026-02-16T18:12:05.364Z",
+    "size": 9451,
+    "path": "../public/static/sqlite3-opfs-async-proxy-C_otN2ZJ.js"
+  },
+  "/static/sqlite3-worker1-bundler-friendly-Bv6ABw9v.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"30103-GOxHNTh2sTNh/exLYlR0tZpazpY\"",
+    "mtime": "2026-02-16T18:12:05.364Z",
+    "size": 196867,
+    "path": "../public/static/sqlite3-worker1-bundler-friendly-Bv6ABw9v.js"
+  },
+  "/static/sqlite3-DBpDb1lf.wasm": {
+    "type": "application/wasm",
+    "etag": "\"d117f-DZ/FD4oW3SqSLEuDOEQ4+vXRNGQ\"",
+    "mtime": "2026-02-16T18:12:05.365Z",
+    "size": 856447,
+    "path": "../public/static/sqlite3-DBpDb1lf.wasm"
+  },
+  "/static/vwbxkq6r.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"aea-s4BTLWU0UWDR52e3NQTqrgPvNI4\"",
+    "mtime": "2026-02-16T18:12:05.364Z",
+    "size": 2794,
+    "path": "../public/static/vwbxkq6r.js"
+  },
+  "/__nuxt_content/content/sql_dump.txt": {
+    "type": "text/plain; charset=utf-8",
+    "etag": "\"7f0-2cNXaR+yC6hCbfb1cTSdk92odmw\"",
+    "mtime": "2026-02-16T18:12:05.343Z",
+    "size": 2032,
+    "path": "../public/__nuxt_content/content/sql_dump.txt"
+  },
+  "/images/icons/arrow.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"219-JUhe1sppSsdDjlFarmBVoYtRBBQ\"",
+    "mtime": "2026-02-16T18:12:05.369Z",
+    "size": 537,
+    "path": "../public/images/icons/arrow.svg"
+  },
+  "/images/icons/lcon-dark.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"615-+ELV32XImmHlAOLP54+N/O/FhQk\"",
+    "mtime": "2026-02-16T18:12:05.370Z",
+    "size": 1557,
+    "path": "../public/images/icons/lcon-dark.svg"
+  },
+  "/images/icons/behance.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"56e-oMLjDoDL7n+hr4RjkoTG+3pg/+U\"",
+    "mtime": "2026-02-16T18:12:05.369Z",
+    "size": 1390,
+    "path": "../public/images/icons/behance.svg"
+  },
+  "/images/icons/lcon-light.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"d8d-SQqzSq3w4ODz/72s3nBKCFohd9c\"",
+    "mtime": "2026-02-16T18:12:05.370Z",
+    "size": 3469,
+    "path": "../public/images/icons/lcon-light.svg"
+  },
+  "/images/icons/mail.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"194-6bvc0jh6km16qof+vqEzh2FA+R4\"",
+    "mtime": "2026-02-16T18:12:05.370Z",
+    "size": 404,
+    "path": "../public/images/icons/mail.svg"
+  },
+  "/images/index/.DS_Store": {
+    "type": "text/plain; charset=utf-8",
+    "etag": "\"1804-Ztjjk40x8Thc8tjqa1Llg2BHDMI\"",
+    "mtime": "2026-02-16T18:12:05.370Z",
+    "size": 6148,
+    "path": "../public/images/index/.DS_Store"
+  },
+  "/images/index/aboutBlob01.png": {
+    "type": "image/png",
+    "etag": "\"3b86-iiOLsn+iE6e3ZA9DDbMYgVBGaQw\"",
+    "mtime": "2026-02-16T18:12:05.370Z",
+    "size": 15238,
+    "path": "../public/images/index/aboutBlob01.png"
+  },
+  "/images/icons/linkedin.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"3ee-vc5IGL77tHNgWsgEW5x4PDgfpB8\"",
+    "mtime": "2026-02-16T18:12:05.370Z",
+    "size": 1006,
+    "path": "../public/images/icons/linkedin.svg"
+  },
+  "/images/index/aboutBlob02.png": {
+    "type": "image/png",
+    "etag": "\"16bb-WR0gscL++4EYBDVylaqdeMsRzdQ\"",
+    "mtime": "2026-02-16T18:12:05.370Z",
+    "size": 5819,
+    "path": "../public/images/index/aboutBlob02.png"
+  },
+  "/images/icons/threads.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"6dc-IjeEVaiFRD/nNRIk8ZQNGNiLLvs\"",
+    "mtime": "2026-02-16T18:12:05.370Z",
+    "size": 1756,
+    "path": "../public/images/icons/threads.svg"
+  },
+  "/images/index/figma.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"78e-G7Od9gP2jtRxMxp3zF6Vs7heIg0\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 1934,
+    "path": "../public/images/index/figma.svg"
+  },
+  "/images/index/illustrator.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"aa6-1l/n+33Dz6tk80VYETshNMZ1Rbg\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 2726,
+    "path": "../public/images/index/illustrator.svg"
+  },
+  "/images/index/photoshop.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"aad-pUbHvmk1m3Boeq1KMSMc/qVuq6E\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 2733,
+    "path": "../public/images/index/photoshop.svg"
+  },
+  "/images/index/scss.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"a44-ZNNi+QvU6ymwEIbvoWTtK2G3Yvs\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 2628,
+    "path": "../public/images/index/scss.svg"
+  },
+  "/images/index/skillIcon01.png": {
+    "type": "image/png",
+    "etag": "\"4e4-z2XK6bjOYlZ5Elwb1MZOTbPd4SQ\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 1252,
+    "path": "../public/images/index/skillIcon01.png"
+  },
+  "/images/index/aboutImg.jpg": {
+    "type": "image/jpeg",
+    "etag": "\"2b07a-nmkupkEVohuKYKp9nV+4tUo+//c\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 176250,
+    "path": "../public/images/index/aboutImg.jpg"
+  },
+  "/images/index/skillIcon02.png": {
+    "type": "image/png",
+    "etag": "\"3b7-BrotijkE1B66aCz379hu5LFdjXg\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 951,
+    "path": "../public/images/index/skillIcon02.png"
+  },
+  "/images/index/skillIcon03.png": {
+    "type": "image/png",
+    "etag": "\"38e-s+/2TRLT63qLgpkYRX7KHzBg9fU\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 910,
+    "path": "../public/images/index/skillIcon03.png"
+  },
+  "/images/index/vscode.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"495-JBAnQdxRWqN8qhHlkKUwv+QYpOY\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 1173,
+    "path": "../public/images/index/vscode.svg"
+  },
+  "/images/index/worksImg01.png": {
+    "type": "image/png",
+    "etag": "\"3dcf9-Qtef5xcj6N5lCW90cuq8iGliGcY\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 253177,
+    "path": "../public/images/index/worksImg01.png"
+  },
+  "/images/index/vue.svg": {
+    "type": "image/svg+xml",
+    "etag": "\"42f-ufP/J4+OUgyTYKReTklS4gqbNJQ\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 1071,
+    "path": "../public/images/index/vue.svg"
+  },
+  "/static/sqlite3.DBpDb1lf.wasm": {
+    "type": "application/wasm",
+    "etag": "\"d117f-DZ/FD4oW3SqSLEuDOEQ4+vXRNGQ\"",
+    "mtime": "2026-02-16T18:12:05.365Z",
+    "size": 856447,
+    "path": "../public/static/sqlite3.DBpDb1lf.wasm"
+  },
+  "/images/index/worksImg02.png": {
+    "type": "image/png",
+    "etag": "\"4c193-v24B7SCv/WGjsYytlgynf0JFF3A\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 311699,
+    "path": "../public/images/index/worksImg02.png"
+  },
+  "/images/index/worksImg03.png": {
+    "type": "image/png",
+    "etag": "\"695b3-VyIBtxq/+1p4Zzicwzjbd8oP1pg\"",
+    "mtime": "2026-02-16T18:12:05.373Z",
+    "size": 431539,
+    "path": "../public/images/index/worksImg03.png"
+  },
+  "/images/index/worksImg05.png": {
+    "type": "image/png",
+    "etag": "\"6209-Q75Lr5nNSPpyHeLclD3DeCNZgWc\"",
+    "mtime": "2026-02-16T18:12:05.371Z",
+    "size": 25097,
+    "path": "../public/images/index/worksImg05.png"
+  },
+  "/static/builds/latest.json": {
+    "type": "application/json",
+    "etag": "\"47-NgMxclAXO4XrTK+ZU6mSWvOPYkE\"",
+    "mtime": "2026-02-16T18:12:05.356Z",
+    "size": 71,
+    "path": "../public/static/builds/latest.json"
+  },
+  "/static/builds/meta/28ebb520-42d3-46b5-aba2-b40bb8c42cd0.json": {
+    "type": "application/json",
+    "etag": "\"c4-kDCOGa8U46UFF6HzfKoOoo3xdbs\"",
+    "mtime": "2026-02-16T18:12:05.355Z",
+    "size": 196,
+    "path": "../public/static/builds/meta/28ebb520-42d3-46b5-aba2-b40bb8c42cd0.json"
+  },
+  "/images/index/worksImg04.png": {
+    "type": "image/png",
+    "etag": "\"96c62-atDyHayeXi7YN5Lv+WfJp97HYoY\"",
+    "mtime": "2026-02-16T18:12:05.372Z",
+    "size": 617570,
+    "path": "../public/images/index/worksImg04.png"
+  },
+  "/images/index/worksImg07.png": {
+    "type": "image/png",
+    "etag": "\"15c462-CfTYGS/HRYntRLNPY4KxzIHqrME\"",
+    "mtime": "2026-02-16T18:12:05.374Z",
+    "size": 1426530,
+    "path": "../public/images/index/worksImg07.png"
+  },
+  "/images/index/worksImg06.png": {
+    "type": "image/png",
+    "etag": "\"16addf-2ptdN8UJc0+qr0O6NfEkXGNx1e4\"",
+    "mtime": "2026-02-16T18:12:05.374Z",
+    "size": 1486303,
+    "path": "../public/images/index/worksImg06.png"
+  }
+};
+
+const _DRIVE_LETTER_START_RE = /^[A-Za-z]:\//;
+function normalizeWindowsPath(input = "") {
+  if (!input) {
+    return input;
+  }
+  return input.replace(/\\/g, "/").replace(_DRIVE_LETTER_START_RE, (r) => r.toUpperCase());
+}
+const _IS_ABSOLUTE_RE = /^[/\\](?![/\\])|^[/\\]{2}(?!\.)|^[A-Za-z]:[/\\]/;
+const _DRIVE_LETTER_RE = /^[A-Za-z]:$/;
+function cwd() {
+  if (typeof process !== "undefined" && typeof process.cwd === "function") {
+    return process.cwd().replace(/\\/g, "/");
+  }
+  return "/";
+}
+const resolve = function(...arguments_) {
+  arguments_ = arguments_.map((argument) => normalizeWindowsPath(argument));
+  let resolvedPath = "";
+  let resolvedAbsolute = false;
+  for (let index = arguments_.length - 1; index >= -1 && !resolvedAbsolute; index--) {
+    const path = index >= 0 ? arguments_[index] : cwd();
+    if (!path || path.length === 0) {
+      continue;
+    }
+    resolvedPath = `${path}/${resolvedPath}`;
+    resolvedAbsolute = isAbsolute(path);
+  }
+  resolvedPath = normalizeString(resolvedPath, !resolvedAbsolute);
+  if (resolvedAbsolute && !isAbsolute(resolvedPath)) {
+    return `/${resolvedPath}`;
+  }
+  return resolvedPath.length > 0 ? resolvedPath : ".";
+};
+function normalizeString(path, allowAboveRoot) {
+  let res = "";
+  let lastSegmentLength = 0;
+  let lastSlash = -1;
+  let dots = 0;
+  let char = null;
+  for (let index = 0; index <= path.length; ++index) {
+    if (index < path.length) {
+      char = path[index];
+    } else if (char === "/") {
+      break;
+    } else {
+      char = "/";
+    }
+    if (char === "/") {
+      if (lastSlash === index - 1 || dots === 1) ; else if (dots === 2) {
+        if (res.length < 2 || lastSegmentLength !== 2 || res[res.length - 1] !== "." || res[res.length - 2] !== ".") {
+          if (res.length > 2) {
+            const lastSlashIndex = res.lastIndexOf("/");
+            if (lastSlashIndex === -1) {
+              res = "";
+              lastSegmentLength = 0;
+            } else {
+              res = res.slice(0, lastSlashIndex);
+              lastSegmentLength = res.length - 1 - res.lastIndexOf("/");
+            }
+            lastSlash = index;
+            dots = 0;
+            continue;
+          } else if (res.length > 0) {
+            res = "";
+            lastSegmentLength = 0;
+            lastSlash = index;
+            dots = 0;
+            continue;
+          }
+        }
+        if (allowAboveRoot) {
+          res += res.length > 0 ? "/.." : "..";
+          lastSegmentLength = 2;
+        }
+      } else {
+        if (res.length > 0) {
+          res += `/${path.slice(lastSlash + 1, index)}`;
+        } else {
+          res = path.slice(lastSlash + 1, index);
+        }
+        lastSegmentLength = index - lastSlash - 1;
+      }
+      lastSlash = index;
+      dots = 0;
+    } else if (char === "." && dots !== -1) {
+      ++dots;
+    } else {
+      dots = -1;
+    }
+  }
+  return res;
+}
+const isAbsolute = function(p) {
+  return _IS_ABSOLUTE_RE.test(p);
+};
+const dirname = function(p) {
+  const segments = normalizeWindowsPath(p).replace(/\/$/, "").split("/").slice(0, -1);
+  if (segments.length === 1 && _DRIVE_LETTER_RE.test(segments[0])) {
+    segments[0] += "/";
+  }
+  return segments.join("/") || (isAbsolute(p) ? "/" : ".");
+};
+
+function readAsset (id) {
+  const serverDir = dirname(fileURLToPath(globalThis._importMeta_.url));
+  return promises.readFile(resolve(serverDir, assets[id].path))
+}
+
+const publicAssetBases = {"/static/builds/meta/":{"maxAge":31536000},"/static/builds/":{"maxAge":1},"/static/":{"maxAge":31536000}};
+
+function isPublicAssetURL(id = '') {
+  if (assets[id]) {
+    return true
+  }
+  for (const base in publicAssetBases) {
+    if (id.startsWith(base)) { return true }
+  }
+  return false
+}
+
+function getAsset (id) {
+  return assets[id]
+}
+
+const METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
+const EncodingMap = { gzip: ".gz", br: ".br" };
+const _RKHFDt = eventHandler((event) => {
+  if (event.method && !METHODS.has(event.method)) {
+    return;
+  }
+  let id = decodePath(
+    withLeadingSlash(withoutTrailingSlash(parseURL(event.path).pathname))
+  );
+  let asset;
+  const encodingHeader = String(
+    getRequestHeader(event, "accept-encoding") || ""
+  );
+  const encodings = [
+    ...encodingHeader.split(",").map((e) => EncodingMap[e.trim()]).filter(Boolean).sort(),
+    ""
+  ];
+  for (const encoding of encodings) {
+    for (const _id of [id + encoding, joinURL(id, "index.html" + encoding)]) {
+      const _asset = getAsset(_id);
+      if (_asset) {
+        asset = _asset;
+        id = _id;
+        break;
+      }
+    }
+  }
+  if (!asset) {
+    if (isPublicAssetURL(id)) {
+      removeResponseHeader(event, "Cache-Control");
+      throw createError$1({ statusCode: 404 });
+    }
+    return;
+  }
+  if (asset.encoding !== void 0) {
+    appendResponseHeader(event, "Vary", "Accept-Encoding");
+  }
+  const ifNotMatch = getRequestHeader(event, "if-none-match") === asset.etag;
+  if (ifNotMatch) {
+    setResponseStatus(event, 304, "Not Modified");
+    return "";
+  }
+  const ifModifiedSinceH = getRequestHeader(event, "if-modified-since");
+  const mtimeDate = new Date(asset.mtime);
+  if (ifModifiedSinceH && asset.mtime && new Date(ifModifiedSinceH) >= mtimeDate) {
+    setResponseStatus(event, 304, "Not Modified");
+    return "";
+  }
+  if (asset.type && !getResponseHeader(event, "Content-Type")) {
+    setResponseHeader(event, "Content-Type", asset.type);
+  }
+  if (asset.etag && !getResponseHeader(event, "ETag")) {
+    setResponseHeader(event, "ETag", asset.etag);
+  }
+  if (asset.mtime && !getResponseHeader(event, "Last-Modified")) {
+    setResponseHeader(event, "Last-Modified", mtimeDate.toUTCString());
+  }
+  if (asset.encoding && !getResponseHeader(event, "Content-Encoding")) {
+    setResponseHeader(event, "Content-Encoding", asset.encoding);
+  }
+  if (asset.size > 0 && !getResponseHeader(event, "Content-Length")) {
+    setResponseHeader(event, "Content-Length", asset.size);
+  }
+  return readAsset(id);
+});
+
+const _QKMurN = eventHandler(async (event) => {
+  const collection = getRouterParam(event, "collection") || event.path?.split("/")?.[2] || "";
+  setHeader(event, "Content-Type", "text/plain");
+  const data = await useStorage().getItem(`build:content:database.compressed.mjs`) || "";
+  if (data) {
+    const lineStart = `export const ${collection} = "`;
+    const content = String(data).split("\n").find((line) => line.startsWith(lineStart));
+    if (content) {
+      return content.substring(lineStart.length, content.length - 1);
+    }
+  }
+  return await import('../build/database.compressed.mjs').then((m) => m[collection]);
+});
+
+const _SxA8c9 = defineEventHandler(() => {});
+
+async function decompressSQLDump(base64Str, compressionType = "gzip") {
+  let binaryData;
+  if (typeof Buffer !== "undefined") {
+    const buffer = Buffer.from(base64Str, "base64");
+    binaryData = Uint8Array.from(buffer);
+  } else if (typeof atob !== "undefined") {
+    binaryData = Uint8Array.from(atob(base64Str), (c) => c.charCodeAt(0));
+  } else {
+    throw new TypeError("No base64 decoding method available");
+  }
+  const response = new Response(new Blob([binaryData]));
+  const decompressedStream = response.body?.pipeThrough(new DecompressionStream(compressionType));
+  const text = await new Response(decompressedStream).text();
+  return JSON.parse(text);
+}
+
+const checksums = {
+  "content": "v3.5.0--7eAeHYJcycE1dcmRq80mQwktxUOIHk0uuJcZH-MPOO0"
+};
+const checksumsStructure = {
+  "content": "bgIYhpjRuV8zbHJE_CfelwKpJ_Td6YuGJwixiek8lmI"
+};
+const tables = {
+  "content": "_content_content",
+  "info": "_content_info"
+};
+const contentManifest = {
+  "content": {
+    "type": "page",
+    "fields": {
+      "id": "string",
+      "title": "string",
+      "body": "json",
+      "description": "string",
+      "extension": "string",
+      "meta": "json",
+      "navigation": "json",
+      "path": "string",
+      "seo": "json",
+      "stem": "string"
+    }
+  },
+  "info": {
+    "type": "data",
+    "fields": {}
+  }
+};
+
+async function fetchContent(event, collection, path, options) {
+  const headers = event ? getRequestHeaders(event) : {};
+  const url = `/__nuxt_content/${collection}/${path}`;
+  const fetchOptions = {
+    ...options,
+    headers: {
+      ...headers,
+      ...options.headers
+    },
+    query: { v: checksums[String(collection)], t: void 0 }
+  };
+  return event ? await event.$fetch(url, fetchOptions) : await $fetch(url, fetchOptions);
+}
+async function fetchDatabase(event, collection) {
+  return fetchContent(event, collection, "sql_dump.txt", {
+    responseType: "text",
+    headers: {
+      "content-type": "text/plain"
+    }
+  });
+}
+
+function refineContentFields(sql, doc) {
+  const fields = findCollectionFields(sql);
+  const item = { ...doc };
+  for (const key in item) {
+    if (fields[key] === "json" && item[key] && item[key] !== "undefined") {
+      item[key] = JSON.parse(item[key]);
+    }
+    if (fields[key] === "boolean" && item[key] !== "undefined") {
+      item[key] = Boolean(item[key]);
+    }
+  }
+  for (const key in item) {
+    if (item[key] === "NULL") {
+      item[key] = void 0;
+    }
+  }
+  return item;
+}
+function findCollectionFields(sql) {
+  const table = sql.match(/FROM\s+(\w+)/);
+  if (!table) {
+    return {};
+  }
+  const info = contentManifest[getCollectionName(table[1])];
+  return info?.fields || {};
+}
+function getCollectionName(table) {
+  return table.replace(/^_content_/, "");
+}
+
+class BoundableStatement {
+	_statement;
+	constructor(rawStmt) {
+		this._statement = rawStmt;
+	}
+	bind(...params) {
+		return new BoundStatement(this, params);
+	}
+}
+class BoundStatement {
+	#statement;
+	#params;
+	constructor(statement, params) {
+		this.#statement = statement;
+		this.#params = params;
+	}
+	bind(...params) {
+		return new BoundStatement(this.#statement, params);
+	}
+	all() {
+		return this.#statement.all(...this.#params);
+	}
+	run() {
+		return this.#statement.run(...this.#params);
+	}
+	get() {
+		return this.#statement.get(...this.#params);
+	}
+}
+
+function sqliteConnector(opts) {
+	let _db;
+	const getDB = () => {
+		if (_db) {
+			return _db;
+		}
+		if (opts.name === ":memory:") {
+			_db = new Database(":memory:");
+			return _db;
+		}
+		const filePath = resolve$1(opts.cwd || ".", opts.path || `.data/${opts.name || "db"}.sqlite3`);
+		mkdirSync(dirname$1(filePath), { recursive: true });
+		_db = new Database(filePath);
+		return _db;
+	};
+	return {
+		name: "sqlite",
+		dialect: "sqlite",
+		getInstance: () => getDB(),
+		exec: (sql) => getDB().exec(sql),
+		prepare: (sql) => new StatementWrapper(() => getDB().prepare(sql)),
+		dispose: () => {
+			_db?.close?.();
+			_db = undefined;
+		}
+	};
+}
+class StatementWrapper extends BoundableStatement {
+	async all(...params) {
+		return this._statement().all(...params);
+	}
+	async run(...params) {
+		const res = this._statement().run(...params);
+		return {
+			success: res.changes > 0,
+			...res
+		};
+	}
+	async get(...params) {
+		return this._statement().get(...params);
+	}
+}
+
+let db;
+function loadDatabaseAdapter(config) {
+  const { database, localDatabase } = config;
+  if (!db) {
+    if (["nitro-prerender", "nitro-dev"].includes("node-server")) {
+      db = sqliteConnector(refineDatabaseConfig(localDatabase));
+    } else {
+      db = sqliteConnector(refineDatabaseConfig(database));
+    }
+  }
+  return {
+    all: async (sql, params = []) => {
+      return db.prepare(sql).all(...params).then((result) => (result || []).map((item) => refineContentFields(sql, item)));
+    },
+    first: async (sql, params = []) => {
+      return db.prepare(sql).get(...params).then((item) => item ? refineContentFields(sql, item) : item);
+    },
+    exec: async (sql, params = []) => {
+      return db.prepare(sql).run(...params);
+    }
+  };
+}
+const checkDatabaseIntegrity = /* @__PURE__ */ new Map();
+const integrityCheckPromise = /* @__PURE__ */ new Map();
+async function checkAndImportDatabaseIntegrity(event, collection, config) {
+  if (checkDatabaseIntegrity.get(collection) !== false) {
+    checkDatabaseIntegrity.set(collection, false);
+    if (!integrityCheckPromise.has(collection)) {
+      const _integrityCheck = _checkAndImportDatabaseIntegrity(event, collection, checksums[collection], checksumsStructure[collection], config).then((isValid) => {
+        checkDatabaseIntegrity.set(collection, !isValid);
+      }).catch((error) => {
+        console.error("Database integrity check failed", error);
+        checkDatabaseIntegrity.set(collection, true);
+        integrityCheckPromise.delete(collection);
+      });
+      integrityCheckPromise.set(collection, _integrityCheck);
+    }
+  }
+  if (integrityCheckPromise.has(collection)) {
+    await integrityCheckPromise.get(collection);
+  }
+}
+async function _checkAndImportDatabaseIntegrity(event, collection, integrityVersion, structureIntegrityVersion, config) {
+  const db2 = loadDatabaseAdapter(config);
+  const before = await db2.first(`SELECT * FROM ${tables.info} WHERE id = ?`, [`checksum_${collection}`]).catch(() => null);
+  if (before?.version && !String(before.version)?.startsWith(`${config.databaseVersion}--`)) {
+    await db2.exec(`DROP TABLE IF EXISTS ${tables.info}`);
+    before.version = "";
+  }
+  const unchangedStructure = before?.structureVersion === structureIntegrityVersion;
+  if (before?.version) {
+    if (before.version === integrityVersion) {
+      if (before.ready) {
+        return true;
+      }
+      await waitUntilDatabaseIsReady(db2, collection);
+      return true;
+    }
+    await db2.exec(`DELETE FROM ${tables.info} WHERE id = ?`, [`checksum_${collection}`]);
+    if (!unchangedStructure) {
+      await db2.exec(`DROP TABLE IF EXISTS ${tables[collection]}`);
+    }
+  }
+  const dump = await loadDatabaseDump(event, collection).then(decompressSQLDump);
+  const dumpLinesHash = dump.map((row) => row.split(" -- ").pop());
+  let hashesInDb = /* @__PURE__ */ new Set();
+  if (unchangedStructure) {
+    const hashListFromTheDump = new Set(dumpLinesHash);
+    const hashesInDbRecords = await db2.all(`SELECT __hash__ FROM ${tables[collection]}`).catch(() => []);
+    hashesInDb = new Set(hashesInDbRecords.map((r) => r.__hash__));
+    const hashesToDelete = hashesInDb.difference(hashListFromTheDump);
+    if (hashesToDelete.size) {
+      await db2.exec(`DELETE FROM ${tables[collection]} WHERE __hash__ IN (${Array(hashesToDelete.size).fill("?").join(",")})`, Array.from(hashesToDelete));
+    }
+  }
+  await dump.reduce(async (prev, sql, index) => {
+    await prev;
+    const hash = dumpLinesHash[index];
+    const statement = sql.substring(0, sql.length - hash.length - 4);
+    if (unchangedStructure) {
+      if (hash === "structure") {
+        return Promise.resolve();
+      }
+      if (hashesInDb.has(hash)) {
+        return Promise.resolve();
+      }
+    }
+    await db2.exec(statement).catch((err) => {
+      const message = err.message || "Unknown error";
+      console.error(`Failed to execute SQL ${sql}: ${message}`);
+    });
+  }, Promise.resolve());
+  const after = await db2.first(`SELECT version FROM ${tables.info} WHERE id = ?`, [`checksum_${collection}`]).catch(() => ({ version: "" }));
+  return after?.version === integrityVersion;
+}
+const REQUEST_TIMEOUT = 90;
+async function waitUntilDatabaseIsReady(db2, collection) {
+  let iterationCount = 0;
+  let interval;
+  await new Promise((resolve, reject) => {
+    interval = setInterval(async () => {
+      const row = await db2.first(`SELECT ready FROM ${tables.info} WHERE id = ?`, [`checksum_${collection}`]).catch(() => ({ ready: true }));
+      if (row?.ready) {
+        clearInterval(interval);
+        resolve(0);
+      }
+      if (iterationCount++ > REQUEST_TIMEOUT) {
+        clearInterval(interval);
+        reject(new Error("Waiting for another database initialization timed out"));
+      }
+    }, 1e3);
+  }).catch((e) => {
+    throw e;
+  }).finally(() => {
+    if (interval) {
+      clearInterval(interval);
+    }
+  });
+}
+async function loadDatabaseDump(event, collection) {
+  return await fetchDatabase(event, collection).catch((e) => {
+    console.error("Failed to fetch compressed dump", e);
+    return "";
+  });
+}
+function refineDatabaseConfig(config) {
+  if (config.type === "d1") {
+    return { ...config, bindingName: config.bindingName || config.binding };
+  }
+  if (config.type === "sqlite") {
+    const _config = { ...config };
+    if (config.filename === ":memory:") {
+      return { name: ":memory:" };
+    }
+    if ("filename" in config) {
+      const filename = isAbsolute(config?.filename || "") || config?.filename === ":memory:" ? config?.filename : new URL(config.filename, globalThis._importMeta_.url).pathname;
+      _config.path = process.platform === "win32" && filename.startsWith("/") ? filename.slice(1) : filename;
+    }
+    return _config;
+  }
+  if (config.type === "pglite") {
+    return {
+      dataDir: config.dataDir,
+      // Pass through any other PGlite-specific options
+      ...config
+    };
+  }
+  return config;
+}
+
+const SQL_COMMANDS = /SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|\$/i;
+const SQL_COUNT_REGEX = /COUNT\((DISTINCT )?([a-z_]\w+|\*)\)/i;
+const SQL_SELECT_REGEX = /^SELECT (.*) FROM (\w+)( WHERE .*)? ORDER BY (["\w,\s]+) (ASC|DESC)( LIMIT \d+)?( OFFSET \d+)?$/;
+function assertSafeQuery(sql, collection) {
+  if (!sql) {
+    throw new Error("Invalid query: Query cannot be empty");
+  }
+  const cleanedupQuery = cleanupQuery(sql);
+  if (cleanedupQuery !== sql) {
+    throw new Error("Invalid query: SQL comments are not allowed");
+  }
+  const match = sql.match(SQL_SELECT_REGEX);
+  if (!match) {
+    throw new Error("Invalid query: Query must be a valid SELECT statement with proper syntax");
+  }
+  const [_, select, from, where, orderBy, order, limit, offset] = match;
+  const columns = select?.trim().split(", ") || [];
+  if (columns.length === 1) {
+    if (columns[0] !== "*" && !columns[0]?.match(SQL_COUNT_REGEX) && !columns[0]?.match(/^"[a-z_]\w+"$/i)) {
+      throw new Error(`Invalid query: Column '${columns[0]}' has invalid format. Expected *, COUNT(), or a quoted column name`);
+    }
+  } else if (!columns.every((column) => column.match(/^"[a-z_]\w+"$/i))) {
+    throw new Error("Invalid query: Multiple columns must be properly quoted and alphanumeric");
+  }
+  if (from !== `_content_${collection}`) {
+    const collection2 = String(from || "").replace(/^_content_/, "");
+    throw new Error(`Invalid query: Collection '${collection2}' does not exist`);
+  }
+  if (where) {
+    if (!where.startsWith(" WHERE (") || !where.endsWith(")")) {
+      throw new Error("Invalid query: WHERE clause must be properly enclosed in parentheses");
+    }
+    const noString = cleanupQuery(where, { removeString: true });
+    if (noString.match(SQL_COMMANDS)) {
+      throw new Error("Invalid query: WHERE clause contains unsafe SQL commands");
+    }
+  }
+  const _order = (orderBy + " " + order).split(", ");
+  if (!_order.every((column) => column.match(/^("[a-zA-Z_]+"|[a-zA-Z_]+) (ASC|DESC)$/))) {
+    throw new Error("Invalid query: ORDER BY clause must contain valid column names followed by ASC or DESC");
+  }
+  if (limit !== void 0 && !limit.match(/^ LIMIT \d+$/)) {
+    throw new Error("Invalid query: LIMIT clause must be a positive number");
+  }
+  if (offset !== void 0 && !offset.match(/^ OFFSET \d+$/)) {
+    throw new Error("Invalid query: OFFSET clause must be a positive number");
+  }
+  return true;
+}
+function cleanupQuery(query, options = { removeString: false }) {
+  let inString = false;
+  let stringFence = "";
+  let result = "";
+  for (let i = 0; i < query.length; i++) {
+    const char = query[i];
+    const prevChar = query[i - 1];
+    const nextChar = query[i + 1];
+    if (char === "'" || char === '"') {
+      if (!options?.removeString) {
+        result += char;
+        continue;
+      }
+      if (inString) {
+        if (char !== stringFence || nextChar === stringFence || prevChar === stringFence) {
+          continue;
+        }
+        inString = false;
+        stringFence = "";
+        continue;
+      } else {
+        inString = true;
+        stringFence = char;
+        continue;
+      }
+    }
+    if (!inString) {
+      if (char === "-" && nextChar === "-") {
+        return result;
+      }
+      if (char === "/" && nextChar === "*") {
+        i += 2;
+        while (i < query.length && !(query[i] === "*" && query[i + 1] === "/")) {
+          i += 1;
+        }
+        i += 2;
+        continue;
+      }
+      result += char;
+    }
+  }
+  return result;
+}
+
+function defineRenderHandler(render) {
+  const runtimeConfig = useRuntimeConfig();
+  return eventHandler(async (event) => {
+    const nitroApp = useNitroApp();
+    const ctx = { event, render, response: void 0 };
+    await nitroApp.hooks.callHook("render:before", ctx);
+    if (!ctx.response) {
+      if (event.path === `${runtimeConfig.app.baseURL}favicon.ico`) {
+        setResponseHeader(event, "Content-Type", "image/x-icon");
+        return send(
+          event,
+          "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        );
+      }
+      ctx.response = await ctx.render(event);
+      if (!ctx.response) {
+        const _currentStatus = getResponseStatus(event);
+        setResponseStatus(event, _currentStatus === 200 ? 500 : _currentStatus);
+        return send(
+          event,
+          "No response returned from render handler: " + event.path
+        );
+      }
+    }
+    await nitroApp.hooks.callHook("render:response", ctx.response, ctx);
+    if (ctx.response.headers) {
+      setResponseHeaders(event, ctx.response.headers);
+    }
+    if (ctx.response.statusCode || ctx.response.statusMessage) {
+      setResponseStatus(
+        event,
+        ctx.response.statusCode,
+        ctx.response.statusMessage
+      );
+    }
+    return ctx.response.body;
+  });
+}
+
+function baseURL() {
+  return useRuntimeConfig().app.baseURL;
+}
+function buildAssetsDir() {
+  return useRuntimeConfig().app.buildAssetsDir;
+}
+function buildAssetsURL(...path) {
+  return joinRelativeURL(publicAssetsURL(), buildAssetsDir(), ...path);
+}
+function publicAssetsURL(...path) {
+  const app = useRuntimeConfig().app;
+  const publicBase = app.cdnURL || app.baseURL;
+  return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
+}
+
+const _eKyNmz = eventHandler(async (event) => {
+  const { sql } = await readBody(event);
+  const collection = getRouterParam(event, "collection") || event.path?.split("/")?.[2] || "";
+  assertSafeQuery(sql, collection);
+  const conf = useRuntimeConfig().content;
+  if (conf.integrityCheck) {
+    await checkAndImportDatabaseIntegrity(event, collection, conf);
+  }
+  return loadDatabaseAdapter(conf).all(sql);
+});
+
+const _lazy_HFWuE6 = () => import('../routes/renderer.mjs').then(function (n) { return n.r; });
+
+const handlers = [
+  { route: '', handler: _RKHFDt, lazy: false, middleware: true, method: undefined },
+  { route: '/__nuxt_error', handler: _lazy_HFWuE6, lazy: true, middleware: false, method: undefined },
+  { route: '/__nuxt_content/content/sql_dump.txt', handler: _QKMurN, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/info/sql_dump.txt', handler: _QKMurN, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/content/query', handler: _eKyNmz, lazy: false, middleware: false, method: undefined },
+  { route: '/__nuxt_content/info/query', handler: _eKyNmz, lazy: false, middleware: false, method: undefined },
+  { route: '/**', handler: _lazy_HFWuE6, lazy: true, middleware: false, method: undefined }
+];
+
 function createNitroApp() {
   const config = useRuntimeConfig();
   const hooks = createHooks();
@@ -5730,6 +5952,35 @@ function createNitroApp() {
       return errorHandler(error, event);
     },
     onRequest: async (event) => {
+      event.context.nitro = event.context.nitro || { errors: [] };
+      const fetchContext = event.node.req?.__unenv__;
+      if (fetchContext?._platform) {
+        event.context = {
+          _platform: fetchContext?._platform,
+          // #3335
+          ...fetchContext._platform,
+          ...event.context
+        };
+      }
+      if (!event.context.waitUntil && fetchContext?.waitUntil) {
+        event.context.waitUntil = fetchContext.waitUntil;
+      }
+      event.fetch = (req, init) => fetchWithEvent(event, req, init, { fetch: localFetch });
+      event.$fetch = (req, init) => fetchWithEvent(event, req, init, {
+        fetch: $fetch
+      });
+      event.waitUntil = (promise) => {
+        if (!event.context.nitro._waitUntilPromises) {
+          event.context.nitro._waitUntilPromises = [];
+        }
+        event.context.nitro._waitUntilPromises.push(promise);
+        if (event.context.waitUntil) {
+          event.context.waitUntil(promise);
+        }
+      };
+      event.captureError = (error, context) => {
+        captureError(error, { event, ...context });
+      };
       await nitroApp$1.hooks.callHook("request", event).catch((error) => {
         captureError(error, { event, tags: ["request"] });
       });
@@ -5748,43 +5999,28 @@ function createNitroApp() {
   const router = createRouter({
     preemptive: true
   });
-  const localCall = createCall(toNodeListener(h3App));
-  const _localFetch = createFetch(localCall, globalThis.fetch);
-  const localFetch = (input, init) => _localFetch(input, init).then(
-    (response) => normalizeFetchResponse(response)
+  const nodeHandler = toNodeListener(h3App);
+  const localCall = (aRequest) => b(
+    nodeHandler,
+    aRequest
   );
-  const $fetch = createFetch$1({
+  const localFetch = (input, init) => {
+    if (!input.toString().startsWith("/")) {
+      return globalThis.fetch(input, init);
+    }
+    return C(
+      nodeHandler,
+      input,
+      init
+    ).then((response) => normalizeFetchResponse(response));
+  };
+  const $fetch = createFetch({
     fetch: localFetch,
     Headers: Headers$1,
     defaults: { baseURL: config.app.baseURL }
   });
   globalThis.$fetch = $fetch;
   h3App.use(createRouteRulesHandler({ localFetch }));
-  h3App.use(
-    eventHandler((event) => {
-      event.context.nitro = event.context.nitro || { errors: [] };
-      const envContext = event.node.req?.__unenv__;
-      if (envContext) {
-        Object.assign(event.context, envContext);
-      }
-      event.fetch = (req, init) => fetchWithEvent(event, req, init, { fetch: localFetch });
-      event.$fetch = (req, init) => fetchWithEvent(event, req, init, {
-        fetch: $fetch
-      });
-      event.waitUntil = (promise) => {
-        if (!event.context.nitro._waitUntilPromises) {
-          event.context.nitro._waitUntilPromises = [];
-        }
-        event.context.nitro._waitUntilPromises.push(promise);
-        if (envContext?.waitUntil) {
-          envContext.waitUntil(promise);
-        }
-      };
-      event.captureError = (error, context) => {
-        captureError(error, { event, ...context });
-      };
-    })
-  );
   for (const h of handlers) {
     let handler = h.lazy ? lazyEventHandler(h.handler) : h.handler;
     if (h.middleware || !h.route) {
@@ -5832,45 +6068,6 @@ function useNitroApp() {
   return nitroApp$1;
 }
 runNitroPlugins(nitroApp$1);
-
-function defineRenderHandler(render) {
-  const runtimeConfig = useRuntimeConfig();
-  return eventHandler(async (event) => {
-    const nitroApp = useNitroApp();
-    const ctx = { event, render, response: void 0 };
-    await nitroApp.hooks.callHook("render:before", ctx);
-    if (!ctx.response) {
-      if (event.path === `${runtimeConfig.app.baseURL}favicon.ico`) {
-        setResponseHeader(event, "Content-Type", "image/x-icon");
-        return send(
-          event,
-          "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-        );
-      }
-      ctx.response = await ctx.render(event);
-      if (!ctx.response) {
-        const _currentStatus = getResponseStatus(event);
-        setResponseStatus(event, _currentStatus === 200 ? 500 : _currentStatus);
-        return send(
-          event,
-          "No response returned from render handler: " + event.path
-        );
-      }
-    }
-    await nitroApp.hooks.callHook("render:response", ctx.response, ctx);
-    if (ctx.response.headers) {
-      setResponseHeaders(event, ctx.response.headers);
-    }
-    if (ctx.response.statusCode || ctx.response.statusMessage) {
-      setResponseStatus(
-        event,
-        ctx.response.statusCode,
-        ctx.response.statusMessage
-      );
-    }
-    return ctx.response.body;
-  });
-}
 
 const debug = (...args) => {
 };
@@ -6144,5 +6341,5 @@ trapUnhandledNodeErrors();
 setupGracefulShutdown(listener, nitroApp);
 const nodeServer = {};
 
-export { $fetch as $, getRouteRules as a, useNitroApp as b, createError$1 as c, defineRenderHandler as d, getResponseStatusText as e, getResponseStatus as f, getQuery as g, hasProtocol as h, isScriptProtocol as i, joinRelativeURL as j, joinURL as k, getContext as l, createHooks as m, createDebugger as n, createRouter$1 as o, defu as p, parseQuery as q, withTrailingSlash as r, sanitizeStatusCode as s, toRouteMatcher as t, useRuntimeConfig as u, withoutTrailingSlash as v, withQuery as w, nodeServer as x };
+export { $fetch$1 as $, destr as A, getRequestHeaders as B, withLeadingSlash as C, withTrailingSlash as D, parseQuery as E, nodeServer as F, getResponseStatus as a, buildAssetsURL as b, getQuery as c, defineRenderHandler as d, createError$1 as e, getRouteRules as f, getResponseStatusText as g, useNitroApp as h, hasProtocol as i, isScriptProtocol as j, joinURL as k, getContext as l, baseURL as m, createHooks as n, executeAsync as o, publicAssetsURL as p, createDebugger as q, createRouter$1 as r, sanitizeStatusCode as s, toRouteMatcher as t, useRuntimeConfig as u, defu as v, withQuery as w, pascalCase as x, kebabCase as y, withoutTrailingSlash as z };
 //# sourceMappingURL=nitro.mjs.map

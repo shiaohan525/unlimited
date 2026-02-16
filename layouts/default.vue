@@ -2,7 +2,7 @@
     <Loading />
     <BgBlobs />
     <TheHeader />
-    <Banner />
+    <!-- <Banner /> -->
     <!-- 页面内容 -->
     <NuxtPage />
     <TheFooter />

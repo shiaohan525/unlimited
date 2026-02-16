@@ -1,7 +1,15 @@
 import open from 'open'
 export default defineNuxtConfig({
-  modules: ['@pinia/nuxt'],
+  modules: ['@nuxt/content', '@pinia/nuxt'],
   css: ['@/assets/main.scss'],
+  content: {
+    sources: {
+      content: {
+        driver: 'fs',
+        base: './content' // 強制指定根目錄下的 content 資料夾
+      }
+    }
+  },
 
   hooks: {
     listen(server) {
@@ -17,6 +25,8 @@ export default defineNuxtConfig({
       console.log(`Server is running at ${url}`)
     }
   },
+
+  devtools: { enabled: true },
 
   build: {
     transpile: ['@/components'],
@@ -93,5 +103,5 @@ export default defineNuxtConfig({
   // 日誌測試
   debug: true,
 
-  compatibilityDate: '2024-10-10'
+  compatibilityDate: '2024-11-01'
 })

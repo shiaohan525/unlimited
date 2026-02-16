@@ -45,6 +45,7 @@ const trackButtonClick = () => {
 
 <template>
   <div class="wrapper" ref="triggerElement">
+    <Banner />
     <section class="about-wrap" ref="animatedElement">
       <div class="about-item">
         <div class="about-img">
