@@ -84,8 +84,3 @@ onMounted(() => {
     <div class="blob"></div>
   </div>
 </template>
-
-
-
-<style lang="scss" scoped>
-// @import '@/assets/components/bgblobs'</style>

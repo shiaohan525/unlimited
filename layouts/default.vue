@@ -1,6 +1,5 @@
 <template>
     <Loading />
-    <BgBlobs />
     <TheHeader />
     <!-- <Banner /> -->
     <!-- 页面内容 -->

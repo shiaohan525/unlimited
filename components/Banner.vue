@@ -25,6 +25,3 @@ onMounted(() => {
     </DotLottieVue>
   </div>
 </template>
-
-<style lang="scss" scoped>
-// @import '~/assets/components/banner';</style>

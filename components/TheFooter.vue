@@ -62,6 +62,3 @@ import { RouterLink, RouterView } from 'vue-router'
         </div>
     </footer>
 </template>
-
-<style lang="scss" scoped>
-// @import '@/assets/layout/footer'</style>

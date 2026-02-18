@@ -124,6 +124,3 @@ onMounted(() => {
         </div> -->
     </header>
 </template>
-
-<style lang="scss" scoped>
-// @import '@/assets/layout/header'</style>

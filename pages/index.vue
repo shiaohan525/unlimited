@@ -42,8 +42,8 @@ const trackButtonClick = () => {
 // console.log('埋點成功！');
 
 </script>
-
 <template>
+  <BgBlobs />
   <div class="wrapper" ref="triggerElement">
     <Banner />
     <section class="about-wrap" ref="animatedElement">
