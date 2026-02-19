@@ -40,9 +40,6 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@oxc-minify/binding-darwin-arm64": "^0.114.0",
-    "@oxc-parser/binding-darwin-arm64": "^0.114.0",
-    "@oxc-transform/binding-darwin-arm64": "^0.114.0",
     "@rushstack/eslint-patch": "^1.8.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/jquery": "^3.5.30",
