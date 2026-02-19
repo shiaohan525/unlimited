@@ -1,4 +1,3 @@
-// css reset
 @use 'reset-css/sass/reset' as *;
 
 // 引入所有scss檔，頁面檔個別引入
@@ -18,3 +17,4 @@
 @use 'components/article-nav' as *;
 @use 'pages/index' as *;
 @use 'pages/blog' as *;
+@use 'pages/blog-list' as *;

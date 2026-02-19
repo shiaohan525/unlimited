@@ -1,7 +1,6 @@
 @use '@/assets/libs/mixins' as *;
 
-// Blog page main element styling
-main {
+.blog-post-main {
   width: 100%;
   position: relative;
   padding: 80px 0;
@@ -52,7 +51,7 @@ main {
 }
 
 // Blog article content styling
-main {
+.blog-post-main {
   h1 {
     color: var(--colors-gray-1000);
     margin-bottom: var(--spacing-5);
@@ -119,18 +118,15 @@ main {
   }
 
   blockquote {
-    border-left: 4px solid var(--colors-primary-500);
-    padding-left: var(--spacing-4);
+    border-left: 1px solid var(--colors-primary-400);
     margin: var(--spacing-4) 0;
-    color: var(--colors-gray-700);
+    color: var(--colors-gray-800);
     font-style: italic;
-    background-color: var(--colors-styles-bg-glass-l);
     padding: var(--spacing-3) var(--spacing-4);
-    border-radius: var(--radius-lg);
   }
 
   code {
-    background-color: var(--colors-styles-bg-glass-m);
+    background-color: var(--colors-gray-100);
     padding: 2px 6px;
     border-radius: var(--radius-md);
     font-family: 'Courier New', monospace;
@@ -139,8 +135,8 @@ main {
   }
 
   pre {
-    background-color: var(--colors-gray-1000);
-    color: var(--colors-gray-100);
+    background-color: var(--colors-gray-100);
+    color: var(--colors-primary-600);
     padding: var(--spacing-4);
     border-radius: var(--radius-lg);
     overflow-x: auto;
@@ -167,29 +163,39 @@ main {
     border-collapse: collapse;
     margin: var(--spacing-4) 0;
     border: 1px solid var(--colors-gray-300);
+    overflow: hidden;
+    border-radius: var(--radius-md);
 
     th,
     td {
-      border: 1px solid var(--colors-gray-300);
+      letter-spacing: var(--font-spacing-p);
+      word-spacing: var(--font-spacing-p);
+      line-height: var(--font-height-p);
+      font-weight: var(--font-medium);
+      font-size: clamp(var(--min-size-p) * 1px, var(--font-size), var(--max-size-p) * 1px);
       padding: var(--spacing-3) var(--spacing-3);
       text-align: left;
       color: var(--colors-gray-1000);
     }
 
     th {
-      background-color: var(--colors-styles-bg-glass-m);
-      color: var(--colors-gray-1000);
+      background-color: var(--colors-styles-bg-glass-l);
+      color: var(--colors-gray-800);
       font-weight: var(--font-bold);
     }
 
-    tr:nth-child(even) {
-      background-color: var(--colors-styles-bg-glass-l);
+    tr {
+      background-color: var(--colors-styles-bg-glass-m);
+
+      &:nth-child(even) {
+        background-color: var(--colors-styles-bg-glass-d);
+      }
     }
   }
 
   hr {
     border: none;
-    border-top: 2px solid var(--colors-gray-300);
+    border-top: 1px solid var(--colors-styles-border-glass-d);
     margin: var(--spacing-6) 0;
   }
 }

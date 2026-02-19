@@ -1,0 +1,1 @@
+import{H as s,I as u,J as r,K as o,L as i}from"./Cgyv_X2I.js";function a(t){const e=t||s();return e?.ssrContext?.head||e?.runWithContext(()=>{if(r())return o(i)})}function d(t,e={}){const n=a(e.nuxt);if(n)return u(t,{head:n,...e})}function f(t,e={}){if(a(e.nuxt))return!1}export{f as a,d as u};

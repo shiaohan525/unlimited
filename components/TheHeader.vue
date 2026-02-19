@@ -1,8 +1,9 @@
 <script setup>
 import { selector } from 'gsap/src/all';
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { useDark, useToggle } from '@vueuse/core'
 
+const router = useRouter()
 
 const isDark = useDark({
     selector: "body",
@@ -39,6 +40,11 @@ const closeMenu = () => {
     }, 500);
 };
 
+// 監聽路由變化，自動關閉菜單
+watch(() => router.currentRoute.value.path, () => {
+    closeMenu();
+});
+
 onMounted(() => {
     window.onscroll = function a() {
         var h = document.documentElement.scrollTop || document.body.scrollTop;
@@ -68,16 +74,18 @@ onMounted(() => {
     <header>
         <div class="header-wrap" id="headerScroll">
             <div class="brand">
-                <svg width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M13.6641 0.399999H20.2721V20H13.6641V0.399999ZM7.56009 20H0.952094V0.399999H7.56009V20ZM14.1121 12.776H7.11209V7.344H14.1121V12.776ZM26.396 20.28C25.3507 20.28 24.4733 19.944 23.764 19.272C23.0547 18.5813 22.7 17.704 22.7 16.64C22.7 15.5573 23.0547 14.6893 23.764 14.036C24.4733 13.3827 25.3507 13.056 26.396 13.056C27.4413 13.056 28.3187 13.3827 29.028 14.036C29.7373 14.6893 30.092 15.5573 30.092 16.64C30.092 17.704 29.7373 18.5813 29.028 19.272C28.3187 19.944 27.4413 20.28 26.396 20.28Z"
-                        fill="#656565" />
-                </svg>
+                <RouterLink to="/">
+                    <svg width="31" height="21" viewBox="0 0 31 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M13.6641 0.399999H20.2721V20H13.6641V0.399999ZM7.56009 20H0.952094V0.399999H7.56009V20ZM14.1121 12.776H7.11209V7.344H14.1121V12.776ZM26.396 20.28C25.3507 20.28 24.4733 19.944 23.764 19.272C23.0547 18.5813 22.7 17.704 22.7 16.64C22.7 15.5573 23.0547 14.6893 23.764 14.036C24.4733 13.3827 25.3507 13.056 26.396 13.056C27.4413 13.056 28.3187 13.3827 29.028 14.036C29.7373 14.6893 30.092 15.5573 30.092 16.64C30.092 17.704 29.7373 18.5813 29.028 19.272C28.3187 19.944 27.4413 20.28 26.396 20.28Z"
+                            fill="#656565" />
+                    </svg>
+                </RouterLink>
             </div>
             <nav class="pc-menu">
-                <!-- <a href="" class="">About</a>
-                <a href="" class="">Blog</a>
-                <a href="" class="">Work</a>
+                <!-- <a href="" class="">About</a> -->
+                <RouterLink to="/blog" class="">Blog</RouterLink>
+                <!-- <a href="" class="">Work</a>
                 <a href="" class="">Contact</a> -->
             </nav>
             <div class="mb-menu">
@@ -109,18 +117,18 @@ onMounted(() => {
                         </div>
                     </span>
                 </label>
-                <!-- <nav class="nav-menu" id="nav-menu" ref="navMenu" @click="toggleMenu" :class="{ open: isOpen }">
+                <nav class="nav-menu" id="nav-menu" ref="navMenu" @click="toggleMenu" :class="{ open: isOpen }">
                     <span></span>
                     <span></span>
                     <span></span>
-                </nav> -->
+                </nav>
             </div>
         </div>
-        <!-- <div class="menu-main" :class="{ open: isOpen }">
-            <a href="" class="">About</a>
-            <a href="" class="">Blog</a>
-            <a href="" class="">Work</a>
-            <a href="" class="">Contact</a>
-        </div> -->
+        <div class="menu-main" :class="{ open: isOpen }">
+            <!-- <a href="" class="">About</a> -->
+            <RouterLink to="/blog" class="">Blog</RouterLink>
+            <!-- <a href="" class="">Work</a> -->
+            <!-- <a href="" class="">Contact</a> -->
+        </div>
     </header>
 </template>

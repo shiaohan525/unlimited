@@ -24,6 +24,9 @@ header {
   padding: var(--spacing-2) var(--spacing-4);
   // backdrop-filter: unset;
   border-radius: var(--radius-max);
+  .brand svg {
+    width: 40px;
+  }
   // nav {
   //   display: flex;
   //   align-items: flex-start;
