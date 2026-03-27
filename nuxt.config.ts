@@ -47,6 +47,12 @@ export default defineNuxtConfig({
           //   additionalData: `@import "@/assets/libs/_mixins.scss";`
         }
       }
+    },
+    ssr: {
+      external: ['oxc-parser']
+    },
+    optimizeDeps: {
+      exclude: ['oxc-parser']
     }
   },
 

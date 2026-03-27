@@ -1,11 +1,32 @@
 import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'vue-bundle-renderer/runtime';
-import { b as buildAssetsURL, u as useRuntimeConfig, g as getResponseStatusText, a as getResponseStatus, d as defineRenderHandler, p as publicAssetsURL, c as getQuery, e as createError, f as getRouteRules, j as joinURL, h as useNitroApp } from '../nitro/nitro.mjs';
+import { b as buildAssetsURL, u as useRuntimeConfig, g as getResponseStatusText, a as getResponseStatus, c as defineRenderHandler, p as publicAssetsURL, e as getQuery, f as createError, h as getRouteRules, j as joinURL, i as useNitroApp } from '../nitro/nitro.mjs';
 import { renderToString } from 'vue/server-renderer';
 import { createHead as createHead$1, propsToString, renderSSRHead } from 'unhead/server';
 import { stringify, uneval } from 'devalue';
-import { FlatMetaPlugin, DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'unhead/plugins';
-import { walkResolver } from 'unhead/utils';
-import { isRef, toValue, hasInjectionContext, inject, ref, watchEffect, getCurrentInstance, onBeforeUnmount, onDeactivated, onActivated } from 'vue';
+import { isRef, toValue } from 'vue';
+import { DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'unhead/plugins';
+import 'unified';
+import 'remark-parse';
+import 'remark-rehype';
+import 'remark-mdc';
+import 'remark-gfm';
+import 'rehype-external-links';
+import 'rehype-sort-attribute-values';
+import 'rehype-sort-attributes';
+import 'rehype-raw';
+import 'detab';
+import 'micromark-util-sanitize-uri';
+import 'hast-util-to-string';
+import 'github-slugger';
+import 'node:http';
+import 'node:https';
+import 'node:events';
+import 'node:buffer';
+import 'node:fs';
+import 'node:path';
+import 'node:crypto';
+import 'node:url';
+import 'ipx';
 
 const VueResolver = (_, value) => {
   return isRef(value) ? toValue(value) : value;
@@ -22,59 +43,6 @@ function vueInstall(head) {
     }
   };
   return plugin.install;
-}
-
-// @__NO_SIDE_EFFECTS__
-function injectHead() {
-  if (hasInjectionContext()) {
-    const instance = inject(headSymbol);
-    if (instance) {
-      return instance;
-    }
-  }
-  throw new Error("useHead() was called without provide context, ensure you call it through the setup() function.");
-}
-function useHead(input, options = {}) {
-  const head = options.head || /* @__PURE__ */ injectHead();
-  return head.ssr ? head.push(input || {}, options) : clientUseHead(head, input, options);
-}
-function clientUseHead(head, input, options = {}) {
-  const deactivated = ref(false);
-  let entry;
-  watchEffect(() => {
-    const i = deactivated.value ? {} : walkResolver(input, VueResolver);
-    if (entry) {
-      entry.patch(i);
-    } else {
-      entry = head.push(i, options);
-    }
-  });
-  const vm = getCurrentInstance();
-  if (vm) {
-    onBeforeUnmount(() => {
-      entry.dispose();
-    });
-    onDeactivated(() => {
-      deactivated.value = true;
-    });
-    onActivated(() => {
-      deactivated.value = false;
-    });
-  }
-  return entry;
-}
-function useSeoMeta(input = {}, options = {}) {
-  const head = options.head || /* @__PURE__ */ injectHead();
-  head.use(FlatMetaPlugin);
-  const { title, titleTemplate, ...meta } = input;
-  return useHead({
-    title,
-    titleTemplate,
-    _flatMeta: meta
-  }, options);
-}
-function useServerSeoMeta(input, options = {}) {
-  return useSeoMeta(input, { ...options, mode: "server" });
 }
 
 // @__NO_SIDE_EFFECTS__
@@ -181,7 +149,7 @@ const getSSRStyles = lazyCachedFunction(() => import('../build/styles.mjs').then
 
 function renderPayloadResponse(ssrContext) {
 	return {
-		body: stringify(splitPayload(ssrContext).payload, ssrContext["~payloadReducers"]) ,
+		body: encodeForwardSlashes(stringify(splitPayload(ssrContext).payload, ssrContext["~payloadReducers"])) ,
 		statusCode: getResponseStatus(ssrContext.event),
 		statusMessage: getResponseStatusText(ssrContext.event),
 		headers: {
@@ -191,7 +159,7 @@ function renderPayloadResponse(ssrContext) {
 	};
 }
 function renderPayloadJsonScript(opts) {
-	const contents = opts.data ? stringify(opts.data, opts.ssrContext["~payloadReducers"]) : "";
+	const contents = opts.data ? encodeForwardSlashes(stringify(opts.data, opts.ssrContext["~payloadReducers"])) : "";
 	const payload = {
 		"type": "application/json",
 		"innerHTML": contents,
@@ -206,6 +174,14 @@ function renderPayloadJsonScript(opts) {
 	}
 	const config = uneval(opts.ssrContext.config);
 	return [payload, { innerHTML: `window.__NUXT__={};window.__NUXT__.config=${config}` }];
+}
+/**
+* Encode forward slashes as unicode escape sequences to prevent
+* Google from treating them as internal links and trying to crawl them.
+* @see https://github.com/nuxt/nuxt/issues/24175
+*/
+function encodeForwardSlashes(str) {
+	return str.replaceAll("/", "\\u002F");
 }
 function splitPayload(ssrContext) {
 	const { data, prerenderedAt, ...initial } = ssrContext.payload;
@@ -274,7 +250,7 @@ const APP_TELEPORT_OPEN_TAG = HAS_APP_TELEPORTS ? `<${appTeleportTag}${propsToSt
 const APP_TELEPORT_CLOSE_TAG = HAS_APP_TELEPORTS ? `</${appTeleportTag}>` : "";
 const PAYLOAD_URL_RE = /^[^?]*\/_payload.json(?:\?.*)?$/ ;
 const PAYLOAD_FILENAME = "_payload.json" ;
-const renderer = defineRenderHandler(async (event) => {
+const handler = defineRenderHandler(async (event) => {
 	const nitroApp = useNitroApp();
 	// Whether we're rendering an error page
 	const ssrError = event.path.startsWith("/__nuxt_error") ? getQuery(event) : null;
@@ -476,10 +452,5 @@ function renderHTMLDocument(html) {
 	return "<!DOCTYPE html>" + `<html${joinAttrs(html.htmlAttrs)}>` + `<head>${joinTags(html.head)}</head>` + `<body${joinAttrs(html.bodyAttrs)}>${joinTags(html.bodyPrepend)}${joinTags(html.body)}${joinTags(html.bodyAppend)}</body>` + "</html>";
 }
 
-const renderer$1 = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-  __proto__: null,
-  default: renderer
-}, Symbol.toStringTag, { value: 'Module' }));
-
-export { useServerSeoMeta as a, headSymbol as h, renderer$1 as r, useHead as u };
+export { handler as default };
 //# sourceMappingURL=renderer.mjs.map
