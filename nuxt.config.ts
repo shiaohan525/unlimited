@@ -83,8 +83,8 @@ export default defineNuxtConfig({
             '致力為品牌打造獨一無二的設計！提供平面與網頁設計服務，分享設計理念和開發心路歷程'
         },
         { property: 'og:type', content: 'website' },
-        { property: 'og:url', content: 'https://theunlimited.cc/' },
-        { property: 'og:image', content: 'https://theunlimited.cc/images/og_image.png' },
+        { property: 'og:url', content: 'https://www.theunlimited.cc/' },
+        { property: 'og:image', content: 'https://www.theunlimited.cc/images/og_image.png' },
         { name: 'twitter:card', content: 'summary_large_image' },
         {
           name: 'twitter:title',
@@ -95,14 +95,14 @@ export default defineNuxtConfig({
           content:
             '致力為品牌打造獨一無二的設計！提供平面與網頁設計服務，分享設計理念和開發心路歷程'
         },
-        { name: 'twitter:image', content: 'https://theunlimited.cc/images/twitter_image.png' }
+        { name: 'twitter:image', content: 'https://www.theunlimited.cc/images/twitter_image.png' }
       ],
       htmlAttrs: {
         lang: 'zh-Hant-TW'
       },
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'canonical', href: 'https://theunlimited.cc/' }
+        { rel: 'canonical', href: 'https://www.theunlimited.cc/' }
       ]
     }
   },
