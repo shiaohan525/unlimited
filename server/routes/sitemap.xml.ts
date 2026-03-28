@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  const baseUrl = 'https://theunlimited.cc'
+  const baseUrl = 'https://www.theunlimited.cc'
 
   // 定義站點的主要頁面
   const staticRoutes = [

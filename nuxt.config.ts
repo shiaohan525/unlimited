@@ -56,6 +56,11 @@ export default defineNuxtConfig({
     }
   },
 
+  site: {
+    // 必須與 GSC 顯示的資源網址完全一致
+    url: 'https://www.theunlimited.cc'
+  },
+
   app: {
     baseURL: '/',
     buildAssetsDir: '/static/',
