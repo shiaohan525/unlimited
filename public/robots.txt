@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# 這是最重要的：告訴 Google 你的地圖在哪裡
+Sitemap: https://www.theunlimited.cc/sitemap.xml
