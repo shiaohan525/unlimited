@@ -27,5 +27,5 @@ ${staticRoutes
   setHeader(event, 'Content-Type', 'text/xml; charset=utf-8')
   setHeader(event, 'Cache-Control', 'public, max-age=3600')
 
-  return xml
+  return send(event, xml, 'text/xml; charset=utf-8')
 })

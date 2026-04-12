@@ -63,7 +63,7 @@ export default defineNuxtConfig({
 
   app: {
     baseURL: '/',
-    buildAssetsDir: '/static/',
+    //buildAssetsDir: '/static/',
     //SEO meta
     head: {
       title: "The Unlimited｜Hailey's Style：Web、Design And Future",
