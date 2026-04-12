@@ -3,7 +3,7 @@ title: '《我們的行為是怎樣被設計的》在機器與行為之間，編
 description: '前陣子剛讀完《我們的行為是怎樣被設計的》，我對「設計」這兩個字的理解被徹底重組，並給了我一個全新的視角：設計不是為了解決功能問題，而是為了解決「人與科技如何共存」的信任問題。'
 keywords: '我們的行為是怎樣被設計的, UI/UX, 產品設計'
 date: 2026-04-12
-image: '/images/artcle/artcle_book-user-friendly.png'
+image: '/images/article/article_book-user-friendly.png'
 tags:
   - 產品設計
   - 心理學
