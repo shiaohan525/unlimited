@@ -23,9 +23,8 @@ ${staticRoutes
   .join('')}
 </urlset>`.trim()
 
-  // 建議改用 text/xml 並加上 charset
   setHeader(event, 'Content-Type', 'text/xml; charset=utf-8')
   setHeader(event, 'Cache-Control', 'public, max-age=3600')
 
-  return send(event, xml, 'text/xml; charset=utf-8')
+  return xml
 })
