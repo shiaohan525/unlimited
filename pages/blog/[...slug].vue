@@ -28,6 +28,7 @@ watchEffect(() => {
         useHead({
             meta: [
                 { name: 'keywords', content: post.value.keywords || '' },
+                { name: 'robots', content: post.value.robots || '' },
                 { property: 'og:image', content: post.value.image || '' },
                 { property: 'og:type', content: 'article' },
                 { name: 'twitter:image', content: post.value.image || '' }
