@@ -10,14 +10,16 @@ const { data: post } = await useAsyncData(`content-${route.path}`, () => {
 console.log('Post data:', post.value)
 
 // 2. 設置 SEO Meta
-// 注意：v2 的自定義內容通常放在 Front-matter，會直接在 post.value 下或 post.value.meta
 useServerSeoMeta({
     title: () => post.value?.title || '部落格文章',
     ogTitle: () => post.value?.title || '部落格文章',
     description: () => post.value?.description || '',
     ogDescription: () => post.value?.description || '',
-    // v2 會將 Front-matter 的 keywords 自動放入 post.value.keywords (或自定義名稱)
-    keywords: () => post.value?.keywords || '',
+    ogImage: () => post.value?.image || '',
+    twitterCard: () => 'summary_large_image',
+    twitterTitle: () => post.value?.title || '部落格文章',
+    twitterDescription: () => post.value?.description || '',
+    twitterImage: () => post.value?.image || '',
 })
 
 // 3. 設置動態 Head 與 JSON-LD
@@ -26,7 +28,9 @@ watchEffect(() => {
         useHead({
             meta: [
                 { name: 'keywords', content: post.value.keywords || '' },
-                { property: 'og:image', content: post.value.image || '' }
+                { property: 'og:image', content: post.value.image || '' },
+                { property: 'og:type', content: 'article' },
+                { name: 'twitter:image', content: post.value.image || '' }
             ],
             script: [
                 {

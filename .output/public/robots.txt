@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /static/  # 告訴 Google 不要去爬這個目錄本身
+Disallow: /_nuxt/    # 這是 Nuxt 常用的資源目錄
+
+Sitemap: https://www.theunlimited.cc/sitemap_v2.xml
