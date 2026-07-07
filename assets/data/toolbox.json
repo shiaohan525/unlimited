@@ -1,0 +1,853 @@
+[
+  {
+    "name": "Octopus.do",
+    "tags": [
+      "前端開發",
+      "網頁",
+      "開發工具"
+    ],
+    "description": "Visual Sitemap Tool, Website Planner, Architecture",
+    "url": "https://octopus.do/"
+  },
+  {
+    "name": "VisualSitemaps",
+    "tags": [
+      "前端開發",
+      "網頁",
+      "開發工具"
+    ],
+    "description": "Sitemap 工具",
+    "url": "http://app.visualsitemaps.com/"
+  },
+  {
+    "name": "Accessibility Insights for Web",
+    "tags": [
+      "前端開發",
+      "網頁",
+      "擴充工具"
+    ],
+    "description": "網站相容性檢查工具",
+    "url": "https://chromewebstore.google.com/detail/accessibility-insights-fo/pbjjkligggfmakdaogkfomddhfmpjeni"
+  },
+  {
+    "name": "WAVE Evaluation Tool",
+    "tags": [
+      "擴充工具",
+      "前端開發",
+      "網頁"
+    ],
+    "description": "網站相容性檢查工具",
+    "url": "https://chromewebstore.google.com/detail/jbbplnpkjmmeebjpijfedlgcdilocofh"
+  },
+  {
+    "name": "Built for Mars",
+    "tags": [
+      "UX 設計",
+      "專案解析"
+    ],
+    "description": "超過60個設計案例觀察剖析",
+    "url": "https://builtformars.com/"
+  },
+  {
+    "name": "Figcomponents",
+    "tags": [
+      "元件",
+      "Figma",
+      "UI 設計"
+    ],
+    "description": "統整各式不同風格的元件庫，可使用Figma編輯",
+    "url": "https://www.figcomponents.com/"
+  },
+  {
+    "name": "UIverse",
+    "tags": [
+      "元件",
+      "原始碼",
+      "前端開發"
+    ],
+    "description": "各種開源元件的Source Code",
+    "url": "https://www.uiverse.io/"
+  },
+  {
+    "name": "Design Systems Database",
+    "tags": [
+      "設計系統",
+      "UX 設計"
+    ],
+    "description": "收錄世界上知名網站及服務設計系統",
+    "url": "https://designsystems.surf/"
+  },
+  {
+    "name": "LearnPython.org",
+    "tags": [
+      "Python",
+      "線上教學"
+    ],
+    "description": "免費的互動式 Python 教學",
+    "url": "https://learnpython.org/"
+  },
+  {
+    "name": "Motion",
+    "tags": [
+      "線上教學",
+      "動態效果"
+    ],
+    "description": "動態互動效果展示介紹與教學資源",
+    "url": "https://motion.zajno.com/"
+  },
+  {
+    "name": "UI Buttons",
+    "tags": [
+      "UI 設計",
+      "元件",
+      "前端開發",
+      "原始碼"
+    ],
+    "description": "按鈕動態效果展示與Source Code",
+    "url": "https://ui-buttons.web.app/"
+  },
+  {
+    "name": "Css Buttons",
+    "tags": [
+      "UI 設計",
+      "元件",
+      "前端開發",
+      "原始碼"
+    ],
+    "description": "按鈕設計與Source Code",
+    "url": "https://cssbuttons.app/"
+  },
+  {
+    "name": "CodeMyUI",
+    "tags": [
+      "UI 設計",
+      "元件",
+      "頁面版型",
+      "前端開發",
+      "原始碼"
+    ],
+    "description": "統整頁面和元件的Source Code",
+    "url": "https://codemyui.com/"
+  },
+  {
+    "name": "flectofy",
+    "tags": [
+      "圖樣",
+      "生成器"
+    ],
+    "description": "圖樣繪製生成器（輸出svg、png）需16:9比例畫面開啟",
+    "url": "https://flectofy.flecto.io/"
+  },
+  {
+    "name": "MagicPattern",
+    "tags": [
+      "圖表",
+      "圖樣",
+      "漸層",
+      "生成器"
+    ],
+    "description": "圖樣繪製生成器，還有漸層、圖表生成器",
+    "url": "https://www.magicpattern.design/"
+  },
+  {
+    "name": "PatternKid",
+    "tags": [
+      "圖樣",
+      "生成器"
+    ],
+    "description": "幾何圖樣繪製生成器",
+    "url": "https://patternkid.com/"
+  },
+  {
+    "name": "Svg Wave",
+    "tags": [
+      "圖樣",
+      "生成器"
+    ],
+    "description": "SVG曲線繪製生成器",
+    "url": "https://svgwave.in/"
+  },
+  {
+    "name": "Svg Shapes",
+    "tags": [
+      "圖樣",
+      "生成器"
+    ],
+    "description": "SVG形狀生成器",
+    "url": "https://www.svgshapes.in/"
+  },
+  {
+    "name": "PatternPad",
+    "tags": [
+      "圖樣",
+      "生成器"
+    ],
+    "description": "圖樣繪製生成器",
+    "url": "https://patternpad.com/"
+  },
+  {
+    "name": "Haikei",
+    "tags": [
+      "圖樣",
+      "漸層",
+      "生成器"
+    ],
+    "description": "圖樣繪製生成器",
+    "url": "https://haikei.app/"
+  },
+  {
+    "name": "Mobbin",
+    "tags": [
+      "UI 設計",
+      "APP",
+      "網頁",
+      "含付費內容"
+    ],
+    "description": "最齊全的線上專案產品靜態UI和元件資源庫",
+    "url": "https://mobbin.com/"
+  },
+  {
+    "name": "App motion",
+    "tags": [
+      "UI 設計",
+      "動態效果",
+      "APP"
+    ],
+    "description": "主打APP動態效果資源庫",
+    "url": "https://appmotion.design/"
+  },
+  {
+    "name": "Refero",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "APP",
+      "網頁",
+      "含付費內容"
+    ],
+    "description": "網頁、APP的UI設計資源庫，進階功能需付費",
+    "url": "https://refero.design/"
+  },
+  {
+    "name": "APP FUEL",
+    "tags": [
+      "UI 設計",
+      "APP"
+    ],
+    "description": "免費的APP的UI設計資源庫",
+    "url": "https://www.theappfuel.com/"
+  },
+  {
+    "name": "Landbook",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "頁面版型",
+      "網頁"
+    ],
+    "description": "網頁版型設計資源庫參考，有標示網站的設計系統",
+    "url": "https://land-book.com/"
+  },
+  {
+    "name": "SaaS Frame",
+    "tags": [
+      "UI 設計",
+      "頁面版型",
+      "SaaS產品"
+    ],
+    "description": "以SaaS產品為主的UI頁面資源庫",
+    "url": "https://www.saasframe.io/"
+  },
+  {
+    "name": "Screenlane",
+    "tags": [
+      "UI 設計",
+      "頁面版型",
+      "APP",
+      "網頁"
+    ],
+    "description": "APP和網頁的UI頁面資源庫",
+    "url": "https://screenlane.com/"
+  },
+  {
+    "name": "美叶UI",
+    "tags": [
+      "UI 設計",
+      "頁面版型",
+      "活動頁",
+      "APP",
+      "網頁",
+      "遊戲"
+    ],
+    "description": "中國市場版型資源庫，涵蓋網頁、APP、活動頁等",
+    "url": "https://ui.meiye.art/album"
+  },
+  {
+    "name": "SCRNSHTS",
+    "tags": [
+      "UX 設計"
+    ],
+    "description": "彙整 APP 上架截圖，了解如何行銷這些產品",
+    "url": "https://scrnshts.club/"
+  },
+  {
+    "name": "Interface In Game",
+    "tags": [
+      "UI 設計",
+      "動態效果",
+      "遊戲"
+    ],
+    "description": "遊戲UI相關資源庫，有動態效果參考",
+    "url": "https://interfaceingame.com/"
+  },
+  {
+    "name": "BrandGuidelines",
+    "tags": [
+      "品牌設計"
+    ],
+    "description": "彙整國際知名品牌設計介紹，深入了解品牌故事",
+    "url": "https://www.brandguidelines.net/"
+  },
+  {
+    "name": "Sine wave SVG generator",
+    "tags": [
+      "生成器"
+    ],
+    "description": "svg曲線生成器",
+    "url": "https://www.sinwaver.com/"
+  },
+  {
+    "name": "humaans",
+    "tags": [
+      "插畫",
+      "生成器"
+    ],
+    "description": "向量插畫人物生成器",
+    "url": "https://www.humaaans.com/"
+  },
+  {
+    "name": "404 Illustrations",
+    "tags": [
+      "插畫"
+    ],
+    "description": "404主題的插畫圖庫",
+    "url": "https://error404.fun/"
+  },
+  {
+    "name": "Drawkit",
+    "tags": [
+      "插畫",
+      "Icon",
+      "含付費內容"
+    ],
+    "description": "2D和3D風格的插畫圖庫",
+    "url": "https://www.drawkit.com/"
+  },
+  {
+    "name": "CSS Shadow Gradients",
+    "tags": [
+      "漸層",
+      "原始碼",
+      "前端開發",
+      "生成器"
+    ],
+    "description": "多重漸層的CSS生成器",
+    "url": "https://alvarotrigo.com/shadow-gradients/"
+  },
+  {
+    "name": "UnDraw",
+    "tags": [
+      "插畫"
+    ],
+    "description": "2D扁平簡約風格的插畫圖庫，可調整主色輸出",
+    "url": "https://undraw.co/illustrations"
+  },
+  {
+    "name": "Open Doodles",
+    "tags": [
+      "插畫"
+    ],
+    "description": "手繪活潑風格的插畫圖庫",
+    "url": "https://www.opendoodles.com/"
+  },
+  {
+    "name": "Glaze",
+    "tags": [
+      "插畫",
+      "背景"
+    ],
+    "description": "向量多色系插畫、背景圖庫，以情境分類",
+    "url": "https://www.glazestock.com/"
+  },
+  {
+    "name": "OUCH! by Icon8",
+    "tags": [
+      "插畫",
+      "含付費內容"
+    ],
+    "description": "Icon8旗下圖庫，收錄2D、3D等多風格插畫",
+    "url": "https://icons8.com/illustrations"
+  },
+  {
+    "name": "Skribbl",
+    "tags": [
+      "插畫",
+      "含付費內容"
+    ],
+    "description": "收錄知名插畫家黑白手繪系插畫，風格特殊多樣化",
+    "url": "https://weareskribbl.com/"
+  },
+  {
+    "name": "UI8 Freebies",
+    "tags": [
+      "UI 設計",
+      "插畫",
+      "Icon",
+      "元件",
+      "頁面版型",
+      "Figma"
+    ],
+    "description": "知名UI資源庫ui8的免費資源",
+    "url": "https://ui8.net/categories/freebies"
+  },
+  {
+    "name": "Figma Community",
+    "tags": [
+      "UI 設計",
+      "Icon",
+      "插畫",
+      "圖樣",
+      "圖表",
+      "元件",
+      "頁面版型",
+      "Figma",
+      "含付費內容"
+    ],
+    "description": "Figma官方資源庫，有豐富素材和外掛資源",
+    "url": "https://www.figma.com/community"
+  },
+  {
+    "name": "Ｍckups",
+    "tags": [
+      "Mockup"
+    ],
+    "description": "提供平面、網頁、APP等模擬原型示意圖庫",
+    "url": "https://mckups.com/"
+  },
+  {
+    "name": "Codecademy",
+    "tags": [
+      "線上教學",
+      "前端開發",
+      "含付費內容"
+    ],
+    "description": "線上程式設計互動式網站平台，有免費教學適合初學",
+    "url": "https://www.codecademy.com/"
+  },
+  {
+    "name": "W3Schools",
+    "tags": [
+      "線上教學",
+      "前端開發",
+      "Python",
+      "原始碼"
+    ],
+    "description": "免費提供英文原始程式碼範例，支援多種軟體開發語言",
+    "url": "https://www.w3schools.com/"
+  },
+  {
+    "name": "IconScout",
+    "tags": [
+      "Icon",
+      "插畫",
+      "含付費內容"
+    ],
+    "description": "風格豐富多樣的插畫圖庫",
+    "url": "https://iconscout.com/"
+  },
+  {
+    "name": "Material Design",
+    "tags": [
+      "設計系統",
+      "UX 設計",
+      "UI 設計",
+      "元件",
+      "頁面版型"
+    ],
+    "description": "Google 的 Material Design 設計規範",
+    "url": "https://m3.material.io/"
+  },
+  {
+    "name": "Human Interface Guidelines",
+    "tags": [
+      "設計系統",
+      "UX 設計",
+      "UI 設計",
+      "元件",
+      "頁面版型"
+    ],
+    "description": "ios 的 Human Interface Guidelines設計規範",
+    "url": "https://developer.apple.com/design/human-interface-guidelines"
+  },
+  {
+    "name": "Ant Design",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "元件",
+      "頁面版型",
+      "前端開發",
+      "原始碼",
+      "UX 設計",
+      "UI Library"
+    ],
+    "description": "適用後台系統的UI Library，指南有中英文語系",
+    "url": "https://ant.design/index-cn"
+  },
+  {
+    "name": "Bootstrap",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "元件",
+      "頁面版型",
+      "前端開發",
+      "原始碼",
+      "UX 設計",
+      "UI Library"
+    ],
+    "description": "知名的UI Library",
+    "url": "https://getbootstrap.com/"
+  },
+  {
+    "name": "Material UI",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "元件",
+      "頁面版型",
+      "前端開發",
+      "原始碼",
+      "UX 設計",
+      "UI Library"
+    ],
+    "description": "知名基於React框架開發的UI Library",
+    "url": "https://mui.com/"
+  },
+  {
+    "name": "Elastic UI",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "元件",
+      "頁面版型",
+      "前端開發",
+      "原始碼",
+      "UX 設計",
+      "UI Library"
+    ],
+    "description": "強調資料檢索的UI Library",
+    "url": "https://eui.elastic.co/"
+  },
+  {
+    "name": "Tailwind CSS",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "元件",
+      "頁面版型",
+      "前端開發",
+      "原始碼",
+      "UX 設計",
+      "UI Library"
+    ],
+    "description": "知名的UI Library",
+    "url": "https://tailwindcss.com/"
+  },
+  {
+    "name": "Tabler",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "元件",
+      "前端開發",
+      "原始碼",
+      "UX 設計",
+      "UI Library",
+      "圖表"
+    ],
+    "description": "基於Bootstrap設計的圖表UI Library",
+    "url": "https://tabler.io/"
+  },
+  {
+    "name": "Semantic UI",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "元件",
+      "頁面版型",
+      "前端開發",
+      "原始碼",
+      "UX 設計",
+      "UI Library"
+    ],
+    "description": "知名的UI Library",
+    "url": "https://semantic-ui.com/"
+  },
+  {
+    "name": "Headless UI",
+    "tags": [
+      "元件",
+      "前端開發",
+      "原始碼",
+      "UI Library"
+    ],
+    "description": "基於 Tailwind 中的純功能、沒有任何樣式的UI元件",
+    "url": "https://headlessui.com/"
+  },
+  {
+    "name": "Codepen",
+    "tags": [
+      "UI 設計",
+      "動態效果",
+      "元件",
+      "前端開發",
+      "原始碼",
+      "含付費內容"
+    ],
+    "description": "展示、分享、測試前端網頁代碼",
+    "url": "https://codepen.io/"
+  },
+  {
+    "name": "Codrops",
+    "tags": [
+      "UI 設計",
+      "動態效果",
+      "前端開發",
+      "原始碼"
+    ],
+    "description": "分享許多動態特效Demo網站，附加說明開發方式",
+    "url": "https://tympanus.net/codrops/"
+  },
+  {
+    "name": "NavNav+",
+    "tags": [
+      "UI 設計",
+      "元件",
+      "前端開發",
+      "原始碼"
+    ],
+    "description": "提供多種導航列設計範本和工具",
+    "url": "https://navnav.co/"
+  },
+  {
+    "name": "CodyHouse",
+    "tags": [
+      "UI 設計",
+      "元件",
+      "前端開發",
+      "原始碼",
+      "含付費內容"
+    ],
+    "description": "提供創意的網頁設計模板和資源",
+    "url": "https://codyhouse.co/"
+  },
+  {
+    "name": "Awwwards",
+    "tags": [
+      "UI 設計",
+      "動態效果",
+      "網頁"
+    ],
+    "description": "世界知名的網站獎項，展示和獎勵網頁設計的優秀作品",
+    "url": "https://www.awwwards.com/"
+  },
+  {
+    "name": "Muuuuu",
+    "tags": [
+      "UI 設計",
+      "動態效果",
+      "網頁"
+    ],
+    "description": "日系靈感網站",
+    "url": "https://muuuuu.org/"
+  },
+  {
+    "name": "S5 Style!",
+    "tags": [
+      "UI 設計",
+      "動態效果",
+      "網頁"
+    ],
+    "description": "日系靈感網站",
+    "url": "https://bm.s5-style.com/"
+  },
+  {
+    "name": "Collect UI",
+    "tags": [
+      "UI 設計",
+      "元件"
+    ],
+    "description": "收集創意 UI 設計素材，以元件名稱篩選",
+    "url": "https://collectui.com/"
+  },
+  {
+    "name": "CSSDesignAwards",
+    "tags": [
+      "UI 設計",
+      "動態效果",
+      "網頁"
+    ],
+    "description": "展示優秀的網頁設計作品，激勵和促進 CSS 技能發展",
+    "url": "https://www.cssdesignawards.com/"
+  },
+  {
+    "name": "UXArchive",
+    "tags": [
+      "UX 設計",
+      "UI 設計",
+      "APP"
+    ],
+    "description": "搜集在線產品的設計流程靈感庫，以使用流程篩選",
+    "url": "https://uxarchive.com/"
+  },
+  {
+    "name": "Checklist Design",
+    "tags": [
+      "UI 設計",
+      "開發工具"
+    ],
+    "description": "設計檢查表網站，確保設計符合最佳實踐",
+    "url": "https://www.checklist.design/"
+  },
+  {
+    "name": "DesignSystems",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "Figma"
+    ],
+    "description": "匯整知名品牌使用的設計系統，可用Figma開啟",
+    "url": "https://www.designsystems.com/open-design-systems/"
+  },
+  {
+    "name": "Laws of UX",
+    "tags": [
+      "UX 設計",
+      "理論法則"
+    ],
+    "description": "提供易用性法則參考，用於改善使用者體驗設計",
+    "url": "https://lawsofux.com/"
+  },
+  {
+    "name": "UX Challenge",
+    "tags": [
+      "UX 設計",
+      "UI 設計",
+      "理論法則"
+    ],
+    "description": "提供 UX 設計挑戰，幫助提升設計技能和解決問題",
+    "url": "https://uxtools.co/challenges/"
+  },
+  {
+    "name": "Nielsen Norman Group",
+    "tags": [
+      "理論法則",
+      "專案解析",
+      "UX 設計"
+    ],
+    "description": "專注於使用者體驗（UX）設計和研究的資源平台",
+    "url": "https://www.nngroup.com/"
+  },
+  {
+    "name": "UI Guideline v2",
+    "tags": [
+      "UX 設計",
+      "UI 設計",
+      "前端開發"
+    ],
+    "description": "提供 UI 元件和設計準則，協助開發一致性的UI設計",
+    "url": "https://v2.uiguideline.com/components"
+  },
+  {
+    "name": "Free SVG generators",
+    "tags": [
+      "圖樣",
+      "配色工具",
+      "生成器",
+      "漸層"
+    ],
+    "description": "各種圖樣生成器與配色工具大雜燴，任君挑選",
+    "url": "https://fffuel.co/"
+  },
+  {
+    "name": "LottieFiles",
+    "tags": [
+      "插畫",
+      "動態效果",
+      "生成器"
+    ],
+    "description": "SVG動畫生成器",
+    "url": "https://lottiefiles.com/"
+  },
+  {
+    "name": "Carbon",
+    "tags": [
+      "前端開發",
+      "生成器"
+    ],
+    "description": "Code轉圖像",
+    "url": "https://carbon.now.sh/"
+  },
+  {
+    "name": "Screely",
+    "tags": [
+      "生成器"
+    ],
+    "description": "截圖美化",
+    "url": "https://screely.com/"
+  },
+  {
+    "name": "Coolors",
+    "tags": [
+      "配色工具",
+      "UI 設計",
+      "生成器"
+    ],
+    "description": "經典配色工具",
+    "url": "https://coolors.co/"
+  },
+  {
+    "name": "WebGradients",
+    "tags": [
+      "UI 設計",
+      "漸層",
+      "生成器",
+      "配色工具",
+      "原始碼"
+    ],
+    "description": "調配過的主題性漸層色，可生成CSS也可輸出PNG",
+    "url": "https://webgradients.com/"
+  },
+  {
+    "name": "Eva Design System",
+    "tags": [
+      "設計系統",
+      "UI 設計",
+      "生成器",
+      "配色工具"
+    ],
+    "description": "根據主色設定去計算生成其他輔助色",
+    "url": "https://colors.eva.design/"
+  },
+  {
+    "name": "Screen Sizes",
+    "tags": [
+      "開發工具",
+      "UI 設計",
+      "前端開發"
+    ],
+    "description": "各裝置解析度一覽表",
+    "url": "https://screensiz.es/tablet"
+  }
+]
