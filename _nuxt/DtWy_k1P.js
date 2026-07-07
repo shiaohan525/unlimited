@@ -1,0 +1,1 @@
+import{K as s,L as u,M as r,N as o,O as i}from"./BSv9lt08.js";function a(t){const e=t||u();return e?.ssrContext?.head||e?.runWithContext(()=>{if(r())return o(i)})}function d(t,e={}){const n=a(e.nuxt);if(n)return s(t,{head:n,...e})}function f(t,e={}){if(a(e.nuxt))return!1}export{f as a,d as u};
