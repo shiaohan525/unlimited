@@ -1,0 +1,150 @@
+// assets/pages/_portfolio-list.scss
+@use '../libs/mixins' as *;
+
+.portfolio-list-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-7) var(--spacing-4);
+}
+
+.portfolio-list-intro {
+    color: var(--colors-gray-600);
+    margin-top: var(--spacing-2);
+}
+
+// 精選區：大圖左右交錯
+.portfolio-featured {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-7);
+    margin: var(--spacing-7) 0;
+
+    &-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-6);
+        text-decoration: none;
+        color: inherit;
+
+        // 偶數件左右交錯
+        &:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        @include mobile {
+            flex-direction: column !important;
+            gap: var(--spacing-3);
+        }
+    }
+
+    &-image {
+        flex: 0 0 58%;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            display: block;
+            transition: transform 0.4s;
+        }
+    }
+
+    &-item:hover &-image img {
+        transform: scale(1.03);
+    }
+
+    &-content {
+        flex: 1;
+
+        .tag {
+            color: var(--colors-brand-primary);
+        }
+
+        h2 {
+            margin: var(--spacing-2) 0;
+        }
+    }
+
+    &-desc {
+        color: var(--colors-gray-600);
+    }
+}
+
+// 篩選 pill
+.portfolio-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin: var(--spacing-4) 0;
+
+    &-pill {
+        border: 1px solid var(--colors-gray-400);
+        border-radius: var(--radius-max);
+        background: transparent;
+        color: var(--colors-gray-600);
+        padding: var(--spacing-1) var(--spacing-3);
+        cursor: pointer;
+        transition: 0.25s;
+
+        &:hover {
+            border-color: var(--colors-brand-primary);
+            color: var(--colors-brand-primary);
+        }
+
+        &.active {
+            background: var(--colors-brand-primary);
+            border-color: var(--colors-brand-primary);
+            color: var(--colors-gray-white);
+        }
+    }
+}
+
+// 作品 grid
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-5);
+
+    @include pad {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mobile {
+        grid-template-columns: 1fr;
+    }
+}
+
+.portfolio-card {
+    text-decoration: none;
+    color: inherit;
+
+    &-image {
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        aspect-ratio: 4 / 3;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+    }
+
+    &:hover &-image img {
+        transform: scale(1.05);
+    }
+
+    &-content {
+        padding: var(--spacing-2) 0;
+
+        .tag {
+            color: var(--colors-brand-primary);
+        }
+    }
+}
+
+.portfolio-empty {
+    color: var(--colors-gray-600);
+    padding: var(--spacing-6) 0;
+}

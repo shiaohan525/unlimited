@@ -7,10 +7,11 @@ gsap.registerPlugin(ScrollTrigger);
 // import Banner from '@/components/Banner.vue';
 var texts = ['正能量', '負責任', 'E人', '持續精進', '主動積極', '想法滿載', '樂於分享', '勇於嘗試', '幽默隨和', '好奇寶寶', '表情管理大師', '創造力'];
 
-import { usePortfolioStore } from '~/stores/portfolio';
-import { storeToRefs } from 'pinia';
-const portfolioStore = usePortfolioStore();
-const portfolioItems = portfolioStore.portfolioItems;
+// 首頁作品區：直接讀作品集 content，資料只維護一份
+const { data: portfolioData } = await useAsyncData('index-portfolio', () =>
+    queryContent('portfolio').only(['_path', 'title', 'category', 'cover', 'order']).find()
+)
+const portfolioItems = computed(() => sortByOrder(portfolioData.value || []))
 
 const triggerElement = ref(null);
 const animatedElement = ref(null);
@@ -199,7 +200,7 @@ const trackButtonClick = () => {
     <section class="portfolio-wrap">
       <div class="portfolio-title">
         <h2 class="h2">Works</h2>
-        <a class="button-next" href="https://hsiaohan.myportfolio.com/work">
+        <NuxtLink class="button-next" to="/portfolio">
           <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="arrow">
               <path id="arrow_2" fill-rule="evenodd" clip-rule="evenodd"
@@ -207,21 +208,20 @@ const trackButtonClick = () => {
                 fill="#F8F8F8" />
             </g>
           </svg>
-        </a>
+        </NuxtLink>
       </div>
       <div class="portfolio-main">
         <div class="portfolio-scroll">
-          <a v-for="(item, index) in portfolioItems" :key="index" :href="item.link" class="portfolio-item"
-            target="_blank">
+          <NuxtLink v-for="(item, index) in portfolioItems" :key="index" :to="item._path" class="portfolio-item">
             <div class="portfolio-mask"></div>
             <div class="portfolio-image">
-              <img :alt="item.alt" :src="item.src" loading="lazy" :title="item.title" />
+              <img :alt="item.title" :src="item.cover" loading="lazy" :title="item.title" />
             </div>
             <div class="portfolio-content">
-              <p class="tag">{{ item.tag }}</p>
+              <p class="tag">{{ item.category }}</p>
               <h4 class="h5">{{ item.title }}</h4>
             </div>
-          </a>
+          </NuxtLink>
         </div>
       </div>
     </section>
