@@ -33,6 +33,13 @@ body{
 	position: relative;
 }
 
+// 頁面主標題統一規範：中文標題用 --font-family（titleEn 的 serif 排序會讓中文掉進宋體）
+// 自帶字體設定的元件（如 Banner）specificity 較高，不受影響
+main h1 {
+    font-family: var(--font-family);
+    color: var(--colors-gray-1000);
+}
+
 [class$="-wrap"]{
     margin: 0 auto;
     padding: 0;

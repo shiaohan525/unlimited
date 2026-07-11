@@ -84,6 +84,7 @@ onMounted(() => {
             </div>
             <nav class="pc-menu">
                 <!-- <a href="" class="">About</a> -->
+                <RouterLink to="/portfolio" class="">Portfolio</RouterLink>
                 <RouterLink to="/blog" class="">Blog</RouterLink>
                 <RouterLink to="/toolbox" class="">Toolbox</RouterLink>
                 <!-- <a href="" class="">Work</a>
@@ -127,6 +128,7 @@ onMounted(() => {
         </div>
         <div class="menu-main" :class="{ open: isOpen }">
             <!-- <a href="" class="">About</a> -->
+            <RouterLink to="/portfolio" class="">Portfolio</RouterLink>
             <RouterLink to="/blog" class="">Blog</RouterLink>
             <RouterLink to="/toolbox" class="">Toolbox</RouterLink>
             <!-- <a href="" class="">Work</a> -->
