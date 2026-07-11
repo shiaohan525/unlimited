@@ -34,8 +34,10 @@ body{
 }
 
 // 頁面主標題統一規範：中文標題用 --font-family（titleEn 的 serif 排序會讓中文掉進宋體）
-// 自帶字體設定的元件（如 Banner）specificity 較高，不受影響
-main h1 {
+// h1[class] 讓 specificity (0,1,1) 壓過 .h2 等字體 utility (0,1,0)；
+// 自帶字體設定的元件（如 Banner）宣告在後且同級，不受影響
+main h1,
+main h1[class] {
     font-family: var(--font-family);
     color: var(--colors-gray-1000);
 }
