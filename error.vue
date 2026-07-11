@@ -8,11 +8,13 @@ const props = defineProps({
 const is404 = computed(() => props.error?.statusCode === 404)
 
 const title = computed(() => (is404.value ? '404' : String(props.error?.statusCode || '500')))
-const message = computed(() =>
+// 主文案拆兩段：桌機一行帶頓號、手機在此斷行不顯示頓號
+const messageParts = computed(() =>
     is404.value
-        ? '這個頁面跟我的靈感一樣，暫時走丟了'
-        : '伺服器打了個盹，請稍後再試'
+        ? ['這個頁面跟我的靈感一樣', '暫時走丟了']
+        : ['伺服器打了個盹', '請稍後再試']
 )
+const message = computed(() => messageParts.value.join('，'))
 
 // 錯誤頁不進索引
 useSeoMeta({
@@ -35,7 +37,7 @@ onMounted(async () => {
     const spans = [...codeRef.value.querySelectorAll('.error-digit')]
     if (!spans.length) return
 
-    const { Engine, Runner, Bodies, Body, Composite } = await import('matter-js')
+    const { Engine, Runner, Bodies, Body, Composite, Events } = await import('matter-js')
 
     const container = mainRef.value
     const cRect = container.getBoundingClientRect()
@@ -56,13 +58,14 @@ onMounted(async () => {
         return { el, body, x0, y0 }
     })
 
-    // 四面封閉：地板、天花板、左右牆，互動範圍就是眼前這塊畫面，數字不會彈出去
+    // 四面封閉：厚牆（240px）防高速穿隧，互動範圍就是眼前這塊畫面
     const wallOpts = { isStatic: true }
+    const W = 240
     const bounds = [
-        Bodies.rectangle(cRect.width / 2, cRect.height + 30, cRect.width + 400, 60, wallOpts),
-        Bodies.rectangle(cRect.width / 2, -30, cRect.width + 400, 60, wallOpts),
-        Bodies.rectangle(-30, cRect.height / 2, 60, cRect.height * 4, wallOpts),
-        Bodies.rectangle(cRect.width + 30, cRect.height / 2, 60, cRect.height * 4, wallOpts)
+        Bodies.rectangle(cRect.width / 2, cRect.height + W / 2, cRect.width + W * 4, W, wallOpts),
+        Bodies.rectangle(cRect.width / 2, -W / 2, cRect.width + W * 4, W, wallOpts),
+        Bodies.rectangle(-W / 2, cRect.height / 2, W, cRect.height + W * 4, wallOpts),
+        Bodies.rectangle(cRect.width + W / 2, cRect.height / 2, W, cRect.height + W * 4, wallOpts)
     ]
 
     // 游標／手指＝隱形碰撞球，移動時把數字推開
@@ -91,6 +94,27 @@ onMounted(async () => {
     window.addEventListener('pointermove', onMove, { passive: true })
     window.addEventListener('touchmove', onMove, { passive: true })
 
+    // 防彈出：限速（高速才會穿牆）＋逃逸救援（萬一出界就抓回場內重摔）
+    const MAX_SPEED = 28
+    Events.on(engine, 'beforeUpdate', () => {
+        for (const d of digits) {
+            const v = d.body.velocity
+            const speed = Math.hypot(v.x, v.y)
+            if (speed > MAX_SPEED) {
+                Body.setVelocity(d.body, { x: (v.x / speed) * MAX_SPEED, y: (v.y / speed) * MAX_SPEED })
+            }
+            const p = d.body.position
+            if (p.x < -60 || p.x > cRect.width + 60 || p.y < -120 || p.y > cRect.height + 60) {
+                Body.setPosition(d.body, {
+                    x: Math.min(Math.max(p.x, 80), cRect.width - 80),
+                    y: 60
+                })
+                Body.setVelocity(d.body, { x: 0, y: 2 })
+                Body.setAngularVelocity(d.body, 0)
+            }
+        }
+    })
+
     const runner = Runner.create()
     Runner.run(runner, engine)
 
@@ -118,7 +142,7 @@ onUnmounted(() => cleanup?.())
 </script>
 
 <template>
-    <div>
+    <div class="error-page">
         <TheHeader />
         <main class="error-main" ref="mainRef">
             <BgBlobs />
@@ -126,7 +150,9 @@ onUnmounted(() => cleanup?.())
                 <p class="error-code" ref="codeRef" :aria-label="title">
                     <span v-for="(ch, i) in [...title]" :key="i" class="error-digit" aria-hidden="true">{{ ch }}</span>
                 </p>
-                <h1 class="h4 error-message">{{ message }}</h1>
+                <h1 class="h4 error-message" :aria-label="message">
+                    {{ messageParts[0] }}<span class="error-msg-sep">，</span><br class="error-msg-br" />{{ messageParts[1] }}
+                </h1>
                 <p class="error-hint" v-if="is404">可能是網址打錯，也可能它跟我的死線一樣被拖走了</p>
                 <button type="button" class="button-CTA vibrate h5" @click="backHome">回首頁逛逛</button>
             </div>

@@ -1,15 +1,24 @@
 // assets/pages/_error.scss
 @use '../libs/mixins' as *;
 
+// 整頁鎖定一個視窗高：不可捲動、footer 貼底
+.error-page {
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
 .error-main {
+    flex: 1;
     width: 100%;
     position: relative;
-    padding: var(--spacing-8) 0;
-    min-height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; // 物理數字被推到邊界外不出橫向卷軸
+    overflow: hidden; // 物理數字不出橫向卷軸
+    min-height: 0; // flex 子項可正確縮小
 }
 
 .error-wrap {
@@ -18,14 +27,15 @@
     box-sizing: border-box;
     position: relative;
     text-align: center;
+    padding: 0 var(--spacing-4);
 }
 
-// 大字級錯誤碼：數字用 titleEn（Montserrat），沿用 Banner 的漸層文字質感
+// 大字級錯誤碼：數字用 titleEn（Montserrat），手機縮小避免佔掉整屏
 .error-code {
     font-family: var(--font-family-titleEn);
     font-weight: var(--font-extrabold);
-    font-size: clamp(96px, 18vw, 200px);
-    line-height: 1.1;
+    font-size: clamp(72px, 16vw, 180px);
+    line-height: 1.05;
     letter-spacing: 0.05em;
 }
 
@@ -41,14 +51,39 @@
     user-select: none;
 }
 
+// 主文案：手機在頓號處斷行（不顯示頓號）且直接接 CTA，平板以上一行帶頓號＋副提示
 .error-message {
     color: var(--colors-gray-1000);
-    margin: var(--spacing-3) 0 var(--spacing-2);
+    margin: var(--spacing-3) 0 var(--spacing-5);
+
+    @include pad {
+        margin-bottom: var(--spacing-2);
+    }
 }
 
+.error-msg-sep {
+    display: none;
+
+    @include pad {
+        display: inline;
+    }
+}
+
+.error-msg-br {
+    @include pad {
+        display: none;
+    }
+}
+
+// 副提示：手機隱藏，平板以上顯示
 .error-hint {
+    display: none;
     color: var(--colors-gray-600);
-    margin-bottom: var(--spacing-6);
+    margin-bottom: var(--spacing-5);
+
+    @include pad {
+        display: block;
+    }
 }
 
 .error-main .button-CTA {
