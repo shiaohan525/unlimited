@@ -70,13 +70,6 @@ useHead({
         }
     ]
 })
-
-// 沿用首頁的聯絡埋點
-import { useGtag } from 'vue-gtag-next'
-const trackButtonClick = () => {
-    const { event } = useGtag()
-    event('click-event')
-}
 </script>
 
 <template>
@@ -84,23 +77,21 @@ const trackButtonClick = () => {
         <Breadcrumb :post-title="work?.title" />
 
         <article class="portfolio-post" v-if="work">
+            <!-- 標題與 meta（div 而非 header：header 元素會吃到 _header.scss 的全域 fixed 定位） -->
+            <div class="portfolio-post-header">
+                <h1 class="h2">{{ work.title }}</h1>
+                <div class="portfolio-meta">
+                    <span class="tag-pill">{{ work.date }}</span>
+                    <span class="tag-pill">{{ work.category }}</span>
+                    <span class="tag-pill" v-for="tag in work.tags" :key="tag">{{ tag }}</span>
+                </div>
+                <p class="portfolio-post-desc">{{ work.description }}</p>
+            </div>
+
             <!-- Hero -->
             <div class="portfolio-hero">
                 <img :src="work.cover" :alt="work.title" :title="work.title" />
             </div>
-
-            <!-- 標題與 meta -->
-            <header class="portfolio-post-header">
-                <h1 class="h2">{{ work.title }}</h1>
-                <div class="portfolio-meta">
-                    <span class="portfolio-meta-pill">{{ work.date }}</span>
-                    <span class="portfolio-meta-pill">{{ work.category }}</span>
-                    <span class="portfolio-meta-pill" v-for="tag in work.tags" :key="tag">{{ tag }}</span>
-                </div>
-                <p class="portfolio-post-desc">{{ work.description }}</p>
-                <a v-if="work.externalLink" class="button-CTA h5" :href="work.externalLink" target="_blank"
-                    rel="noopener">查看網站</a>
-            </header>
 
             <!-- 圖文內容 -->
             <div class="portfolio-post-body">
@@ -122,13 +113,6 @@ const trackButtonClick = () => {
                     <p class="h6">{{ adjacent.next.title }}</p>
                 </NuxtLink>
             </nav>
-
-            <!-- CTA -->
-            <div class="portfolio-post-cta">
-                <p class="h6">喜歡這件作品，或有想合作的想法嗎？</p>
-                <a class="button-CTA vibrate h5" @click="trackButtonClick"
-                    href="mailto:o134888@gmail.com">跟我聊聊</a>
-            </div>
         </article>
     </main>
 </template>

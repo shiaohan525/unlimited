@@ -91,3 +91,26 @@ a {
     padding: 12px 32px;
   }
 }
+
+// pill 按鈕：篩選、切換等輕量操作（通用元件）
+.button-pill {
+  font-family: var(--font-family);
+  border: 1px solid var(--colors-gray-400);
+  border-radius: var(--radius-max);
+  background: transparent;
+  color: var(--colors-gray-600);
+  padding: var(--spacing-1) var(--spacing-3);
+  cursor: pointer;
+  transition: 0.25s;
+
+  &:hover {
+    border-color: var(--colors-brand-primary);
+    color: var(--colors-brand-primary);
+  }
+
+  &.active {
+    background: var(--colors-brand-primary);
+    border-color: var(--colors-brand-primary);
+    color: var(--colors-gray-white);
+  }
+}

@@ -3,7 +3,7 @@
 .blog-post-main {
   width: 100%;
   position: relative;
-  padding: 80px 0;
+  padding: var(--spacing-8) 0;
 
   @media desktop {
     padding-left: 260px; // 留出給左側導航的空間
@@ -52,8 +52,8 @@
 
 // Blog article content styling
 .blog-post-main {
+  // color / font-family 由 _layout.scss 的 main h1 統一規範
   h1 {
-    color: var(--colors-gray-1000);
     margin-bottom: var(--spacing-5);
 
     @include pad {

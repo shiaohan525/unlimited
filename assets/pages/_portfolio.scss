@@ -2,9 +2,18 @@
 @use '../libs/mixins' as *;
 
 .portfolio-post-main {
-    max-width: 1200px;
+    width: 100%;
+    position: relative;
+    padding: var(--spacing-8) 0;
+}
+
+// 內容容器：同 _blog.scss 的 .post-main（1040px 置中、90% 寬）
+.portfolio-post {
     margin: 0 auto;
-    padding: var(--spacing-7) var(--spacing-4);
+    max-width: 1040px;
+    box-sizing: border-box;
+    position: relative;
+    width: 90%;
 }
 
 .portfolio-hero {
@@ -28,20 +37,13 @@
     }
 }
 
+// meta pill 佈局（標籤本體樣式見 components/_tag.scss 的 .tag-pill）
 .portfolio-meta {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--spacing-2);
     margin-bottom: var(--spacing-3);
-
-    &-pill {
-        border: 1px solid var(--colors-gray-400);
-        border-radius: var(--radius-max);
-        color: var(--colors-gray-600);
-        padding: var(--spacing-1) var(--spacing-3);
-        font-size: 14px;
-    }
 }
 
 .portfolio-post-desc {
@@ -54,7 +56,15 @@
     max-width: 840px;
     margin: 0 auto;
 
-    p {
+    h2,
+    h3,
+    h4 {
+        color: var(--colors-gray-1000);
+    }
+
+    p,
+    li {
+        color: var(--colors-gray-800);
         line-height: 1.9;
         margin: var(--spacing-4) 0;
     }
@@ -87,15 +97,9 @@
         .tag {
             color: var(--colors-brand-primary);
         }
-    }
-}
 
-.portfolio-post-cta {
-    text-align: center;
-    margin-top: var(--spacing-7);
-
-    .button-CTA {
-        margin-top: var(--spacing-3);
-        display: inline-block;
+        .h6 {
+            color: var(--colors-gray-1000);
+        }
     }
 }

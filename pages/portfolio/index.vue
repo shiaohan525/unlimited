@@ -9,7 +9,11 @@ const featuredWorks = computed(() => sorted.value.filter((w) => w.featured))
 
 const categories = ['All', 'Web Design', 'UI Design', 'Branding', 'Publishing', 'Illustration']
 const selectedCategory = ref('All')
-const filteredWorks = computed(() => filterByCategory(sorted.value, selectedCategory.value))
+
+// All Works 排除上方精選作品，以當下實際顯示的精選為準（精選更換時自動跟著變）
+const featuredPaths = computed(() => new Set(featuredWorks.value.map((w) => w._path)))
+const nonFeaturedWorks = computed(() => sorted.value.filter((w) => !featuredPaths.value.has(w._path)))
+const filteredWorks = computed(() => filterByCategory(nonFeaturedWorks.value, selectedCategory.value))
 
 useServerSeoMeta({
     title: "Portfolio｜The Unlimited｜Hailey's Style",
@@ -29,7 +33,7 @@ useHead({
         <Breadcrumb post-title="作品集" />
 
         <div class="portfolio-list-wrap">
-            <h1 class="h2">Portfolio</h1>
+            <h1 class="h2">作品集</h1>
             <p class="h6 portfolio-list-intro">每個設計背後，都蘊藏著屬於它的獨特故事</p>
 
             <!-- 精選作品：大圖左右交錯 -->
@@ -51,7 +55,7 @@ useHead({
             <section class="portfolio-all">
                 <h2 class="h3">All Works</h2>
                 <div class="portfolio-filter">
-                    <button v-for="cat in categories" :key="cat" type="button" class="portfolio-filter-pill"
+                    <button v-for="cat in categories" :key="cat" type="button" class="button-pill"
                         :class="{ active: selectedCategory === cat }" @click="selectedCategory = cat">
                         {{ cat }}
                     </button>

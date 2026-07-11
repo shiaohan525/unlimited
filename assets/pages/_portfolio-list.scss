@@ -2,9 +2,17 @@
 @use '../libs/mixins' as *;
 
 .portfolio-list-main {
-    max-width: 1200px;
+    width: 100%;
+    position: relative;
+    padding: var(--spacing-8) 0;
+}
+
+// 內容容器：同 .blog-list-wrap，寬度規則由 _layout.scss 的 [class$="-wrap"] 統一提供
+.portfolio-list-wrap {
     margin: 0 auto;
-    padding: var(--spacing-7) var(--spacing-4);
+    max-width: 1040px;
+    box-sizing: border-box;
+    position: relative;
 }
 
 .portfolio-list-intro {
@@ -19,31 +27,41 @@
     gap: var(--spacing-7);
     margin: var(--spacing-7) 0;
 
+    // 手機垂直排列，平板以上圖文水平排列
     &-item {
         display: flex;
-        align-items: center;
-        gap: var(--spacing-6);
+        flex-direction: column;
+        gap: var(--spacing-3);
         text-decoration: none;
         color: inherit;
 
-        // 偶數件左右交錯
-        &:nth-child(even) {
-            flex-direction: row-reverse;
-        }
+        @include pad {
+            flex-direction: row;
+            align-items: center;
+            gap: var(--spacing-6);
 
-        @include mobile {
-            flex-direction: column !important;
-            gap: var(--spacing-3);
+            // 偶數件左右交錯
+            &:nth-child(even) {
+                flex-direction: row-reverse;
+            }
         }
     }
 
     &-image {
-        flex: 0 0 58%;
+        width: 100%;
         border-radius: var(--radius-lg);
         overflow: hidden;
+        aspect-ratio: 4 / 3; // 精選圖比例統一裁切，與卡片一致
+
+        @include pad {
+            width: auto;
+            flex: 0 0 58%;
+        }
 
         img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
             display: block;
             transition: transform 0.4s;
         }
@@ -57,10 +75,11 @@
         flex: 1;
 
         .tag {
-            color: var(--colors-brand-primary);
+            color: var(--colors-gray-600);
         }
 
         h2 {
+            color: var(--colors-gray-1000);
             margin: var(--spacing-2) 0;
         }
     }
@@ -70,47 +89,32 @@
     }
 }
 
-// 篩選 pill
+.portfolio-all {
+    > h2 {
+        color: var(--colors-gray-1000);
+    }
+}
+
+// 篩選 pill 佈局（按鈕本體樣式見 components/_button.scss 的 .button-pill）
 .portfolio-filter {
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-2);
     margin: var(--spacing-4) 0;
-
-    &-pill {
-        border: 1px solid var(--colors-gray-400);
-        border-radius: var(--radius-max);
-        background: transparent;
-        color: var(--colors-gray-600);
-        padding: var(--spacing-1) var(--spacing-3);
-        cursor: pointer;
-        transition: 0.25s;
-
-        &:hover {
-            border-color: var(--colors-brand-primary);
-            color: var(--colors-brand-primary);
-        }
-
-        &.active {
-            background: var(--colors-brand-primary);
-            border-color: var(--colors-brand-primary);
-            color: var(--colors-gray-white);
-        }
-    }
 }
 
-// 作品 grid
+// 作品 grid：手機 1 欄、平板 2 欄、電腦 3 欄
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: var(--spacing-5);
 
     @include pad {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    @include mobile {
-        grid-template-columns: 1fr;
+    @include desktop {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -139,7 +143,11 @@
         padding: var(--spacing-2) 0;
 
         .tag {
-            color: var(--colors-brand-primary);
+            color: var(--colors-gray-600);
+        }
+
+        h3 {
+            color: var(--colors-gray-1000);
         }
     }
 }
