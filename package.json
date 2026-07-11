@@ -27,6 +27,7 @@
     "better-sqlite3": "^12.6.2",
     "gsap": "^3.12.5",
     "jquery": "^3.7.1",
+    "matter-js": "^0.20.0",
     "normalize.css": "^8.0.1",
     "nuxt": "^3.19.0",
     "pinia": "^2.2.2",
