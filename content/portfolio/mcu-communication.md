@@ -1,7 +1,7 @@
 ---
 title: MCU of Communication
 description: 以「溝通」為主題的形象網站設計，運用滿版選單、視差滾動與數字動態效果，打造具敘事感的瀏覽體驗。
-date: 2024-01
+date: "2023"
 category: Web Design
 tags: [SCSS, JavaScript, parallax.js]
 cover: /images/portfolio/mcu-communication/cover.png

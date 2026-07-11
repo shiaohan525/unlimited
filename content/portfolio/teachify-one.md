@@ -1,7 +1,7 @@
 ---
 title: Teachify One
 description: 參加 UI 設計競賽的個人 Side Project，「Teachify One」的 UI/UX 提案設計。
-date: 2024-01
+date: "2024"
 category: UI Design
 tags: [Figma, UI/UX, UX Research]
 cover: /images/portfolio/teachify-one/cover.png

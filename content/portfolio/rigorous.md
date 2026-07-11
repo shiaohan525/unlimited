@@ -1,7 +1,7 @@
 ---
 title: RIGOROUS 品牌識別設計
 description: RIGOROUS 品牌識別設計專案，涵蓋 Logo、名片與識別系統設計。
-date: 2024-01
+date: "2022"
 category: Branding
 tags: [Logo, Brand Design, business card]
 cover: /images/portfolio/rigorous/cover.png

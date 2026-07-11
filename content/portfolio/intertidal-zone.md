@@ -1,7 +1,7 @@
 ---
 title: Intertidal Zone Exploration
 description: 以潮間帶生態為題的插畫出版創作，用 Procreate 繪製一系列數位插畫並整理為出版品。
-date: 2024-01
+date: "2022"
 category: Publishing
 tags: [Procreate, digital illustration, book cover]
 cover: /images/portfolio/intertidal-zone/cover.jpg

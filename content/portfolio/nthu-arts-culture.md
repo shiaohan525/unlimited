@@ -1,7 +1,7 @@
 ---
 title: NTHU Center for Arts and Culture 網頁 UI 設計提案
 description: 為國立清華大學藝術中心發想的網頁 UI 設計提案，運用 Figma 完成介面規劃。
-date: 2024-01
+date: "2023"
 category: UI Design
 tags: [Figma, UI/UX, Web Design]
 cover: /images/portfolio/nthu-arts-culture/cover.png

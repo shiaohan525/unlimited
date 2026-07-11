@@ -1,7 +1,7 @@
 ---
 title: Notice of Printing
 description: 印刷通知主題的社群行銷視覺設計，用於社群媒體廣告與宣傳貼文。
-date: 2024-01
+date: "2022"
 category: Illustration
 tags: [Advertising, Social media post, Printing]
 cover: /images/portfolio/notice-of-printing/cover.jpg

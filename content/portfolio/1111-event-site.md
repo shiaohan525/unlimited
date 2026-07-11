@@ -1,9 +1,9 @@
 ---
 title: 1111 人力銀行形象活動網站
 description: 為 1111 人力銀行打造的形象活動網站，結合互動彈窗與 Hover 動態效果，強化品牌形象與使用者體驗。
-date: 2024-01
+date: "2022"
 category: Web Design
-tags: [RWD, JavaScript, Web Design]
+tags: [RWD, JavaScript]
 cover: /images/portfolio/1111-event-site/cover.png
 featured: true
 order: 1
