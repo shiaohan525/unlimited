@@ -1,4 +1,10 @@
 <script setup>
+// 同一路由參數切換（如文章導覽）需以 fullPath 為 key 重新掛載，
+// 否則 setup 不會重跑，內容與 SEO meta 會殘留上一篇（同作品集內頁的修法）
+definePageMeta({
+    key: (route) => route.fullPath
+})
+
 const route = useRoute()
 
 // 1. 改回 v2 語法：使用 queryContent().where() 根據路徑尋找
@@ -6,11 +12,8 @@ const { data: post } = await useAsyncData(`content-${route.path}`, () => {
     return queryContent().where({ _path: route.path }).findOne()
 })
 
-// 調試用
-console.log('Post data:', post.value)
-
-// 2. 設置 SEO Meta
-useServerSeoMeta({
+// 2. 設置 SEO Meta（useSeoMeta 於 client 端也會更新，確保切換文章時分頁標題同步）
+useSeoMeta({
     title: () => post.value?.title || '部落格文章',
     ogTitle: () => post.value?.title || '部落格文章',
     description: () => post.value?.description || '',
