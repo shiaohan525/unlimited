@@ -94,6 +94,56 @@ onMounted(async () => {
     window.addEventListener('pointermove', onMove, { passive: true })
     window.addEventListener('touchmove', onMove, { passive: true })
 
+    // 鎖死頁面捲動：iOS 的橡皮筋效果 overflow:hidden 擋不住，
+    // 要在 touchmove 上 preventDefault（不影響按鈕點擊，只擋捲動手勢）
+    const blockScroll = (e) => e.preventDefault()
+    container.addEventListener('touchmove', blockScroll, { passive: false })
+
+    // --- 陀螺儀模式（手機／平板）：裝置傾斜＝重力方向，數字往傾斜側滾 ---
+    const applyOrientation = (e) => {
+        if (e.beta == null || e.gamma == null) return
+        // 依螢幕方向校正軸向（直立／橫放）
+        const angle = screen.orientation?.angle ?? window.orientation ?? 0
+        let gx = e.gamma / 90 // 左右傾
+        let gy = e.beta / 90 // 前後傾
+        if (angle === 90) {
+            const t = gx
+            gx = gy
+            gy = -t
+        } else if (angle === -90 || angle === 270) {
+            const t = gx
+            gx = -gy
+            gy = t
+        } else if (angle === 180) {
+            gx = -gx
+            gy = -gy
+        }
+        engine.gravity.x = Math.max(-1, Math.min(1, gx)) * 1.2
+        engine.gravity.y = Math.max(-1, Math.min(1, gy)) * 1.2
+    }
+
+    const hasGyro = typeof DeviceOrientationEvent !== 'undefined'
+    const needsPermission = hasGyro && typeof DeviceOrientationEvent.requestPermission === 'function'
+    const enableGyro = async () => {
+        try {
+            if (needsPermission) {
+                const res = await DeviceOrientationEvent.requestPermission()
+                if (res !== 'granted') return
+            }
+            window.addEventListener('deviceorientation', applyOrientation, true)
+        } catch {
+            /* 不支援或被拒絕就維持固定重力 */
+        }
+    }
+    if (hasGyro) {
+        if (needsPermission) {
+            // iOS 13+ 權限必須由使用者手勢觸發：第一次觸碰畫面時啟用
+            window.addEventListener('touchend', enableGyro, { once: true })
+        } else {
+            enableGyro()
+        }
+    }
+
     // 防彈出：限速（高速才會穿牆）＋逃逸救援（萬一出界就抓回場內重摔）
     const MAX_SPEED = 28
     Events.on(engine, 'beforeUpdate', () => {
@@ -135,6 +185,9 @@ onMounted(async () => {
         Engine.clear(engine)
         window.removeEventListener('pointermove', onMove)
         window.removeEventListener('touchmove', onMove)
+        window.removeEventListener('deviceorientation', applyOrientation, true)
+        window.removeEventListener('touchend', enableGyro)
+        container.removeEventListener('touchmove', blockScroll)
     }
 })
 

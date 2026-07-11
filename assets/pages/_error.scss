@@ -8,6 +8,8 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    touch-action: none; // 觸控裝置不觸發捲動／縮放手勢（點擊不受影響）
+    overscroll-behavior: none; // 擋掉邊界橡皮筋效果
 }
 
 .error-main {
