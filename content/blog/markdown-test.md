@@ -2,6 +2,7 @@
 title: 'Markdown 完整語法測試文章'
 description: '這是一份用於測試 Nuxt Content 渲染效果的全功能範例，包含 SEO、格式與組件。'
 keywords: 'Markdown, 語法測試, SEO'
+robots: 'noindex, nofollow'
 date: 2024-02-18
 image: '/images/article/article_test.jpg'
 tags:
