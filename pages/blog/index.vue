@@ -5,6 +5,18 @@ const { data: posts } = await useAsyncData('blog-posts', () =>
     queryContent('blog').find()
 )
 
+useServerSeoMeta({
+    title: "文章列表｜The Unlimited｜Hailey's Style",
+    description: '設計理念、前端開發心得與職涯轉換記錄，Hailey 的文章列表。',
+    ogTitle: "文章列表｜The Unlimited｜Hailey's Style",
+    ogDescription: '設計理念、前端開發心得與職涯轉換記錄，Hailey 的文章列表。'
+})
+
+// 覆寫全站預設的首頁 canonical，避免列表頁被視為首頁的重複內容
+useHead({
+    link: [{ rel: 'canonical', href: 'https://www.theunlimited.cc/blog' }]
+})
+
 // 格式化日期
 const formatDate = (date) => {
     if (!date) return ''

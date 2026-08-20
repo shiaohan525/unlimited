@@ -21,7 +21,7 @@ onMounted(() => {
       <h3 class="h5">用好奇心感受世界<br><span>，</span>以同理心碰撞思維</h3>
     </section>
     <DotLottieVue src="https://lottie.host/14b1ad5d-ecd5-4d1d-bdbc-347da00f9de2/zRdJCYH2o6.lottie"
-      background="transparent" speed="1" loop autoplay class="banner-down">
+      background="transparent" :speed="1" loop autoplay class="banner-down">
     </DotLottieVue>
   </div>
 </template>

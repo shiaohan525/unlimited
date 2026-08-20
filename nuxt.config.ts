@@ -74,7 +74,7 @@ export default defineNuxtConfig({
           name: 'description',
           content: '提供平面與網頁設計服務，分享設計理念和開發心路歷程'
         },
-        { name: 'robots', content: '平面設計,商業設計, 網頁設計, 印刷輸出' },
+        { name: 'robots', content: 'index, follow' },
         { name: 'keywords', content: '平面設計,商業設計, 網頁設計, 印刷輸出' },
         { name: 'author', content: 'Hailey Hsu' },
         {

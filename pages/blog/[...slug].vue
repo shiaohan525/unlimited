@@ -29,9 +29,10 @@ useSeoMeta({
 watchEffect(() => {
     if (post.value) {
         useHead({
+            link: [{ rel: 'canonical', href: `https://www.theunlimited.cc${route.path}` }],
             meta: [
                 { name: 'keywords', content: post.value.keywords || '' },
-                { name: 'robots', content: post.value.robots || '' },
+                { name: 'robots', content: post.value.robots || 'index, follow' },
                 { property: 'og:image', content: post.value.image || '' },
                 { property: 'og:type', content: 'article' },
                 { name: 'twitter:image', content: post.value.image || '' }

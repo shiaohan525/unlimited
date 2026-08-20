@@ -1,8 +1,16 @@
 <script setup>
 import tools from '~/assets/data/toolbox.json'
 
+useServerSeoMeta({
+    title: '工具箱｜The Unlimited',
+    description: '設計理論、UI/UX 資源、前端開發工具與靈感素材，Hailey 整理的實用工具箱。',
+    ogTitle: '工具箱｜The Unlimited',
+    ogDescription: '設計理論、UI/UX 資源、前端開發工具與靈感素材，Hailey 整理的實用工具箱。'
+})
+
+// 覆寫全站預設的首頁 canonical，避免列表頁被視為首頁的重複內容
 useHead({
-    title: '工具箱｜The Unlimited'
+    link: [{ rel: 'canonical', href: 'https://www.theunlimited.cc/toolbox' }]
 })
 
 // 標籤分組（依 Notion 資源庫的色系分類）

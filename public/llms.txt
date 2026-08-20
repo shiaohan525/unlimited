@@ -1,0 +1,27 @@
+# The Unlimited｜Hailey's Style
+
+> Hailey Hsu 的個人網站：從平面設計助理轉職網頁設計師，提供網頁設計、UI 設計與平面設計服務，並分享設計理念與前端開發心路歷程。
+
+## 關於
+
+- [About](https://www.theunlimited.cc/about): Hailey 的職涯經歷與設計理念，從平面設計助理到網頁設計師的完整轉職故事
+
+## 作品集
+
+- [Portfolio](https://www.theunlimited.cc/portfolio): 網頁設計、UI 設計、品牌與平面作品集總覽
+- [1111 人力銀行形象活動網站](https://www.theunlimited.cc/portfolio/1111-event-site): 為 1111 人力銀行打造的形象活動網站，結合互動彈窗與 Hover 動態效果
+- [MCU of Communication](https://www.theunlimited.cc/portfolio/mcu-communication): 以「溝通」為主題的形象網站設計，運用滿版選單、視差滾動與數字動態效果
+- [Teachify One](https://www.theunlimited.cc/portfolio/teachify-one): UI 設計競賽的個人 Side Project，UI/UX 提案設計
+- [NTHU Center for Arts and Culture 網頁 UI 設計提案](https://www.theunlimited.cc/portfolio/nthu-arts-culture): 為國立清華大學藝術中心發想的網頁 UI 設計提案
+- [RIGOROUS 品牌識別設計](https://www.theunlimited.cc/portfolio/rigorous): 品牌識別設計專案，涵蓋 Logo、名片與識別系統設計
+- [Intertidal Zone Exploration](https://www.theunlimited.cc/portfolio/intertidal-zone): 以潮間帶生態為題的插畫出版創作
+- [Notice of Printing](https://www.theunlimited.cc/portfolio/notice-of-printing): 印刷通知主題的社群行銷視覺設計
+
+## 文章
+
+- [文章列表](https://www.theunlimited.cc/blog): Hailey 的文章列表，涵蓋設計理念、前端開發與職涯轉換記錄
+- [《我們的行為是怎樣被設計的》在機器與行為之間，編排一場人性的對話](https://www.theunlimited.cc/blog/book-user-friendly): 讀完《我們的行為是怎樣被設計的》後，對「設計不只是解決功能問題，而是解決人與科技如何共存的信任問題」的反思
+
+## 工具箱
+
+- [工具箱](https://www.theunlimited.cc/toolbox): 設計理論、UI/UX 資源、前端開發工具與靈感素材的整理庫
