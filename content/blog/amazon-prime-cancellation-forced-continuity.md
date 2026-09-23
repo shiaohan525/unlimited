@@ -35,5 +35,5 @@ tags:
 
 ### 參考資料
 
-- FTC Targets "Dark Patterns" in Actions Against Amazon and Publishers Clearing House
-- 誤導Prime會員 亞馬遜25億和解 每用戶最高退51元
+- [FTC Targets "Dark Patterns" in Actions Against Amazon and Publishers Clearing House](https://www.wilmerhale.com/en/insights/client-alerts/20230814-ftc-targets-dark-patterns-in-actions-against-amazon-and-publishers-clearing-house)
+- [誤導Prime會員 亞馬遜25億和解 每用戶最高退51元](https://tw.news.yahoo.com/%E8%AA%A4%E5%B0%8Eprime%E6%9C%83%E5%93%A1-%E4%BA%9E%E9%A6%AC%E9%81%9C25%E5%84%84%E5%92%8C%E8%A7%A3-%E6%AF%8F%E7%94%A8%E6%88%B6%E6%9C%80%E9%AB%98%E9%80%8051%E5%85%83-061400819.html)
