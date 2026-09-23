@@ -2,7 +2,7 @@
 // 使用 useAsyncData 配合 queryContent
 // 'blog' 對應到你的 content/blog 資料夾
 const { data: posts } = await useAsyncData('blog-posts', () =>
-    queryContent('blog').find()
+    queryContent('blog').sort({ date: -1 }).find()
 )
 
 useServerSeoMeta({
